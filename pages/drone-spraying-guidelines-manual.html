@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Drone Spraying Guidelines Manual</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/home.theme-light.png" type="image/x-icon">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../resources.html" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../news.html" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../about.html" class="capitalize hover:text-green-200 transition-colors">About</a>
+      </nav>
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../resources.html" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../news.html" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../about.html" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About</a>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="relative bg-gradient-to-r from-teal-500 to-blue-500 text-white py-16">
+    <div class="absolute inset-0 bg-black opacity-20"></div>
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Drone Spraying Guidelines Manual</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto">Best practices for safe and effective use of drones in agricultural pesticide and fertilizer application.</p>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <main class="container mx-auto px-4 py-12">
+    <div class="bg-white rounded-lg shadow-md p-8 max-w-4xl mx-auto">
+
+      <!-- Introduction -->
+      <section class="mb-10">
+        <h3 class="text-2xl font-bold text-green-700 mb-4">Introduction</h3>
+        <p class="text-gray-700 leading-relaxed">
+          Drone-based crop spraying is an efficient method of applying pesticides, herbicides, and fertilizers over large farmland areas.
+          This manual outlines recommended procedures, safety measures, and environmental best practices to ensure optimal results while minimizing risks.
+        </p>
+      </section>
+
+      <!-- Guidelines -->
+      <section class="mb-10">
+        <h3 class="text-2xl font-bold text-green-700 mb-4">Step-by-Step Guidelines</h3>
+        <ol class="list-decimal list-inside space-y-3 text-gray-700 leading-relaxed">
+          <li><strong>Preparation:</strong> Inspect drone equipment, battery levels, and spray nozzles before each flight.</li>
+          <li><strong>Weather Check:</strong> Avoid windy conditions (>15 km/h) and rain to prevent drift and uneven distribution.</li>
+          <li><strong>Flight Planning:</strong> Use mapping software to define spraying zones and avoid sensitive areas like water bodies and residential zones.</li>
+          <li><strong>Calibration:</strong> Calibrate spray rate per hectare to ensure accurate dosage and reduce waste.</li>
+          <li><strong>Spray Altitude:</strong> Maintain 1.5–3 meters above crops for even coverage and minimal drift.</li>
+          <li><strong>Monitoring:</strong> Observe real-time video feed and sensor data during operation for adjustments.</li>
+          <li><strong>Post-Spray:</strong> Clean tank and nozzles thoroughly and store chemicals properly after use.</li>
+        </ol>
+      </section>
+
+      <!-- Safety Protocols -->
+      <section class="mb-10">
+        <h3 class="text-2xl font-bold text-green-700 mb-4">Safety Protocols</h3>
+        <ul class="list-disc list-inside space-y-3 text-gray-700 leading-relaxed">
+          <li>Only certified operators should handle drone spraying operations.</li>
+          <li>Wear appropriate PPE (gloves, goggles, mask) when handling chemicals.</li>
+          <li>Maintain a safe distance for bystanders and animals during spraying.</li>
+          <li>Follow local regulations on chemical usage and drone flight permissions.</li>
+        </ul>
+      </section>
+
+      <!-- Environmental Considerations -->
+      <section class="mb-10">
+        <h3 class="text-2xl font-bold text-green-700 mb-4">Environmental Considerations</h3>
+        <p class="text-gray-700 leading-relaxed">
+          To minimize environmental impact:
+        </p>
+        <ul class="list-disc list-inside space-y-3 mt-2 text-gray-700">
+          <li>Avoid spraying near water sources to prevent contamination.</li>
+          <li>Select eco-friendly and approved agrochemicals where possible.</li>
+          <li>Record all spray activities for traceability and regulatory compliance.</li>
+          <li>Monitor nearby flora/fauna for unintended effects post-application.</li>
+        </ul>
+      </section>
+
+      <!-- Download Section -->
+      <section class="flex justify-center mt-10">
+        <a href="../guides/drone-spraying-guidelines-manual.pdf" class="inline-flex items-center px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow hover:bg-green-700 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+          Download PDF Version
+        </a>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html" class="text-green-200 hover:text-white transition-colors block">Home</a></li>
+            <li><a href="../resources.html" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../news.html" class="text-green-200 hover:text-white transition-colors block">News & Articles</a></li>
+            <li><a href="../about.html" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

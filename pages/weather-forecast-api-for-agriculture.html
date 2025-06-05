@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather Forecast for Agriculture</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/home.theme-light.png" type="image/x-icon">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2x font-bold">Agri-Technology Resource Center</h1>
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../resources.html" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../news.html" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../about.html" class="capitalize hover:text-green-200 transition-colors">About</a>
+      </nav>
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../resources.html" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../news.html" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../about.html" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About Us</a>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="relative bg-gradient-to-r from-blue-500 to-teal-400 text-white py-16">
+    <div class="absolute inset-0 bg-black opacity-20"></div>
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Understanding Weather Forecasts in Farming</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto">Learn how accurate weather insights help farmers make better decisions for planting, irrigation, and harvesting.</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+    
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Why Weather Matters in Agriculture</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        Weather plays a crucial role in determining crop success. From rainfall patterns to temperature shifts, understanding and predicting environmental conditions helps farmers reduce risk, conserve resources, and increase productivity.
+      </p>
+      <img src="https://plus.unsplash.com/premium_photo-1661964124116-770cb0e24b6a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGZhcm1pbmclMjBhbmQlMjB3ZWF0aGVyfGVufDB8fDB8fHww" alt="Farming and Weather" class="w-full rounded-lg shadow-md mb-6">
+    </section>
+
+    <!-- Benefits of Weather Forecasting -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Benefits of Using Weather Forecasting</h3>
+      <ul class="space-y-4 list-disc list-inside text-gray-700">
+        <li><strong>Better Planting Decisions:</strong> Know the best time to sow seeds based on soil moisture and expected rainfall.</li>
+        <li><strong>Improved Irrigation Planning:</strong> Schedule watering based on upcoming dry or wet periods to avoid water waste.</li>
+        <li><strong>Disease and Pest Management:</strong> Track humidity and temperature trends that influence outbreaks.</li>
+        <li><strong>Risk Reduction:</strong> Prepare for extreme weather like droughts, storms, or frost before they occur.</li>
+        <li><strong>Harvest Timing:</strong> Plan harvest around favorable weather windows to preserve quality and yield.</li>
+      </ul>
+    </section>
+
+    <!-- Types of Weather Data Used -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Types of Weather Data Farmers Use</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white border-l-4 border-green-600 shadow-sm p-6 rounded-lg">
+          <h4 class="font-semibold text-lg mb-2">Rainfall Predictions</h4>
+          <p>Helps plan planting and harvesting schedules while reducing risks of waterlogging or drought stress.</p>
+        </div>
+        <div class="bg-white border-l-4 border-green-600 shadow-sm p-6 rounded-lg">
+          <h4 class="font-semibold text-lg mb-2">Temperature Trends</h4>
+          <p>Essential for monitoring growing degree days, frost warnings, and heat stress on crops and livestock.</p>
+        </div>
+        <div class="bg-white border-l-4 border-green-600 shadow-sm p-6 rounded-lg">
+          <h4 class="font-semibold text-lg mb-2">Wind Speed & Direction</h4>
+          <p>Important for pesticide application timing and preventing drift during spraying operations.</p>
+        </div>
+        <div class="bg-white border-l-4 border-green-600 shadow-sm p-6 rounded-lg">
+          <h4 class="font-semibold text-lg mb-2">Humidity & Evaporation Rates</h4>
+          <p>Used to determine when and how much to irrigate, especially in arid and semi-arid regions.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to Access Forecasts -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">How Farmers Can Access Weather Forecasts</h3>
+      <p class="text-gray-700 mb-4">
+        Today, many tools are available to help farmers access localized weather data:
+      </p>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li><strong>Mobile Apps:</strong> Many apps provide daily forecasts tailored to farming needs.</li>
+        <li><strong>Radio and SMS Alerts:</strong> Especially useful in areas with limited internet access.</li>
+        <li><strong>Local Extension Services:</strong> Government and NGO programs often provide weather updates and advisories.</li>
+        <li><strong>Community-Based Monitoring:</strong> Local weather stations maintained by farmer cooperatives or research institutions.</li>
+        <li><strong>TV and Online Portals:</strong> National meteorological departments share public forecasts through various platforms.</li>
+      </ul>
+    </section>
+
+    <!-- Real-Life Application -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Real-Life Application of Weather Forecasting</h3>
+      <div class="flex flex-col md:flex-row gap-6 items-center">
+        <img src="https://images.unsplash.com/photo-1680160231876-e62b4520c90c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZmFybWVycyUyMHJldmlld2luZyUyMHdlYXRoZXJ8ZW58MHx8MHx8fDA%3D" alt="Farmers Reviewing Weather Report" class="w-full md:w-1/2 rounded-lg shadow-md">
+        <div>
+          <p class="text-gray-700 mb-4">
+            In Western Kenya, farmers began using local radio broadcasts to track seasonal rain forecasts. This helped them delay planting until rains were more stable, resulting in higher yields and fewer crop losses due to early-season droughts.
+          </p>
+          <p class="text-gray-700">
+            Similar efforts across Uganda and Tanzania have led to increased adoption of climate-smart practices like mulching and intercropping based on predicted dry spells.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tools and Tips -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Tools and Tips for Using Weather Information</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white p-6 border border-green-200 rounded-lg shadow-sm">
+          <h4 class="font-semibold text-lg mb-2">Use Simple Calendars</h4>
+          <p>Mark forecasted rain dates, dry spells, and ideal planting/harvest times on a wall or digital calendar.</p>
+        </div>
+        <div class="bg-white p-6 border border-green-200 rounded-lg shadow-sm">
+          <h4 class="font-semibold text-lg mb-2">Join Farmer Groups</h4>
+          <p>Many agricultural cooperatives receive regular weather updates and share them among members via WhatsApp or meetings.</p>
+        </div>
+        <div class="bg-white p-6 border border-green-200 rounded-lg shadow-sm">
+          <h4 class="font-semibold text-lg mb-2">Keep a Field Journal</h4>
+          <p>Record past weather events and compare them with current predictions to refine future farm plans.</p>
+        </div>
+        <div class="bg-white p-6 border border-green-200 rounded-lg shadow-sm">
+          <h4 class="font-semibold text-lg mb-2">Install a Rain Gauge</h4>
+          <p>Track actual rainfall compared to forecasts to improve decision-making over time.</p>
+        </div>
+        <div class="bg-white p-6 border border-green-200 rounded-lg shadow-sm">
+          <h4 class="font-semibold text-lg mb-2">Use Low-Tech Weather Stations</h4>
+          <p>Simple thermometers, wind vanes, and rain gauges can be used alongside forecasts to monitor field conditions.</p>
+        </div>
+        <div class="bg-white p-6 border border-green-200 rounded-lg shadow-sm">
+          <h4 class="font-semibold text-lg mb-2">Work With Extension Officers</h4>
+          <p>They interpret weather reports and advise on appropriate actions for your specific region and crop types.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Climate Resilience -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Weather Forecasting and Climate Resilience</h3>
+      <p class="text-gray-700 mb-4">
+        As climate change causes unpredictable weather patterns, having reliable weather information is key to building resilience. Farmers who use weather forecasts are better equipped to adapt to changing conditions, protect their investments, and maintain food security for their communities.
+      </p>
+      <p class="text-gray-700">
+        Whether you're managing a small plot or large commercial farm, integrating weather awareness into your planning will help ensure long-term sustainability and profitability.
+      </p>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Start Using Weather Insights Today</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">
+        Talk to your local extension officer, download a trusted agri-weather app, or join a farmer group that shares weather updates regularly.
+      </p>
+      <a href="../resources.html" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition-colors">
+        Explore More Resources
+      </a>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html" class="text-green-200 hover:text-white transition-colors block">Home</a></li>
+            <li><a href="../resources.html" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../news.html" class="text-green-200 hover:text-white transition-colors block">News & Articles</a></li>
+            <li><a href="../about.html" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Precision Agriculture Certification Programs</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/agri.png" type="image/x-icon">
+
+  <!-- CSS for animations -->
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .transition-max-h {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .transition-max-h.expanded {
+      max-height: 9999px;
+      overflow: visible;
+    }
+
+    .rotate-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .rotate-icon.open {
+      transform: rotate(90deg);
+    }
+
+    .slideshow-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow-img.active {
+      opacity: 1;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans" id="body">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#technologies" class="capitalize hover:text-green-200 transition-colors">Technologies</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#case-studies" class="capitalize hover:text-green-200 transition-colors">Case Studies</a>
+        <a href="../index.html#about" class="capitalize hover:text-green-200 transition-colors">About Us</a>
+      </nav>
+
+      <!-- Theme Toggle -->
+      <button id="themeToggle" class="ml-4 bg-green-600 hover:bg-green-500 px-3 py-1 rounded-full text-sm">Dark Mode</button>
+
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#case-studies" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Case Studies</a>
+      <a href="../index.html#about" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About Us</a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Slideshow -->
+  <section class="relative bg-gradient-to-r from-green-600 to-teal-500 text-white py-16 min-h-[80vh] flex items-center">
+    <div class="absolute inset-0 z-0">
+      <img src="https://media.istockphoto.com/id/1154958041/photo/taking-care-of-the-crop-aerial-view-of-a-tractor-fertilizing-a-cultivated-agricultural-field.webp?a=1&b=1&s=612x612&w=0&k=20&c=2pRgEudzIhbHqSf1Is8oGMP59QWIaTF7QW5T-HBvqlc=" alt="Slide 1" class="slideshow-img active" />
+      <img src="https://media.istockphoto.com/id/2162411070/photo/young-botanical-man-analyzing-data-in-the-greenhouse.webp?a=1&b=1&s=612x612&w=0&k=20&c=SuDCw6nHD9MYtqKd-XF6F6F85q7WYWuGIgG1XH7_di8=" alt="Slide 2" class="slideshow-img" />
+      <img src="https://media.istockphoto.com/id/2189177168/photo/discover-the-next-generation-of-farming-as-a-determined-farmer-leverages-advanced-technology.webp?a=1&b=1&s=612x612&w=0&k=20&c=cXdrNcO_XceXzO7dPW2Xj1YyNFosUAw7m0bThratlwk=" alt="Slide 3" class="slideshow-img" />
+      <img src="https://media.istockphoto.com/id/2131920683/photo/businessman-filling-out-employee-evaluation-form-online-human-resource-management-human.webp?a=1&b=1&s=612x612&w=0&k=20&c=qQ5Sbiartf6aEVDde0SVOgW7aQ9ZgIkWwnRSTsp7ZaQ=" alt="Slide 4" class="slideshow-img" />
+      <img src="https://media.istockphoto.com/id/1145894992/photo/soil-test-female-agronomist-taking-notes-in-the-field.webp?a=1&b=1&s=612x612&w=0&k=20&c=aoeVLv-KQW0djHryOEhR1v426bpfDwZTgTHl2Qv2v6s=" alt="Slide 5" class="slideshow-img" />
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Precision Agriculture Certification Programs</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-6">Explore globally recognized training and certification programs designed to equip farmers, agronomists, and agribusinesses with precision agriculture skills.</p>
+      <a href="#programs" class="inline-block bg-white text-green-700 px-6 py-3 rounded-full font-semibold hover:bg-green-50 transition-colors shadow-md">Browse Certification Programs</a> 
+    </div>
+  </section>
+
+  <!-- Slideshow JS Animation  -->
+  <script>
+    const slides = document.querySelectorAll('.slideshow-img');
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 6000); // Change every 6 seconds
+  </script>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">What Are Precision Agriculture Certifications?</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        Precision agriculture certifications are structured educational programs that train farmers, agronomists, and agribusiness professionals in the use of advanced technologies like GPS mapping, remote sensing, variable rate technology (VRT), and data analytics.
+        These programs ensure users can apply digital tools effectively to improve yield, reduce environmental impact, and increase profitability.
+      </p>
+    </section>
+
+    <!-- Benefits of Certification -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Why Get Certified?</h3>
+      <ul class="space-y-2 list-disc list-inside text-gray-700">
+        <li><strong>Improve Farm Efficiency:</strong> Learn how to optimize inputs like water, fertilizer, and pesticides through data-driven decisions.</li>
+        <li><strong>Increase Market Access:</strong> Certified farms often gain access to premium buyers and export markets.</li>
+        <li><strong>Enhance Sustainability:</strong> Use fewer resources while maintaining or increasing crop output.</li>
+        <li><strong>Stay Competitive:</strong> Many modern farming roles now require knowledge of drones, sensors, and farm software systems.</li>
+        <li><strong>Access Grants & Support:</strong> Governments and NGOs prioritize certified operations for funding and advisory services.</li>
+        <li><strong>Better Decision-Making:</strong> Training helps you interpret soil scans, satellite images, and yield maps more accurately.</li>
+      </ul>
+    </section>
+
+    <!-- Featured Certification Programs Grid -->
+    <section id="programs" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+
+      <!-- Program 1 - FAO Precision Farming Certificate -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=FAO+Certificate" alt="FAO Certificate" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">FAO Precision Farming Certificate</h4>
+        <p class="text-gray-600 mb-4">The Food and Agriculture Organization offers an online course covering sensor usage, GIS mapping, and sustainable input management.</p>
+        <button onclick="toggleDetails(event, 'fao')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-fao" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="fao" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">
+            The FAO’s Precision Farming Certification Program was launched in 2022 to support smallholder farmers across sub-Saharan Africa and Southeast Asia. It provides free access to modules on satellite imagery interpretation, drone-based monitoring, and climate-smart practices.
+          </p>
+          <p class="text-gray-700 mt-2">
+            Participants learn to integrate precision tools into daily farm planning, including irrigation scheduling, pest control, and soil health tracking. Upon completion, they receive a global certificate that enhances their credibility when applying for agricultural grants or working with international buyers.
+          </p>
+          <p class="text-gray-700 mt-2">
+            The program has trained over 12,000 farmers and extension officers since its launch, with strong partnerships in Kenya, Uganda, Vietnam, and Indonesia. It also includes modules on blockchain traceability and smart contract usage for fair trade verification.
+          </p>
+        </div>
+      </div>
+
+      <!-- Program 2 - AgNext Digital Farming Academy -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=AgNext+Academy" alt="AgNext Academy" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">AgNext Digital Farming Academy</h4>
+        <p class="text-gray-600 mb-4">Offers hands-on training in IoT devices, AI decision-making tools, and mobile app usage for cooperative farming.</p>
+        <button onclick="toggleDetails(event, 'agnext-academy')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-agnext-academy" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="agnext-academy" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">
+            AgNext's Digital Farming Academy operates in India, East Africa, and parts of South America. The academy focuses on practical, field-level application of precision agriculture tools — especially those that help cooperatives manage shared assets and logistics digitally.
+          </p>
+          <p class="text-gray-700 mt-2">
+            Their certification includes modules on:
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+            <li>Smart tractor usage and maintenance</li>
+            <li>Digital crop planning and record keeping</li>
+            <li>AI-based weather prediction and risk mitigation</li>
+            <li>Soil moisture tracking via mobile apps</li>
+            <li>Farm-to-market supply chain digitization</li>
+          </ul>
+          <p class="text-gray-700 mt-2">
+            Graduates receive a digital badge and access to AgNext's network of certified service providers and buyers. Over 8,000 farmers have completed this program, many of whom now operate tractor-sharing businesses or provide precision services to neighboring farms.
+          </p>
+        </div>
+      </div>
+
+      <!-- Program 3 - Crops International Certification -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=Crops+International" alt="Crops International" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Crops International Certification</h4>
+        <p class="text-gray-600 mb-4">Focuses on precision techniques used in large-scale commercial farming operations and export-oriented production.</p>
+        <button onclick="toggleDetails(event, 'crops-international')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-crops-international" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="crops-international" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">
+            Crops International offers a tiered certification program for precision agriculture tailored to mid-sized and large-scale farms. Their curriculum includes:
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+            <li>Remote sensing and NDVI analysis</li>
+            <li>Variable rate application of fertilizers and pesticides</li>
+            <li>Data integration between farm equipment and cloud platforms</li>
+            <li>Use of AI in harvest forecasting and pricing strategy</li>
+            <li>Drone-based crop monitoring and spraying techniques</li>
+          </ul>
+          <p class="text-gray-700 mt-2">
+            This program is widely adopted by agribusinesses in Brazil, Argentina, and Australia. Graduates can apply for official recognition under the Global Sustainable Agriculture Initiative (SAI Platform).
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Case Study Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-6">Real-Life Case Studies</h3>
+
+      <!-- Case Study 1 - Brazilian Soybean Farmers -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group mb-8">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Brazilian Soybean Farms Adopting Precision Certification</h4>
+        <p class="text-gray-600 mb-4">
+          In Mato Grosso, Brazil, 3,000 soybean farmers underwent a year-long certification process involving drone usage, satellite data interpretation, and soil fertility mapping.
+        </p>
+        <button onclick="toggleDetails(event, 'brazil-case')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read Full Case Study
+          <svg id="arrow-brazil-case" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="brazil-case" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">
+            In the Mato Grosso region, a joint initiative between Embrapa, Crops International, and local farmer associations introduced a comprehensive certification program focused on precision agriculture techniques. Over 3,000 soybean producers were enrolled in a year-long training cycle that included:
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-2">
+            <li>GPS-guided tractor calibration</li>
+            <li>Soil scanning and nutrient mapping</li>
+            <li>NDVI image interpretation for early disease detection</li>
+            <li>Water use optimization through IoT sensors</li>
+            <li>Market price forecasting using AI models</li>
+          </ul>
+          <p class="text-gray-700 mt-2">
+            By the end of the program, participants reported a 22% reduction in pesticide usage, 18% increase in yield, and improved buyer trust due to transparent data sharing. The program is now being scaled to cotton and coffee farms in Minas Gerais.
+          </p>
+          <p class="text-gray-700 mt-2">
+            Additionally, the government began offering subsidies to certified farms, encouraging even more adoption of these tech-based practices.
+          </p>
+        </div>
+      </div>
+
+      <!-- Case Study 2 - Kenyan Smallholders Using AgNext Academy -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group mb-8">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Kenya - AgNext Academy Empowers Smallholder Farmers</h4>
+        <p class="text-gray-600 mb-4">
+          Over 5,000 smallholder farmers in Western Kenya participated in AgNext’s precision farming training program, resulting in better resource planning and increased income.
+        </p>
+        <button onclick="toggleDetails(event, 'kenya-case')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read Full Case Study
+          <svg id="arrow-kenya-case" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="kenya-case" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">
+            In Western Kenya, AgNext partnered with local NGOs and the Ministry of Agriculture to roll out its Digital Farming Academy to over 5,000 smallholder farmers. The program included:
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-2">
+            <li>Basic smartphone literacy and app navigation</li>
+            <li>Soil moisture tracking using low-cost sensors</li>
+            <li>Weather alerts and planting schedule optimization</li>
+            <li>Digital land mapping and cooperative planning</li>
+            <li>Tractor booking via SMS and app interfaces</li>
+          </ul>
+          <p class="text-gray-700 mt-2">
+            The results were transformative. Farmers reduced post-harvest losses by 20%, increased average yields by 15%, and gained direct access to buyers via digital contracts. Women-led groups particularly benefited from mobile-first learning and peer networks formed during the training.
+          </p>
+          <p class="text-gray-700 mt-2">
+            AgNext also introduced a microloan system tied to certification, allowing farmers to invest in certified tools and services at lower interest rates. The program is now expanding to Tanzania and Malawi.
+          </p>
+          <p class="text-gray-700 mt-2">
+            A key outcome was the formation of regional digital hubs where farmers continue to share knowledge and troubleshoot issues together. These hubs are supported by local extension officers trained in precision tools.
+          </p>
+        </div>
+      </div>
+
+      <!-- Case Study 3 - Indian Cotton Growers Trained by ICAR -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group mb-8">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">India - ICAR’s Precision Cotton Farmer Certification</h4>
+        <p class="text-gray-600 mb-4">
+          ICAR trained 10,000 cotton growers in Gujarat and Telangana to adopt precision irrigation, VRT fertilization, and market-linked digital tools.
+        </p>
+        <button onclick="toggleDetails(event, 'india-case')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read Full Case Study
+          <svg id="arrow-india-case" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="india-case" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">
+            In collaboration with state agricultural universities, ICAR launched the Precision Cotton Certification Program across Gujarat and Telangana states. The goal was to reduce water usage, improve fiber quality, and link certified farmers directly with textile companies.
+          </p>
+          <p class="text-gray-700 mt-2">
+            The program ran over 6 months and included:
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-2">
+            <li>Field visits by certified trainers</li>
+            <li>Hands-on sessions with drip irrigation controllers</li>
+            <li>Mobile app training for pest identification</li>
+            <li>Use of UAVs for canopy density assessment</li>
+            <li>Soil testing and AI-recommended seed selection</li>
+            <li>Export market readiness training</li>
+          </ul>
+          <p class="text-gray-700 mt-2">
+            Post-certification, farmers saw a 25% improvement in water efficiency and a 12% rise in cotton lint quality. Several farmer producer organizations (FPOs) were established to streamline collective marketing and logistics.
+          </p>
+          <p class="text-gray-700 mt-2">
+            Participating farmers received preferential loans from NABARD and were prioritized for government subsidy programs. The success led to expansion into rice and wheat belts across Punjab and Haryana.
+          </p>
+        </div>
+      </div>
+
+      <!-- Case Study 4 - Nigerian Cassava Producers with IITA -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Nigeria - IITA Trains Cassava Farmers in Data-Driven Practices</h4>
+        <p class="text-gray-600 mb-4">
+          The International Institute of Tropical Agriculture (IITA) certified 2,000 cassava farmers in Nigeria using mobile-based precision farming education.
+        </p>
+        <button onclick="toggleDetails(event, 'nigeria-case')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read Full Case Study
+          <svg id="arrow-nigeria-case" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="nigeria-case" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">
+            In Kaduna and Oyo states, IITA implemented a precision agriculture certification for cassava producers, focusing on yield optimization, pest control, and efficient harvesting techniques.
+          </p>
+          <p class="text-gray-700 mt-2">
+            Key components of the program included:
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-2">
+            <li>Use of satellite imaging to assess field variability</li>
+            <li>AI-based recommendations for planting densities and spacing</li>
+            <li>Mobile app training for pest identification and spray records</li>
+            <li>GPS-guided planting and harvesting routes</li>
+            <li>Blockchain-backed certification for organic cassava exports</li>
+          </ul>
+          <p class="text-gray-700 mt-2">
+            After completing the program, farmers formed cooperatives to collectively negotiate prices and share machinery. The use of digital tools helped them track productivity per hectare and identify underperforming plots.
+          </p>
+          <p class="text-gray-700 mt-2">
+            IITA also linked certified farmers with processors and exporters who valued traceability and transparency. As a result, 1,200 farmers secured long-term contracts with European food manufacturers, boosting incomes by up to 30%.
+          </p>
+          <p class="text-gray-700 mt-2">
+            The program has now expanded to maize and yam producers in other regions, supported by the World Bank and African Development Bank.
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Institutions Supporting Certification -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Institutions Offering Precision Certification</h3>
+      <ul class="space-y-2 list-disc list-inside text-gray-700">
+        <li><strong>Food and Agriculture Organization (FAO):</strong> Provides open-access courses on precision tools and sustainable practices.</li>
+        <li><strong>IITA – Nigeria:</strong> Offers field-based training in AI, drone use, and digital pest detection for tropical crops.</li>
+        <li><strong>CIMMYT – Mexico:</strong> Specializes in maize and wheat-focused precision agriculture certification.</li>
+        <li><strong>ICAR – India:</strong> Runs national certification programs for cotton, rice, and pulses.</li>
+        <li><strong>AgNext – Kenya:</strong> Offers mobile-first training and certification for smallholder cooperatives in East Africa.</li>
+        <li><strong>Crops International:</strong> Enterprise-level precision certification for large agribusinesses and export farms.</li>
+        <li><strong>USDA FSA:</strong> U.S. Farm Service Agency certifies farmers in precision conservation practices for subsidies.</li>
+      </ul>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Start Your Journey in Precision Agriculture</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">
+        Whether you're managing a small plot or large operation, earning a certification in precision agriculture can unlock new opportunities in productivity, sustainability, and market access.
+      </p>
+      <a href="../index.html#resources" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition-colors">Explore More Resources</a> 
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li>
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News & Articles</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Expandable Sections -->
+  <script>
+    function toggleDetails(e, id) {
+      e.preventDefault();
+      const section = document.getElementById(id);
+      const arrow = document.getElementById("arrow-" + id);
+      const isVisible = !section.classList.contains("hidden");
+
+      if (isVisible) {
+        section.classList.add("hidden");
+        arrow.style.transform = "rotate(0deg)";
+      } else {
+        section.classList.remove("hidden");
+        arrow.style.transform = "rotate(90deg)";
+      }
+    }
+  </script>
+
+  <!-- JavaScript for Auto Theme Detection -->
+  <script>
+    const body = document.getElementById("body");
+    const themeToggle = document.getElementById("themeToggle");
+
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (prefersDarkMode) {
+      body.classList.add("dark");
+      themeToggle.textContent = "Light Mode";
+    } else {
+      body.classList.remove("dark");
+      themeToggle.textContent = "Dark Mode";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      themeToggle.textContent = body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
+    });
+  </script>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

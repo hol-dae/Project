@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Drone Technology in Agriculture</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/agri.png" type="image/x-icon">
+
+  <!-- CSS for animations -->
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .transition-max-h {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .transition-max-h.expanded {
+      max-height: 1200px;
+      overflow: visible;
+    }
+
+    .rotate-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .rotate-icon.open {
+      transform: rotate(90deg);
+    }
+
+    .slideshow-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow-img.active {
+      opacity: 1;
+      z-index: 10;
+    }
+
+    body.dark {
+      background-color: #1e293b;
+      color: #f8fafc;
+    }
+
+    body.dark .bg-white {
+      background-color: #334155;
+    }
+
+    body.dark .text-green-600,
+    body.dark .text-green-700,
+    body.dark .text-green-800 {
+      color: #86efac !important;
+    }
+
+    body.dark .border-green-200 {
+      border-color: #22c55e;
+    }
+
+    body.dark .hover\:bg-green-200:hover {
+      background-color: #22c55e;
+    }
+
+    body.dark .bg-green-100 {
+      background-color: #16a34a;
+    }
+
+    body.dark .hover\:text-green-200:hover {
+      color: #bef264 !important;
+    }
+
+    body.dark .bg-green-700 {
+      background-color: #16a34a !important;
+    }
+
+    body.dark .bg-green-800 {
+      background-color: #15803d !important;
+    }
+
+    body.dark .text-green-200 {
+      color: #a3e635 !important;
+    }
+
+    body.dark .text-green-300 {
+      color: #86efac !important;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    th {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+
+    body.dark th {
+      background-color: #0d9488;
+      color: #ffffff;
+    }
+
+    body.dark td {
+      border-bottom: 1px solid #4ade80;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans" id="body">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#technologies" class="capitalize hover:text-green-200 transition-colors">Technologies</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#case-studies" class="capitalize hover:text-green-200 transition-colors">Case Studies</a>
+      </nav>
+
+      <!-- Theme Toggle -->
+      <button id="themeToggle" class="ml-4 bg-green-600 hover:bg-green-500 px-3 py-1 rounded-full text-sm">Dark Mode</button>
+
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#technologies" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Technologies</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#case-studies" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Case Studies</a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Slideshow -->
+  <section class="relative bg-gradient-to-r from-green-600 to-teal-500 text-white py-16 min-h-[80vh] flex items-center">
+    <div class="absolute inset-0 z-0">
+    <img src="https://media.istockphoto.com/id/1306713383/photo/drone-in-soybean-crop.webp?a=1&b=1&s=612x612&w=0&k=20&c=04Y73xVTV3QXf9E4xPVb9QsF6etNfiFvnXCqxVcCqaM=" alt="Drone in Soybean Crop" class="slideshow-img active" />
+    <img src="https://plus.unsplash.com/premium_photo-1680280117430-693e0562dba2?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZHJvbmUlMjBzZW5zb3JzfGVufDB8MHwwfHx8MA%3D%3D" alt="Drone Sensors" class="slideshow-img" />
+    <img src="https://images.unsplash.com/photo-1720071702672-d18c69cb475c?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZHJvbmUlMjBzcHJheWluZyUyMHRlY2h8ZW58MHwwfDB8fHww" alt="Drone Spraying Tech" class="slideshow-img" />
+    <img src="https://media.istockphoto.com/id/1022533072/photo/drone-for-agriculture-drone-use-for-various-fields-like-research-analysis-safety-rescue.webp?a=1&b=1&s=612x612&w=0&k=20&c=GjjR_nit9dtJaPhNBcqCy1uC4YZS3FM_KfpK_BTpnEI=" alt="Agricultural Drone Use" class="slideshow-img" />
+    <img src="https://media.istockphoto.com/id/2158855532/photo/agriculture-drone-fly-to-sprayed.webp?a=1&b=1&s=612x612&w=0&k=20&c=np56J1JCFyUWP44030Ag24r-v66j_vTTKQSic-iTYrk=" alt="Agriculture Drone Spraying" class="slideshow-img" />
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Drone Technology in Agriculture</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-6">Explore the latest drones used in precision agriculture — from crop monitoring to spraying systems and mapping tools.</p>
+      <a href="#droneTypes" class="inline-block bg-white text-green-700 px-6 py-3 rounded-full font-semibold hover:bg-green-50 transition-colors shadow-md">Explore Drone Types</a> 
+    </div>
+  </section>
+
+  <!-- Slideshow JS Animation -->
+  <script>
+    const slides = document.querySelectorAll('.slideshow-img');
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 6000); // Change every 6 seconds
+  </script>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">What Is Agricultural Drone Technology?</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        Agricultural drones are transforming farming through aerial imaging, autonomous spraying, and real-time data analysis.
+        From smallholder farms to large agribusinesses, drones provide high-resolution insights into crop health, pest infestations, and irrigation issues — helping farmers make smarter decisions.
+      </p>
+    </section>
+
+    <!-- Key Benefits -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Key Benefits of Drones in Farming</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li><strong>Crop Monitoring:</strong> High-resolution imaging helps identify stress zones before damage becomes visible.</li>
+        <li><strong>Precision Spraying:</strong> Targeted pesticide and fertilizer application reduces waste and environmental impact.</li>
+        <li>
+          <strong>Land Mapping:</strong> Accurate 3D maps help optimize planting patterns and irrigation design.
+          <ul class="list-disc list-inside ml-6 mt-2 text-gray-700 space-y-1">
+            <li>
+              <strong>Topographic Analysis:</strong> Drones equipped with high-resolution cameras and LiDAR sensors can generate detailed topographic maps of fields. These maps reveal elevation changes, slopes, and depressions, which are crucial for planning drainage systems and preventing waterlogging.
+            </li>
+            <li>
+              <strong>Soil Variation Detection:</strong> By capturing multispectral and thermal imagery, drones can identify variations in soil composition, moisture levels, and organic matter. This data enables farmers to create variable-rate application maps for fertilizers and irrigation, improving resource efficiency.
+            </li>
+            <li>
+              <strong>Field Boundary Measurement:</strong> Drones provide precise measurements of field boundaries and area calculations, which are essential for land registration, compliance with regulations, and optimizing the use of available land.
+            </li>
+            <li>
+              <strong>Planting Pattern Optimization:</strong> 3D field models help agronomists design optimal planting patterns, such as row spacing and contour planting, to maximize sunlight exposure, reduce erosion, and improve yields.
+            </li>
+            <li>
+              <strong>Irrigation Planning:</strong> Accurate elevation and slope data allow for the design of efficient irrigation systems, such as drip or center-pivot layouts, ensuring uniform water distribution and minimizing runoff.
+            </li>
+            <li>
+              <strong>Infrastructure Planning:</strong> Drones can map existing infrastructure (roads, ditches, buildings) and help plan new installations, such as access roads, storage facilities, or windbreaks, with minimal disruption to crops.
+            </li>
+            <li>
+              <strong>Historical Change Monitoring:</strong> By comparing drone maps over time, farmers can monitor changes in land use, erosion patterns, and the impact of conservation practices, supporting long-term sustainability.
+            </li>
+            <li>
+              <strong>Integration with GIS:</strong> Drone-generated maps can be imported into Geographic Information Systems (GIS) for advanced analysis, prescription mapping, and integration with other farm data sources.
+            </li>
+            <li>
+              <strong>Cost and Time Savings:</strong> Traditional land surveys can take days or weeks and require expensive equipment. Drones can map hundreds of hectares in a few hours, reducing costs and enabling more frequent monitoring.
+            </li>
+          </ul>
+        </li>
+        <li><strong>Data Collection:</strong> Real-time NDVI and thermal imaging improve decision-making accuracy.</li>
+        <li><strong>Labor Reduction:</strong> Replaces traditional field scouting and manual surveying.</li>
+        <li><strong>Scalability:</strong> Suitable for both small plots and large commercial farms.</li>
+      </ul>
+    </section>
+
+    <!-- Drone Types & Companies -->
+    <section id="droneTypes" class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-6">Popular Drone Models for Agriculture</h3>
+
+      <!-- DJI Agras T30 -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=DJI+Agras+T30" alt="DJI Agras T30" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">DJI Agras T30</h4>
+        <p class="text-gray-600 mb-4">High-capacity spraying drone ideal for large-scale cotton, rice, and soybean farms.</p>
+        <button onclick="toggleDetails(event, 'dji')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-dji" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="dji" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">The DJI Agras T30 is one of the most advanced agricultural spraying drones on the market today.</p>
+          <p class="text-gray-700 mt-2">With a payload capacity of up to 30 kg and a spraying range of 9 meters, it's ideal for large-scale operations like cotton or rice fields.</p>
+          <p class="text-gray-700 mt-2">It uses AI-assisted terrain-following sensors and RTK-GNSS for precise navigation and spraying control.</p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-2">
+            <li><strong>High Payload Capacity:</strong> The T30 can carry up to 30 liters (about 30 kg) of liquid, enabling efficient spraying over large fields with fewer refills, which is ideal for commercial-scale agriculture.</li>
+            <li><strong>Wide Spraying Width:</strong> With a maximum spraying width of 9 meters, the T30 covers more ground per flight, reducing operational time and labor costs.</li>
+            <li><strong>Intelligent Flight Planning:</strong> The drone supports fully automated flight paths, obstacle avoidance, and adaptive route planning, ensuring uniform coverage and minimizing overlap or missed areas.</li>
+            <li><strong>Modular Design:</strong> The T30 features a modular build for quick maintenance and easy replacement of parts, minimizing downtime during busy spraying seasons.</li>
+            <li><strong>Advanced Nozzle System:</strong> Equipped with 16 nozzles and a high-volume pump, the T30 delivers fine, even droplets for effective pesticide and fertilizer application, reducing chemical waste and environmental impact.</li>
+            <li><strong>Real-Time Monitoring:</strong> The drone transmits live data on spray volume, battery status, and flight path to the operator’s remote controller, allowing for immediate adjustments and improved safety.</li>
+            <li><strong>Multi-Scenario Adaptability:</strong> The T30 is suitable for a variety of crops including rice, cotton, maize, sugarcane, and fruit orchards. Its adjustable arms and flexible spraying angles allow it to navigate complex terrains and dense canopies.</li>
+            <li><strong>Water-Resistant & Durable:</strong> Built to IP67 standards, the T30 is resistant to dust and water, making it reliable in harsh field conditions and during cleaning operations.</li>
+            <li><strong>RTK-GNSS Precision:</strong> The integrated RTK (Real-Time Kinematic) GNSS module provides centimeter-level positioning accuracy, crucial for repeatable spraying and mapping missions.</li>
+            <li><strong>Smart Agriculture Integration:</strong> The T30 can be integrated with DJI’s agriculture management platform for data analytics, prescription mapping, and fleet management, supporting precision agriculture practices.</li>
+            <li><strong>Safety Features:</strong> Includes radar obstacle avoidance, automatic return-to-home, and emergency landing protocols to protect both the drone and crops.</li>
+            <li><strong>Training & Support:</strong> DJI offers comprehensive training programs, online resources, and a global support network to help users maximize the drone’s potential.</li>
+          </ul>
+          <p class="text-gray-700 mt-2">The DJI Agras T30 is trusted by large-scale farmers, agricultural service providers, and cooperatives worldwide for its efficiency, reliability, and advanced automation features. Its robust ecosystem and compatibility with farm management software make it a leading choice for modern precision agriculture.</p></ul>
+        </div>
+      </div>
+
+      <!-- Parrot Bluegrass Fields -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow mt-6 group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=Parrot+Bluegrass" alt="Parrot Bluegrass" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Parrot Bluegrass Fields</h2>
+        <p class="text-gray-600 mb-4">Designed for vegetation analysis, this drone captures multispectral imagery and generates plant health reports automatically.</p>
+        <button onclick="toggleDetails(event, 'parrot')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-parrot" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="parrot" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Parrot Bluegrass Fields is designed specifically for crop health monitoring using multispectral cameras.</p>
+          <p class="text-gray-700 mt-2">It’s lightweight, easy to use, and ideal for mid-sized farms that need regular crop assessments without heavy investment.</p>
+        <p class="text-gray-700 mt-2">The drone integrates seamlessly with the Pix4Dcapture app to generate NDVI maps and vegetation indices for early disease detection.</p>
+        <ul class="list-disc list-inside text-gray-700 mt-2 space-y-2">
+            <li><strong>Multispectral Imaging:</strong> Equipped with Parrot Sequoia multispectral sensors, the Bluegrass Fields can capture both visible and invisible light, allowing farmers to analyze crop vigor, detect nutrient deficiencies, and monitor plant health at a granular level.</li>
+            <li><strong>Automated Flight Planning:</strong> The drone supports fully automated missions via the Pix4Dcapture app, enabling users to set up flight paths, altitude, and overlap for consistent and repeatable data collection over large fields.</li>
+            <li><strong>Real-Time Crop Insights:</strong> Onboard processing and wireless connectivity allow for immediate review of captured images and preliminary NDVI analysis in the field, speeding up decision-making for interventions like irrigation or spraying.</li>
+            <li><strong>Lightweight & Portable:</strong> Weighing just 1.9 kg, the Bluegrass Fields is easy to transport and deploy, making it suitable for use in remote or difficult-to-access areas.</li>
+            <li><strong>Long Flight Time:</strong> With up to 60 minutes of flight per battery, it can cover up to 65 hectares in a single mission, making it efficient for medium-sized farms and research plots.</li>
+            <li><strong>Software Integration:</strong> Compatible with Pix4D, DroneDeploy, and other leading agricultural mapping platforms, enabling advanced analytics such as plant counting, stand assessment, and yield prediction.</li>
+            <li><strong>Durability:</strong> Designed for rugged field conditions, the drone features weather-resistant construction and easy-to-replace parts, minimizing downtime during busy seasons.</li>
+            <li><strong>Applications:</strong> Used for crop scouting, disease and pest detection, irrigation management, and even livestock monitoring in pasture settings.</li>
+            <li><strong>Support & Training:</strong> Parrot offers comprehensive user guides, online tutorials, and customer support to help new users get started quickly and maximize the drone’s capabilities.</li>
+        </ul>
+        <p class="text-gray-700 mt-2">Parrot Bluegrass Fields is trusted by agronomists, vineyard managers, and research institutions worldwide for its reliability, ease of use, and actionable data outputs. Its integration with industry-standard software makes it a versatile tool for precision agriculture and sustainable farm management.</p>
+        </div>
+      </div>
+
+      <!-- PrecisionHawk Lancaster -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow mt-6 group">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=PrecisionHawk+Lancaster" alt="PrecisionHawk Lancaster" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">PrecisionHawk Lancaster 5</h4>
+        <p class="text-gray-600 mb-4">A multi-purpose drone equipped with thermal and RGB imaging for detailed crop analytics.</p>
+        <button onclick="toggleDetails(event, 'precisionhawk')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-precisionhawk" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="precisionhawk" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">PrecisionHawk’s Lancaster 5 is widely used by agronomists and research institutions for aerial crop scanning and soil analysis.</p>
+          <p class="text-gray-700 mt-2">It supports thermal imaging, RGB cameras, and LiDAR for diverse applications including vineyard monitoring and forest canopy assessment.</p>
+        <p class="text-gray-700 mt-2">The platform also offers automated flight planning and cloud-based image processing via its DataMapper software.</p>
+        <ul class="list-disc list-inside text-gray-700 mt-2 space-y-2">
+            <li><strong>Sensor Versatility:</strong> Lancaster 5 supports a wide range of sensors, including multispectral, hyperspectral, LiDAR, and thermal, making it adaptable for various agricultural and environmental applications.</li>
+            <li><strong>Automated Missions:</strong> The drone can autonomously execute pre-programmed flight paths, ensuring consistent data collection over large or complex fields with minimal manual intervention.</li>
+            <li><strong>High-Endurance Design:</strong> With a flight time of up to 50 minutes and robust construction, Lancaster 5 is suitable for extended missions and challenging weather conditions.</li>
+            <li><strong>Advanced Analytics:</strong> PrecisionHawk’s DataMapper and PrecisionAnalytics platforms provide cloud-based processing for generating NDVI maps, plant counts, stand assessments, and yield predictions.</li>
+            <li><strong>Regulatory Compliance:</strong> The drone is equipped with safety features such as redundant communication links, parachute recovery, and real-time telemetry, supporting compliance with aviation regulations.</li>
+            <li><strong>Integration:</strong> Compatible with third-party GIS and farm management software, allowing seamless integration into existing workflows for agronomists and researchers.</li>
+            <li><strong>Applications:</strong> Used for crop health monitoring, soil moisture mapping, irrigation planning, disease detection, and even livestock tracking in large pastures.</li>
+            <li><strong>Support & Training:</strong> PrecisionHawk offers comprehensive training, technical support, and consulting services to help users maximize the value of their drone data.</li>
+        </ul>
+        <p class="text-gray-700 mt-2">Lancaster 5 is trusted by universities, government agencies, and commercial growers worldwide for its reliability, data quality, and flexibility in precision agriculture and environmental monitoring.</p>
+        </div>
+      </div>
+
+      <!-- Autel EVO II AG Pro -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow mt-6 group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=Autel+EVO+II+AG+Pro" alt="Autel EVO II AG Pro" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Autel EVO II AG Pro</h4>
+        <p class="text-gray-600 mb-4">Affordable professional-grade drone with dual-camera system for crop health and yield forecasting.</p>
+        <button onclick="toggleDetails(event, 'autel')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-autel" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="autel" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">The Autel EVO II AG Pro is a cost-effective alternative to DJI drones, especially suited for small to mid-sized farms.</p>
+          <p class="text-gray-700 mt-2">Its dual-camera system provides RGB and multispectral imaging for detecting nitrogen deficiency, water stress, and pest damage.</p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-2">
+            <li><strong>Advanced Sensors:</strong> The EVO II AG Pro is equipped with high-resolution RGB and multispectral sensors, enabling farmers to capture detailed crop data for precise analysis.</li>
+            <li><strong>Automated Flight Modes:</strong> Features intelligent flight planning, waypoint navigation, and terrain-following, allowing for hands-free operation over complex fields.</li>
+            <li><strong>Long Flight Time:</strong> Offers up to 40 minutes of flight per battery, making it suitable for covering large plots in a single mission.</li>
+            <li><strong>Real-Time Data Transmission:</strong> Streams live NDVI and crop health data to ground stations or mobile devices, supporting immediate decision-making in the field.</li>
+            <li><strong>Durable & Weather-Resistant:</strong> Built to withstand dust, moisture, and moderate rain, ensuring reliable performance in diverse agricultural environments.</li>
+            <li><strong>Easy Integration:</strong> Compatible with popular farm management and mapping software, including Pix4D, DroneDeploy, and Agisoft Metashape.</li>
+            <li><strong>Applications:</strong> Used for crop scouting, yield estimation, plant counting, disease detection, and even livestock monitoring.</li>
+            <li><strong>Support & Updates:</strong> Backed by Autel’s global support network and regular firmware updates for improved features and security.</li>
+          </ul>
+          <p class="text-gray-700 mt-2">The EVO II AG Pro is a popular choice for agronomists, cooperatives, and research institutions seeking a balance of affordability, versatility, and professional-grade results.</p>
+          <p class="text-gray-700 mt-2">The drone is compact, foldable, and compatible with Android and iOS apps for quick data transfer and reporting.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Drone Comparison Table -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-6">Drone Comparison Table</h3>
+      <div class="overflow-x-auto">
+        <table>
+          <thead>
+            <tr>
+              <th>Drone Model</th>
+              <th>Camera Type</th>
+              <th>Spraying Capability</th>
+              <th>Battery Life</th>
+              <th>Price Range</th>
+              <th>Ratings</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>DJI Agras T30</strong></td>
+              <td>RGB + Multispectral</td>
+              <td>Yes – 30kg tank</td>
+              <td>20–30 mins</td>
+              <td>$15,000–$20,000</td>
+              <td>⭐ 4.8 / 5</td>
+            </tr>
+            <tr>
+              <td><strong>Parrot Bluegrass Fields</strong></td>
+              <td>Multispectral</td>
+              <td>No</td>
+              <td>50–60 mins</td>
+              <td>$3,500–$4,500</td>
+              <td>⭐ 4.6 / 5</td>
+            </tr>
+            <tr>
+              <td><strong>Autel EVO II AG Pro</strong></td>
+              <td>RGB + Multispectral</td>
+              <td>No</td>
+              <td>35–40 mins</td>
+              <td>$4,000–$5,500</td>
+              <td>⭐ 4.5 / 5</td>
+            </tr>
+            <tr>
+              <td><strong>PrecisionHawk Lancaster 5</strong></td>
+              <td>Thermal + Multispectral</td>
+              <td>No</td>
+              <td>50 mins</td>
+              <td>$8,000–$10,000</td>
+              <td>⭐ 4.7 / 5</td>
+            </tr>
+            <tr>
+              <td><strong>Yuneec H920+</strong></td>
+              <td>RGB + Thermal</td>
+              <td>No</td>
+              <td>25 mins</td>
+              <td>$3,000–$4,200</td>
+              <td>⭐ 4.3 / 5</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Drone Company Overview -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-6">Top Drone Companies in Agriculture</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- DJI -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">DJI</h4>
+          <p class="text-gray-600 mb-4">Known for their robust spraying drones like Agras T30 and T16, DJI leads in farm automation with advanced AI navigation and spray systems.</p>
+          <a href="https://www.dji.com/global/camera-drones?site=brandsite&from=nav" target="_blank" rel="noopener noreferrer" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">Visit Official Site →</a>
+        </div>
+
+        <!-- Parrot -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Parrot</h4>
+          <p class="text-gray-600 mb-4">Specializes in crop monitoring and multispectral imaging drones like Bluegrass Fields, ideal for vineyards and row crops.</p>
+          <a href="https://www.parrot.com/" target="_blank" rel="noopener noreferrer" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">Visit Official Site →</a>
+        </div>
+
+        <!-- Autel Robotics -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow mt-6 md:mt-0">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Autel Robotics</h4>
+          <p class="text-gray-600 mb-4">Offers affordable drones with multispectral imaging capabilities and integration with mobile apps for crop scouting and health analysis.</p>
+          <a href="https://www.autelrobotics.com/" target="_blank" rel="noopener noreferrer" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">Visit Official Site →</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Buying Guide -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">How to Choose the Right Drone</h3>
+      <p class="text-gray-700 mb-4">When selecting an agricultural drone, consider the following factors:</p>
+      <ul class="list-disc list-inside text-gray-700 space-y-2 mb-6">
+        <li><strong>Farm Size:</strong> Larger farms benefit from drones with wide coverage and long battery life.</li>
+        <li><strong>Application:</strong> Spraying drones vs. monitoring drones serve different purposes.</li>
+        <li><strong>Budget:</strong> Entry-level models start at $3,000 while high-end commercial units can reach $20,000+</li>
+        <li><strong>Software Integration:</strong> Ensure compatibility with your existing farm management tools (FarmERP, AgNext, etc.)</li>
+        <li><strong>Regulatory Compliance:</strong> Check local laws about drone usage, licensing, and airspace restrictions.</li>
+      </ul>
+      <p class="text-gray-700 mb-4"><strong>Tips:</strong> Look for local dealers offering training and support. Some governments offer subsidies or leasing options for smallholder adoption.</p>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Start Using Drone Tech Today</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">Whether you're managing a small plot or part of a cooperative, drone technology can help you monitor crops, reduce input costs, and increase profitability sustainably.</p>
+      <a href="../pages/case-study-kenya-drones.html" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition-colors mr-4">View Kenya Case Study</a>
+      <a href="../index.html#resources" class="inline-block bg-white text-green-700 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors shadow-md mt-4 md:mt-0">Explore More Resources</a> 
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li>
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News & Articles</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block mt-2">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Expandable Sections -->
+  <script>
+    function toggleDetails(e, id) {
+      e.preventDefault();
+      const section = document.getElementById(id);
+      const arrow = document.getElementById(`arrow-${id}`);
+      const isVisible = !section.classList.contains("hidden");
+
+      if (isVisible) {
+        section.classList.add("hidden");
+        arrow.style.transform = "rotate(0deg)";
+      } else {
+        section.classList.remove("hidden");
+        arrow.style.transform = "rotate(90deg)";
+      }
+    }
+  </script>
+
+  <!-- JavaScript for Auto Theme Detection -->
+  <script>
+    const body = document.getElementById("body");
+    const themeToggle = document.getElementById("themeToggle");
+
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDarkMode) {
+      body.classList.add("dark");
+      themeToggle.textContent = "Light Mode";
+    } else {
+      body.classList.remove("dark");
+      themeToggle.textContent = "Dark Mode";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      themeToggle.textContent = body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
+    });
+  </script>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

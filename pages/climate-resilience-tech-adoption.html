@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Climate Resilience Tech Adoption</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/agri.png" type="image/x-icon">
+
+  <!-- Cursor Blink Animation -->
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .transition-max-h {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .transition-max-h.expanded {
+      max-height: 500px;
+      overflow: visible;
+    }
+
+    #cursor {
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      25%, 75% { opacity: 0; }
+    }
+
+    .rotate-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .rotate-icon.open {
+      transform: rotate(90deg);
+    }
+
+    .slideshow-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow-img.active {
+      opacity: 1;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans" id="body">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#about" class="capitalize hover:text-green-200 transition-colors">About</a>
+      </nav>
+
+      <!-- Theme Toggle -->
+      <button id="themeToggle" class="ml-4 bg-green-600 hover:bg-green-500 px-3 py-1 rounded-full text-sm">Dark Mode</button>
+
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#about" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About Us</a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Slideshow -->
+  <section class="relative bg-gradient-to-r from-green-600 to-teal-500 text-white py-16 min-h-[80vh] flex items-center">
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1561504936-9ee23110af37?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmljZSUyMGZhcm18ZW58MHx8MHx8fDA%3D" alt="Slide 1" class="slideshow-img active" />
+      <img src="https://plus.unsplash.com/premium_photo-1677756430388-499fc7655dd1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZHJvdWdodCUyMHJlc2lzdGFudCUyMHBsYW50c3xlbnwwfHwwfHx8MA%3D%3D" alt="Slide 2" class="slideshow-img" />
+      <img src="https://media.istockphoto.com/id/1326768164/photo/green-rice-terraces-in-china.webp?a=1&b=1&s=612x612&w=0&k=20&c=MG_7Fxihazn4TH1vAa_xNC9CW-hoxZoYdcsFjo9-Dto=" alt="Slide 3" class="slideshow-img" />
+      <img src="https://media.istockphoto.com/id/1433096017/photo/irrigation-system-on-agricultural-soybean-field-at-sunset.webp?a=1&b=1&s=612x612&w=0&k=20&c=eG1_zSvr4Z8X45rFhdLtAmj2HjBqROEaiW0JnzIUXSo=" alt="Slide 4" class="slideshow-img" />
+      <img src="https://media.istockphoto.com/id/2160078318/photo/close-up-of-a-farmer-planting-a-lettuce-seedling-on-a-community-garden.webp?a=1&b=1&s=612x612&w=0&k=20&c=F022UBczsIpDndAciq8BqQejQBUJktj-70ebJpDv2yg=" alt="Slide 5" class="slideshow-img" />
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4 overflow-hidden whitespace-nowrap">
+        <span id="dynamicTextPrefix">Empowering Farmers Through Innovation </span>
+        <span id="dynamicText" class="inline-block align-bottom h-10 leading-loose text-left px-1"></span>
+        <span class="inline-block w-1 h-8 bg-white align-middle" id="cursor"></span>
+      </h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-6">Explore how climate-resilient technologies are being adopted across the world — from drought-tolerant crops to smart sensors and AI-driven weather forecasting.</p>
+      <a href="#techList" class="inline-block bg-white text-green-700 px-6 py-3 rounded-full font-semibold hover:bg-green-50 transition-colors shadow-md">Explore Technologies</a> 
+    </div>
+  </section>
+
+  <!-- Slideshow JS -->
+  <script>
+    const slides = document.querySelectorAll('.slideshow-img');
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 6000); // Change every 6 seconds
+  </script>
+
+  <!-- Typing Animation Script -->
+  <script>
+    const dynamicText = document.getElementById("dynamicText");
+    const dynamicTextPrefix = document.getElementById("dynamicTextPrefix");
+    const cursor = document.getElementById("cursor");
+
+    const words = ["Innovation", "Training"];
+    let loopIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function type() {
+      const originalPrefix = "Empowering Farmers Through ";
+      const fullWord = words[loopIndex];
+      const currentChar = fullWord.slice(0, charIndex + 1);
+
+      if (!isDeleting) {
+        dynamicTextPrefix.textContent = originalPrefix;
+        dynamicText.textContent = currentChar;
+        charIndex++;
+        if (currentChar === fullWord) {
+          isDeleting = true;
+          setTimeout(() => {
+            charIndex = fullWord.length;
+          }, 1000); // pause before deleting
+        } else {
+          setTimeout(type, 100); // typing speed
+        }
+      } else {
+        dynamicText.textContent = currentChar;
+        charIndex--;
+        if (charIndex <= 0) {
+          isDeleting = false;
+          loopIndex = (loopIndex + 1) % words.length;
+          setTimeout(type, 500); // pause before next word
+        } else {
+          setTimeout(type, 50); // deleting speed
+        }
+      }
+    }
+
+    window.onload = () => {
+      type();
+    };
+  </script>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">What Is Climate Resilience Tech Adoption?</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        As climate change accelerates, farmers around the world are adopting new technologies to protect their yields and livelihoods.
+        From soil sensors to autonomous tractors, these innovations help mitigate the effects of extreme weather, rising temperatures, and shifting rainfall patterns. By leveraging data-driven insights, farmers can make informed decisions about planting, irrigation, and crop protection. Technologies such as AI-powered forecasting, smart irrigation systems, and climate-resilient crop varieties not only boost productivity but also enhance sustainability and long-term farm viability.
+      </p>
+    </section>
+
+    <!-- Search & Filter Bar -->
+    <section class="mb-12 text-center">
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <input id="searchInput" type="text" placeholder="Search by title or category..." class="w-full sm:w-1/2 px-4 py-2 border border-green-300 rounded focus:outline-none focus:ring-2 focus:ring-green-300">
+        <select id="categoryFilter" class="w-full sm:w-auto px-4 py-2 border border-green-300 rounded focus:outline-none focus:ring-2 focus:ring-green-300">
+          <option value="">All Categories</option>
+          <option value="Drought Resilience">Drought Resilience</option>
+          <option value="Flood Tolerance">Flood Tolerance</option>
+          <option value="Heat Resistance">Heat Resistance</option>
+          <option value="Salt Tolerance">Salt Tolerance</option>
+          <option value="AI Forecasting">AI Forecasting</option>
+        </select>
+        <button onclick="filterTech()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded transition-colors">Search</button>
+      </div>
+    </section>
+
+    <!-- Featured Technologies Grid -->
+    <section id="techList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+      <!-- Tech Card 1 - Drought Resilience -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group" data-category="Drought Resilience">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=Drought+Resilience" alt="Drought Resilience" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Drought Resilience</h4>
+        <p class="text-gray-600 mb-4">Adopting drought-tolerant crops and precision irrigation systems to conserve water and maximize yield during dry spells.</p>
+        <button onclick="toggleDetails(event, 'drought')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-drought" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="drought" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Technologies include drip irrigation, mulching, and drought-tolerant maize and wheat strains developed by CIMMYT and IRRI.</p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+            <li><strong>Drip Irrigation:</strong> Delivers water directly to plant roots, reducing evaporation and water waste.</li>
+            <li><strong>Mulching:</strong> Conserves soil moisture and suppresses weeds, improving drought resilience.</li>
+            <li><strong>Drought-Tolerant Crops:</strong> Varieties such as DT maize and wheat can maintain yields under water stress.</li>
+            <li><strong>Remote Sensing:</strong> Satellite and sensor data help farmers monitor soil moisture and schedule irrigation efficiently.</li>
+            <li><strong>Case Example:</strong> In Kenya, adoption of drip irrigation and DT maize increased yields by up to 40% during dry years.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tech Card 2 - Flood Tolerance -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group" data-category="Flood Tolerance">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=Flood+Tolerance" alt="Flood Tolerance" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Flood Tolerance</h4>
+        <p class="text-gray-600 mb-4">Using flood-tolerant rice varieties and drainage monitoring tools to recover quickly after heavy rains or monsoon floods.</p>
+        <button onclick="toggleDetails(event, 'flood')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-flood" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="flood" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">Farmers in Bangladesh and India now use submersion-tolerant rice ("Scuba Rice") which can survive underwater for up to two weeks without damage.</p>
+            <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+              <li><strong>Scuba Rice (Swarna-Sub1):</strong> Developed by IRRI, this rice variety can withstand prolonged flooding, helping farmers recover quickly after monsoon floods.</li>
+              <li><strong>Drainage Monitoring:</strong> Sensors and remote monitoring tools help manage water levels and prevent crop loss in flood-prone areas.</li>
+              <li><strong>Community Action:</strong> Farmer cooperatives in Bangladesh coordinate planting and drainage schedules to maximize survival rates.</li>
+              <li><strong>Case Example:</strong> In 2022, over 5 million Bangladeshi farmers adopted flood-tolerant rice, reducing post-flood yield losses by up to 80%.</li>
+            </ul>
+        </div>
+      </div>
+
+      <!-- Tech Card 3 - Heat Resistance -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group" data-category="Heat Resistance">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=Heat+Resistance" alt="Heat Resistance" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Heat Resistance</h4>
+        <p class="text-gray-600 mb-4">New crop strains and shade-integrated farming methods are helping farmers cope with rising temperatures and heatwaves.</p>
+        <button onclick="toggleDetails(event, 'heat')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-heat" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="heat" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Researchers at ICAR and ICRISAT have introduced heat-resistant sorghum and millets that mature faster before peak summer heat hits.</p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+            <li><strong>Heat-Tolerant Varieties:</strong> Crops like heat-resistant wheat, rice, and legumes bred to withstand temperatures above 40°C.</li>
+            <li><strong>Shade Netting:</strong> Use of shade cloth and agroforestry to reduce direct sun exposure and lower field temperatures.</li>
+            <li><strong>Early Sowing:</strong> Adjusting planting schedules so crops mature before the hottest months.</li>
+            <li><strong>Case Example:</strong> In India’s Telangana region, farmers using heat-tolerant sorghum reported 30% higher yields during recent heatwaves.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tech Card 4 - Salt Tolerance -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group" data-category="Salt Tolerance">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=Salt+Tolerance" alt="Salt Tolerance" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Salt Tolerance</h4>
+        <p class="text-gray-600 mb-4">Cultivating crops in saline soils using salt-tolerant barley and rice strains.</p>
+        <button onclick="toggleDetails(event, 'salt')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-salt" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="salt" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Salt-tolerant crops like barley and rice are now grown successfully in coastal regions affected by seawater intrusion and overuse of fertilizers.</p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+            <li><strong>Salt-Tolerant Rice (e.g., Pokkali, IRRI lines):</strong> Developed for deltas and coastal areas, these varieties can thrive in saline soils where traditional crops fail.</li>
+            <li><strong>Barley and Quinoa:</strong> Naturally salt-tolerant, these crops are increasingly adopted in arid and semi-arid regions facing soil salinization.</li>
+            <li><strong>Soil Amendments:</strong> Use of gypsum and organic matter helps reclaim saline soils and improve crop establishment.</li>
+            <li><strong>Case Example:</strong> In Egypt’s Nile Delta, farmers using salt-tolerant rice reported up to 30% higher yields compared to conventional varieties.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tech Card 5 - AI Forecasting -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group" data-category="AI Forecasting">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=AI+Forecasting" alt="AI Forecasting" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">AI Forecasting</h4>
+        <p class="text-gray-600 mb-4">Machine learning models analyze historical and real-time data to predict optimal planting and harvesting times.</p>
+        <button onclick="toggleDetails(event, 'ai')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-ai" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="ai" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">AI-powered platforms like Microsoft FarmBeats and AgNext offer predictive analytics for weather, pest control, and resource planning.</p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+            <li><strong>Weather Prediction:</strong> Machine learning models process satellite and sensor data to forecast rainfall, drought, and extreme events, helping farmers plan ahead.</li>
+            <li><strong>Pest & Disease Alerts:</strong> AI analyzes crop images and environmental data to detect early signs of pest outbreaks or disease, enabling timely interventions.</li>
+            <li><strong>Yield Optimization:</strong> Data-driven recommendations for planting, fertilization, and irrigation schedules maximize productivity and reduce waste.</li>
+            <li><strong>Case Example:</strong> In India, AI-based advisories from Microsoft FarmBeats helped farmers increase chickpea yields by 30% through optimized sowing dates and input use.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tech Card 6 - Regenerative Agriculture -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group" data-category="Regenerative Agriculture">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=Regenerative+Agriculture" alt="Regenerative Agriculture" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Regenerative Agriculture</h4>
+        <p class="text-gray-600 mb-4">Practices such as no-till farming, cover cropping, and biochar application improve soil health and carbon capture.</p>
+        <button onclick="toggleDetails(event, 'regenerative')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-regenerative" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="regenerative" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Regenerative practices restore soil fertility, increase biodiversity, and reduce dependency on chemical inputs — making farms more resilient to long-term climate shifts.</p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+            <li><strong>No-Till Farming:</strong> Reduces soil erosion and preserves soil structure by minimizing disturbance, leading to improved water retention and carbon sequestration.</li>
+            <li><strong>Cover Cropping:</strong> Planting cover crops like clover or vetch between main crops protects soil from erosion, fixes nitrogen, and suppresses weeds naturally.</li>
+            <li><strong>Biochar Application:</strong> Adding biochar (charcoal from plant matter) to soil enhances nutrient retention, boosts microbial activity, and locks carbon in the ground for decades.</li>
+            <li><strong>Composting & Organic Amendments:</strong> Using compost and manure increases organic matter, improves soil health, and reduces reliance on synthetic fertilizers.</li>
+            <li><strong>Agroforestry:</strong> Integrating trees and shrubs into cropland provides shade, windbreaks, and habitat for beneficial insects and birds.</li>
+            <li><strong>Case Example:</strong> In Brazil, regenerative agriculture on degraded pastureland increased soil organic carbon by 20% and doubled maize yields within three years.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tech Card 7 - Smart Irrigation -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group" data-category="Drought Resilience">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=Smart+Irrigation" alt="Smart Irrigation" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Smart Irrigation Systems</h4>
+        <p class="text-gray-600 mb-4">IoT-based irrigation tools optimize water usage based on real-time soil moisture and weather data.</p>
+        <button onclick="toggleDetails(event, 'smartIrrigation')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-smartIrrigation" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="smartIrrigation" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Solutions like Cropster WaterLog and Netafim’s smart valves allow farmers to monitor and manage water usage remotely via mobile app or web dashboard.</p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+            <li><strong>Soil Moisture Sensors:</strong> Measure real-time soil moisture to trigger irrigation only when needed, reducing water waste.</li>
+            <li><strong>Automated Scheduling:</strong> Systems use weather forecasts and crop data to automatically adjust irrigation timing and volume.</li>
+            <li><strong>Remote Control:</strong> Farmers can start, stop, or adjust irrigation from anywhere using smartphones or computers.</li>
+            <li><strong>Leak Detection:</strong> Smart systems alert users to leaks or malfunctions, preventing water loss and crop stress.</li>
+            <li><strong>Case Example:</strong> In Israel, Netafim’s smart irrigation helped tomato growers cut water use by 30% while increasing yields.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tech Card 8 - Solar-Powered Pumps -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group" data-category="Drought Resilience">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=Solar+Pumps" alt="Solar-Powered Pumps" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Solar-Powered Water Pumps</h4>
+        <p class="text-gray-600 mb-4">Cost-effective, renewable energy solution for smallholder farmers facing unreliable electricity and water shortages.</p>
+        <button onclick="toggleDetails(event, 'solar')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-solar" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="solar" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Used widely in India and East Africa, solar pumps provide sustainable access to water without reliance on diesel or electric grids.</p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+            <li><strong>Renewable Energy:</strong> Solar panels power water pumps, reducing fuel costs and greenhouse gas emissions.</li>
+            <li><strong>Low Maintenance:</strong> Fewer moving parts mean less frequent repairs compared to diesel pumps.</li>
+            <li><strong>Remote Operation:</strong> Some systems can be monitored and controlled via mobile apps for convenience.</li>
+            <li><strong>Scalable Solutions:</strong> Available for both smallholder and large-scale farms, adaptable to different water needs.</li>
+            <li><strong>Case Example:</strong> In Kenya, adoption of solar pumps by smallholder farmers increased irrigation coverage by 50% and reduced energy costs by up to 80%.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tech Card 9 - Soil Sensors -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group" data-category="Drought Resilience">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=Soil+Sensors" alt="Soil Sensors" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Soil Health Monitoring</h4>
+        <p class="text-gray-600 mb-4">IoT-enabled sensors track moisture, pH, and nutrient levels to guide better decisions and prevent losses.</p>
+        <button onclick="toggleDetails(event, 'soil')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-soil" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="soil" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Tools like Teralytic and Arable Meters help farmers adjust irrigation and fertilizer use dynamically based on sensor readings.</p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+            <li><strong>Soil Moisture Sensors:</strong> Provide real-time data to prevent over- or under-watering, improving crop health and saving water.</li>
+            <li><strong>pH and Nutrient Sensors:</strong> Detect soil acidity and nutrient deficiencies, enabling targeted fertilizer application and reducing waste.</li>
+            <li><strong>Wireless Connectivity:</strong> Many sensors transmit data to mobile apps or dashboards, allowing remote monitoring and alerts.</li>
+            <li><strong>Case Example:</strong> In California, almond growers using soil sensors reduced water use by 20% while maintaining yields.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tech Card 10 - Drone-Based Monitoring -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group" data-category="AI Forecasting">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=Drone+Monitoring" alt="Drone-Based Monitoring" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Drone-Based Field Monitoring</h4>
+        <p class="text-gray-600 mb-4">High-resolution drone imaging helps detect early signs of stress in crops and plan interventions accordingly.</p>
+        <button onclick="toggleDetails(event, 'drone')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-drone" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="drone" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Drone sprayers and multispectral cameras are used in Brazil, Kenya, and the Philippines to map farmland and identify stressed areas before they fail.</p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+            <li><strong>Multispectral Imaging:</strong> Drones capture images in multiple wavelengths to detect crop stress, disease, or nutrient deficiencies early.</li>
+            <li><strong>Precision Spraying:</strong> Drone sprayers apply fertilizers or pesticides only where needed, reducing chemical use and costs.</li>
+            <li><strong>Large Area Coverage:</strong> Drones can survey hundreds of hectares in a single flight, providing rapid, up-to-date field data.</li>
+            <li><strong>Automated Analysis:</strong> AI-powered software processes drone data to generate actionable maps for irrigation, fertilization, or replanting.</li>
+            <li><strong>Case Example:</strong> In China, drone monitoring reduced rice crop losses by 15% through early pest detection and targeted spraying.</li>
+          </ul>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Case Studies Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Case Studies</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Case Study 1 -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Zambia - Drought-Tolerant Maize</h4>
+          <p class="text-gray-600 mb-4">Over 10,000 Zambian farmers adopted drought-tolerant maize, increasing average yield by 25% during dry seasons.</p>
+          <button onclick="toggleDetails(event, 'zambia')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+            Learn More
+            <svg id="arrow-zambia" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="zambia" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">Supported by FAO and local extension services, this project helped reduce food insecurity in Southern Zambia.</p>
+            <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+              <li><strong>Background:</strong> Southern Zambia is highly vulnerable to droughts, which have historically led to crop failures and food shortages. Traditional maize varieties struggled to survive prolonged dry spells, threatening farmer livelihoods.</li>
+              <li><strong>Technology Introduced:</strong> Drought-tolerant maize hybrids, developed through partnerships with CIMMYT and local research institutes, were distributed to over 10,000 smallholder farmers. These varieties can maintain yields with less rainfall and mature earlier than conventional types.</li>
+              <li><strong>Implementation:</strong> The project included farmer field schools, demonstration plots, and training on climate-smart practices such as conservation tillage, mulching, and efficient fertilizer use. Extension agents provided ongoing support and weather advisories.</li>
+              <li><strong>Results:</strong> 
+                <ul class="list-disc ml-6">
+                  <li>Average maize yields increased by 25% during drought years compared to previous seasons.</li>
+                  <li>Household food security improved, with more families able to store surplus grain for the dry season.</li>
+                  <li>Adoption of conservation agriculture practices led to better soil moisture retention and reduced erosion.</li>
+                  <li>Women farmers, who make up a large share of participants, reported greater resilience and income stability.</li>
+                </ul>
+              </li>
+              <li><strong>Challenges:</strong> Initial skepticism about new seed varieties and limited access to credit for inputs slowed early adoption. Ongoing education and demonstration of results helped build trust.</li>
+              <li><strong>Lessons Learned:</strong> Combining improved seed with farmer training and community support networks is critical for successful technology adoption. Local adaptation and feedback from farmers ensured the varieties met real-world needs.</li>
+              <li><strong>Future Plans:</strong> The program is expanding to include drought-tolerant legumes and digital weather advisory services, aiming to reach 50,000 farmers by 2027.</li>
+              <li><strong>Key Partners:</strong> FAO, Zambia Agricultural Research Institute, CIMMYT, local NGOs, and farmer cooperatives.</li>
+            </ul></ul>
+          </div>
+        </div>
+
+        <!-- Case Study 2 -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Bangladesh - Flood Tolerant Rice</h4>
+          <p class="text-gray-600 mb-4">Submersion-tolerant rice varieties helped Bangladeshi farmers recover faster after seasonal flooding.</p>
+          <button onclick="toggleDetails(event, 'bangladesh')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+            Learn More
+            <svg id="arrow-bangladesh" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="bangladesh" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">The Scuba Rice program expanded into Nepal and Myanmar, saving harvests during flash floods in delta regions.</p>
+            <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+              <li><strong>Background:</strong> Bangladesh is one of the most flood-prone countries in the world, with millions of hectares of farmland submerged annually during the monsoon season. Traditional rice varieties often fail after just a few days underwater, leading to widespread crop losses and food insecurity.</li>
+              <li><strong>Technology Introduced:</strong> Submersion-tolerant rice varieties, such as Swarna-Sub1 (commonly called "Scuba Rice"), were developed by the International Rice Research Institute (IRRI) using marker-assisted breeding. These varieties can survive complete submergence for up to two weeks, allowing crops to recover after floodwaters recede.</li>
+              <li><strong>Implementation:</strong> The government of Bangladesh, in partnership with IRRI and local agricultural extension services, distributed Scuba Rice seeds to over 5 million farmers in flood-prone districts. Training sessions and demonstration plots were established to show the benefits and proper cultivation techniques for the new varieties.</li>
+              <li><strong>Results:</strong>
+                <ul class="list-disc ml-6">
+                  <li>Farmers adopting Scuba Rice experienced up to 80% reduction in yield losses after floods compared to traditional rice.</li>
+                  <li>Average rice yields increased by 1-2 tons per hectare in affected areas, improving food security and household incomes.</li>
+                  <li>Recovery time after floods was shortened, allowing some farmers to plant a second crop in the same season.</li>
+                  <li>Women farmers, who are often responsible for transplanting and harvesting rice, reported greater resilience and more stable livelihoods.</li>
+                </ul>
+              </li>
+              <li><strong>Challenges:</strong> Initial skepticism about the new varieties, limited access to quality seed, and the need for farmer training slowed early adoption. Some farmers also faced difficulties integrating Scuba Rice into existing cropping systems or accessing markets for surplus production.</li>
+              <li><strong>Lessons Learned:</strong> Success depended on strong partnerships between research institutions, government agencies, and local communities. Demonstration plots and farmer-to-farmer knowledge sharing were critical for building trust and encouraging widespread adoption. Timely seed distribution and extension support before the monsoon season were also essential.</li>
+              <li><strong>Expansion:</strong> The success of Scuba Rice in Bangladesh led to its introduction in other flood-prone regions, including Nepal, India, and Myanmar. Ongoing research is developing new submergence-tolerant varieties with improved yield, grain quality, and disease resistance.</li>
+              <li><strong>Key Partners:</strong> International Rice Research Institute (IRRI), Bangladesh Rice Research Institute (BRRI), Ministry of Agriculture, local NGOs, and farmer cooperatives.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Institutions Supporting Tech Adoption -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Institutions Supporting Tech Adoption</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li><strong>CIMMYT:</strong> Promotes drought-tolerant grains globally through breeding programs.</li>
+        <li><strong>IRRI:</strong> Researches flood-tolerant rice and supports farmer training in Southeast Asia.</li>
+        <li><strong>IITA:</strong> Develops pest- and disease-resistant cassava for African farmers.</li>
+        <li><strong>World Bank:</strong> Funds large-scale adoption of climate-smart agriculture in vulnerable countries.</li>
+        <li><strong>FAO:</strong> Provides guidance and digital tools to help smallholders adapt to climate challenges.</li>
+        <li><strong>NASA Harvest:</strong> Uses satellite data to inform farmers about upcoming weather changes and risk zones.</li>
+      </ul>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Start Adopting Climate-Resilient Technologies Today</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">Whether you're managing a small plot or large operation, adopting climate-resilient tech can protect your farm from unpredictable weather and improve sustainability.</p>
+      <a href="../index.html#resources" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition-colors">Explore More Resources</a> 
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li>
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News & Articles</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Expandable Sections -->
+  <script>
+    function toggleDetails(e, id) {
+      e.preventDefault();
+      const section = document.getElementById(id);
+      const arrow = document.getElementById(`arrow-${id}`);
+      const isVisible = !section.classList.contains("hidden");
+
+      if (isVisible) {
+        section.classList.add("hidden");
+        arrow.style.transform = "rotate(0deg)";
+      } else {
+        section.classList.remove("hidden");
+        arrow.style.transform = "rotate(90deg)";
+      }
+    }
+  </script>
+
+  <!-- JavaScript for Filtering -->
+  <script>
+    function filterTech() {
+      const searchQuery = document.getElementById("searchInput").value.toLowerCase();
+      const selectedCategory = document.getElementById("categoryFilter").value;
+      const cards = document.querySelectorAll('[data-category]');
+      cards.forEach(card => {
+        const category = card.getAttribute("data-category").toLowerCase();
+        const title = card.querySelector("h4").textContent.toLowerCase();
+        const description = card.querySelector("p").textContent.toLowerCase();
+
+        const matchesSearch = title.includes(searchQuery) || description.includes(searchQuery);
+        const matchesCategory = selectedCategory === "" || category === selectedCategory;
+
+        card.style.display = (matchesSearch && matchesCategory) ? "block" : "none";
+      });
+    }
+
+    window.onload = () => filterTech(); // Show all initially
+  </script>
+
+  <!-- JavaScript for Auto Theme Detection -->
+  <script>
+    const body = document.getElementById("body");
+    const themeToggle = document.getElementById("themeToggle");
+
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDarkMode) {
+      body.classList.add("dark");
+      themeToggle.textContent = "Light Mode";
+    } else {
+      body.classList.remove("dark");
+      themeToggle.textContent = "Dark Mode";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      themeToggle.textContent = body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
+    });
+  </script>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blockchain in Farm Supply Chains</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/home.theme-light.png" type="image/x-icon">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#about" class="capitalize hover:text-green-200 transition-colors">About</a>
+      </nav>
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#about" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About Us</a>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="relative bg-gradient-to-r from-blue-600 to-green-500 text-white py-16">
+    <div class="absolute inset-0 bg-black opacity-20"></div>
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Blockchain in Farm Supply Chains</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto">Learn how blockchain technology is transforming agricultural supply chains through transparency, trust, and traceability.</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+    
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">What Is Blockchain in Agriculture?</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        Blockchain technology provides an immutable digital ledger that records every transaction along the farm-to-market supply chain.
+        This enables full visibility and accountability — ensuring fair trade, reducing food fraud, and empowering both producers and consumers with verified information.
+      </p>
+      <img src="https://media.istockphoto.com/id/2171106744/photo/hand-interacting-with-blockchain-hologram-on-a-digital-interface-highlighting-data-security.webp?a=1&b=1&s=612x612&w=0&k=20&c=x4pO33vsvLZNXgNr_PZWusZx56l6N3PCYdLh6r33J4I=" alt="Farmer Using Blockchain App" class="w-full rounded-lg shadow-md mb-6 h-80 object-cover">
+    </section>
+
+    <!-- Benefits of Blockchain -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Why Blockchain Matters for Farmers</h3>
+      <ul class="space-y-4 list-disc list-inside text-gray-700">
+        <li><strong>Transparent Transactions:</strong> Every step from harvest to market is recorded and verifiable.</li>
+        <li><strong>Fair Pricing:</strong> Farmers receive fair compensation as middlemen are reduced or removed.</li>
+        <li><strong>Food Safety:</strong> Consumers can verify origin, quality, and ethical sourcing of produce.</li>
+        <li><strong>Traceability:</strong> Track inputs like seeds, fertilizers, and labor across the production cycle.</li>
+        <li><strong>Smart Contracts:</strong> Automate payments and agreements based on delivery and quality verification.</li>
+      </ul>
+    </section>
+
+    <!-- How It Works -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">How Blockchain Works in Farming</h3>
+      <ol class="list-decimal list-inside text-gray-700 space-y-4">
+        <li><strong>Step 1 - Data Entry:</strong> Each participant (farmer, processor, transporter, seller) logs their contribution into the system.</li>
+        <li><strong>Step 2 - Smart Contracts:</strong> Agreements between parties are coded and executed automatically upon fulfillment of conditions.</li>
+        <li><strong>Step 3 - Immutable Records:</strong> All data is stored on a decentralized network, preventing tampering or loss.</li>
+        <li><strong>Step 4 - End-User Verification:</strong> Buyers scan a QR code or check online to see the full journey of the product.</li>
+      </ol>
+    </section>
+
+    <!-- Real-Life Application -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Real-Life Use Case: Blockchain in Kenyan Coffee Trade</h3>
+      <div class="flex flex-col md:flex-row gap-6 items-center">
+        <img src="https://media.istockphoto.com/id/953499010/photo/blockchain-technology-structure-defocused.webp?a=1&b=1&s=612x612&w=0&k=20&c=91WrOohbWTLAdYWzZ6D4HXnihSFMPtd3UYubiGkg9Js=" class="w-full md:w-1/2 rounded-lg shadow-md h-80 object-cover">
+        <div>
+          <p class="text-gray-700 mb-4">
+            In Kenya, blockchain has been used by coffee cooperatives to track beans from individual farms to export buyers.
+          </p>
+          <p class="text-gray-700 mb-4">
+            Each farmer receives a unique digital ID, and their harvest details are recorded in real-time. Payments are released via smart contracts once quality checks are confirmed.
+          </p>
+          <p class="text-gray-700">
+            Result: Farmers earned up to 20% more income due to direct buyer connections and reduced exploitation by middlemen.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Traditional vs. Blockchain-Based Supply Chain</h3>
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-sm">
+          <thead class="bg-green-100">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-green-800 uppercase tracking-wider">Aspect</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-green-800 uppercase tracking-wider">Traditional System</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-green-800 uppercase tracking-wider">Blockchain System</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Transparency</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Limited or no access to data</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">Full traceability from field to consumer</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Trust</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Relies on reputation or paper trails</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">Built-in trust using secure, shared ledgers</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Payment Delays</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Common due to disputes and delays</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">Automated with smart contracts</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Counterfeits</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Hard to detect fake products</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">Each product is uniquely identifiable</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Data Integrity</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Centralized databases prone to manipulation</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">Decentralized and tamper-proof</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Challenges and Solutions -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Challenges & Solutions</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded shadow-inner">
+          <h4 class="font-semibold text-red-700">Challenges</h4>
+          <ul class="mt-2 list-disc list-inside text-gray-700 space-y-1">
+            <li>High initial cost for tech adoption</li>
+            <li>Limited internet access in rural areas</li>
+            <li>Resistance to change among stakeholders</li>
+          </ul>
+        </div>
+        <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded shadow-inner">
+          <h4 class="font-semibold text-green-700">Solutions</h4>
+          <ul class="mt-2 list-disc list-inside text-gray-700 space-y-1">
+            <li>Use mobile-based apps for low-tech access</li>
+            <li>Offer government or NGO-backed pilot programs</li>
+            <li>Educate farmers and buyers about long-term benefits</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tools & Platforms -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Popular Blockchain Platforms for Agriculture</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h4 class="text-lg font-semibold text-gray-800 mb-2">AgriLedger</h4>
+          <p class="text-gray-600 mb-4">A UK-based platform helping smallholder farmers in Africa track crops and improve market access through blockchain.</p>
+          <a href="https://agri-ledger.com" target="_blank" class="text-green-600 hover:text-green-800 font-medium hover:underline inline-flex items-center">
+            Visit Platform
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h4 class="text-lg font-semibold text-gray-800 mb-2">IBM Food Trust</h4>
+          <p class="text-gray-600 mb-4">Used by large agribusinesses to track organic certification and sustainable practices throughout the supply chain.</p>
+          <a href="https://www.ibm.com/industries/retail/blockchain-food-trust" target="_blank" class="text-green-600 hover:text-green-800 font-medium hover:underline inline-flex items-center">
+            Learn More
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h4 class="text-lg font-semibold text-gray-800 mb-2">VeChain</h4>
+          <p class="text-gray-600 mb-4">Used in Asia and Europe for food safety and sustainability tracking of agricultural products.</p>
+          <a href="https://www.vechain.org" target="_blank" class="text-green-600 hover:text-green-800 font-medium hover:underline inline-flex items-center">
+            Learn More
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to Get Started -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">How Farmers Can Start Using Blockchain</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white p-6 border border-green-200 rounded-lg shadow-sm">
+          <h4 class="font-semibold text-lg mb-2">Join a Cooperative</h4>
+          <p class="text-gray-700">Many farming groups now offer blockchain tools to members for better market access.</p>
+        </div>
+        <div class="bg-white p-6 border border-green-200 rounded-lg shadow-sm">
+          <h4 class="font-semibold text-lg mb-2">Use Mobile Apps</h4>
+          <p class="text-gray-700">Download blockchain-enabled apps that connect you directly to buyers and processors.</p>
+        </div>
+        <div class="bg-white p-6 border border-green-200 rounded-lg shadow-sm">
+          <h4 class="font-semibold text-lg mb-2">Get Trained</h4>
+          <p class="text-gray-700">Take advantage of training programs offered by NGOs and government bodies.</p>
+        </div>
+        <div class="bg-white p-6 border border-green-200 rounded-lg shadow-sm">
+          <h4 class="font-semibold text-lg mb-2">Track Your Products</h4>
+          <p class="text-gray-700">Log crop details into the system to generate a transparent, verifiable history.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Start Using Blockchain Today</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">
+        Whether you're a small farmer or part of a larger cooperative, blockchain offers powerful tools to protect your value and ensure fair trade.
+      </p>
+      <a href="../index.html#resources" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition-colors">Explore More Resources</a>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li> 
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News & Articles</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+
+</body>
+</html>

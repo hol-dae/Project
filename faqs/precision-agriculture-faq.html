@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Precision Agriculture FAQ</title>
+<link rel="icon" href="../images/faq.png" type="image/x-icon">
+<style>
+  /* Font stack similar to VS Code */
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff;
+    color: #24292e;
+    margin: 0;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  main {
+    max-width: 720px;
+    width: 100%;
+    padding: 2rem;
+    flex-grow: 1;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 2.25rem;
+    margin-bottom: 0.5rem;
+    color: #0066bf;
+  }
+
+  p.description {
+    margin-top: 0;
+    margin-bottom: 2.5rem;
+    color: #586069; /* muted text */
+    font-size: 1.125rem;
+  }
+
+  .faq-item {
+    border-top: 1px solid #e1e4e8;
+  }
+
+  .faq-item:first-of-type {
+    border-top: none;
+  }
+
+  button.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 1.25rem 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #0066bf;
+    text-align: left;
+    cursor: pointer;
+    outline-offset: 2px;
+    transition: color 0.2s ease;
+  }
+
+  button.faq-question:hover,
+  button.faq-question:focus {
+    color: #035fc7;
+  }
+
+  button.faq-question svg {
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+    width: 1rem;
+    height: 1rem;
+    fill: #0066bf;
+  }
+
+  button.faq-question[aria-expanded="true"] svg {
+    transform: rotate(90deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    font-weight: 400;
+    font-size: 1rem;
+    color: #444d56;
+    transition: max-height 0.35s ease;
+  }
+
+  .faq-answer.open {
+    max-height: 3000px; /* arbitrary large to allow expansion */
+    margin-bottom: 1.5rem;
+  }
+
+  .faq-answer p,
+  .faq-answer ul {
+    margin: 0.5rem 0 1rem 0;
+    line-height: 1.5;
+  }
+
+  .faq-answer ul {
+    padding-left: 1.25rem;
+  }
+
+  .faq-answer ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  footer {
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+    color: #586069;
+    border-top: 1px solid #e1e4e8;
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* Responsive for mobile */
+  @media (max-width: 480px) {
+    main {
+      padding: 1.25rem;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+    }
+
+    button.faq-question {
+      font-size: 1rem;
+      padding: 1rem 0;
+    }
+
+    .faq-answer {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Precision Agriculture FAQ</h1>
+  <p class="description">Learn the fundamentals of precision agriculture and essential tools to get started effectively.</p>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq1" id="faq1_btn" aria-label="What is precision agriculture?">
+      What is precision agriculture?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq1" class="faq-answer" role="region" aria-labelledby="faq1_btn">
+      <p>Precision agriculture is an advanced farming management concept that uses technology and data analysis to optimize crop production and resource use. It involves monitoring and managing fields and crops at a detailed level to improve yield, reduce waste, and promote sustainability.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq2" id="faq2_btn" aria-label="What are the primary benefits of precision agriculture?">
+      What are the primary benefits of precision agriculture?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq2" class="faq-answer" role="region" aria-labelledby="faq2_btn">
+      <p>Benefits include increased crop yields, reduced input costs (water, fertilizers, pesticides), improved environmental conservation, better soil health management, and more precise resource allocation, enhancing efficiency and sustainability of farming operations.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq3" id="faq3_btn" aria-label="What tools are essential to get started with precision agriculture?">
+      What tools are essential to get started with precision agriculture?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq3" class="faq-answer" role="region" aria-labelledby="faq3_btn">
+      <p>Key tools include:</p>
+      <ul>
+        <li><strong>GPS Technology:</strong> For precise location tracking and mapping fields.</li>
+        <li><strong>Soil Sensors:</strong> To assess soil moisture, nutrients, and pH.</li>
+        <li><strong>Drones:</strong> For aerial imaging and monitoring crop health.</li>
+        <li><strong>Variable Rate Technology (VRT):</strong> To apply fertilizers and pesticides variably across the field.</li>
+        <li><strong>Farm Management Software:</strong> To collect, analyze, and visualize farm data.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq4" id="faq4_btn" aria-label="Do I need to invest a lot in expensive equipment?">
+      Do I need to invest a lot in expensive equipment?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq4" class="faq-answer" role="region" aria-labelledby="faq4_btn">
+      <p>Not necessarily. Precision agriculture can start with simple, cost-effective tools like smartphone apps and affordable soil sensors. Technology is scalable, allowing gradual upgrades as your farm and budget grow.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq5" id="faq5_btn" aria-label="How can data help improve my farming decisions?">
+      How can data help improve my farming decisions?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq5" class="faq-answer" role="region" aria-labelledby="faq5_btn">
+      <p>Data lets you identify patterns, predict crop needs, and monitor field variability. Timely information helps make informed decisions on irrigation, fertilization, and pest control, improving yield and cutting waste.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq6" id="faq6_btn" aria-label="Where can I learn more about implementing precision agriculture?">
+      Where can I learn more about implementing precision agriculture?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq6" class="faq-answer" role="region" aria-labelledby="faq6_btn">
+      <p>Many online resources, agricultural extension services, and universities provide courses and guides. Official agricultural departments and trusted farm tech providers offer tailored support and training.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq7" id="faq7_btn" aria-label="Is precision agriculture suitable for small farms?">
+      Is precision agriculture suitable for small farms?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq7" class="faq-answer" role="region" aria-labelledby="faq7_btn">
+      <p>Yes, many techniques and tools are adaptable for farms of all sizes, including affordable smartphone apps and compact sensors, making it accessible to small-scale farmers.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq8" id="faq8_btn" aria-label="What role do drones play in precision agriculture?">
+      What role do drones play in precision agriculture?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq8" class="faq-answer" role="region" aria-labelledby="faq8_btn">
+      <p>Drones provide high-resolution aerial imagery to detect crop health, pest infestations, nutrient deficiencies, and irrigation issues early, enabling targeted and efficient interventions.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq9" id="faq9_btn" aria-label="How does GPS improve farm management?">
+      How does GPS improve farm management?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq9" class="faq-answer" role="region" aria-labelledby="faq9_btn">
+      <p>GPS enables accurate field mapping for planting, spraying, and harvesting. It supports variable rate technology and auto-steering, ensuring efficient resource use and less overlap or missed areas.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq10" id="faq10_btn" aria-label="Can precision agriculture techniques improve sustainability?">
+      Can precision agriculture techniques improve sustainability?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq10" class="faq-answer" role="region" aria-labelledby="faq10_btn">
+      <p>Yes, by optimizing resource use and minimizing waste, precision agriculture reduces environmental impact, conserves soil health, and supports sustainable farming practices.</p>
+    </div>
+  </div>
+</main>
+<footer>
+  2025 Agri-Technology Resource Center. All rights reserved.
+</footer>
+
+<script>
+  const faqButtons = document.querySelectorAll('.faq-question');
+
+  faqButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+      // Close all
+      faqButtons.forEach(btn => {
+        btn.setAttribute('aria-expanded', 'false');
+        btn.parentNode.querySelector('.faq-answer').classList.remove('open');
+      });
+
+      if (!isExpanded) {
+        button.setAttribute('aria-expanded', 'true');
+        button.parentNode.querySelector('.faq-answer').classList.add('open');
+      }
+    });
+  });
+
+  // Keyboard accessibility for toggling via Enter or Space keys
+  faqButtons.forEach(button => {
+    button.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        button.click();
+      }
+    });
+  });
+</script>
+</body>
+</html>
+

@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Case Study: Smart Farms India - IoT Adoption</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/agri.png" type="image/x-icon">
+
+  <!-- CSS for animations -->
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .transition-max-h {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .transition-max-h.expanded {
+      max-height: 1200px;
+      overflow: visible;
+    }
+
+    .rotate-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .rotate-icon.open {
+      transform: rotate(90deg);
+    }
+
+    .slideshow-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow-img.active {
+      opacity: 1;
+      z-index: 10;
+    }
+
+    .graph-placeholder {
+      width: 100%;
+      height: auto;
+      margin-top: 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark {
+      background-color: #1e293b;
+      color: #f8fafc;
+    }
+
+    body.dark .bg-white {
+      background-color: #334155;
+    }
+
+    body.dark .text-green-600,
+    body.dark .text-green-700,
+    body.dark .text-green-800 {
+      color: #86efac !important;
+    }
+
+    body.dark .border-green-200 {
+      border-color: #22c55e;
+    }
+
+    body.dark .hover\:bg-green-200:hover {
+      background-color: #22c55e;
+    }
+
+    body.dark .bg-green-100 {
+      background-color: #16a34a;
+    }
+
+    body.dark .hover\:text-green-200:hover {
+      color: #bef264 !important;
+    }
+
+    body.dark .bg-green-700 {
+      background-color: #16a34a !important;
+    }
+
+    body.dark .bg-green-800 {
+      background-color: #15803d !important;
+    }
+
+    body.dark .text-green-200 {
+      color: #a3e635 !important;
+    }
+
+    body.dark .text-green-300 {
+      color: #86efac !important;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans" id="body">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#about" class="capitalize hover:text-green-200 transition-colors">About Us</a>
+      </nav>
+
+      <!-- Theme Toggle -->
+      <button id="themeToggle" class="ml-4 bg-green-600 hover:bg-green-500 px-3 py-1 rounded-full text-sm">Dark Mode</button>
+
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#about" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About Us</a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Slideshow -->
+  <section class="relative bg-gradient-to-r from-green-600 to-teal-500 text-white py-16 min-h-[80vh] flex items-center">
+    <div class="absolute inset-0 z-0">
+    <img src="https://media.istockphoto.com/id/503160722/photo/farmer-spreads-fertilizers-in-the-field-wheat.webp?a=1&b=1&s=612x612&w=0&k=20&c=yEE5-AQGAJXdqrL2JYx3xfE7IsiSAq5rhpEZ0zLTRGs=" alt="Slide 1" class="slideshow-img active" />
+    <img src="https://media.istockphoto.com/id/1218970851/photo/conceptual-presentation-of-the-collection-of-important-data-and-analysis-of-plant-growth-on.webp?a=1&b=1&s=612x612&w=0&k=20&c=7sq8_siQVI_TYPg5M5_TOAorNIHiTkvpgP3gKGsibHg=" alt="Slide 2" class="slideshow-img" />
+    <img src="https://media.istockphoto.com/id/1447011226/photo/hydroponic-robot-farming.webp?a=1&b=1&s=612x612&w=0&k=20&c=dzeAY2h8SBS-6ShrWrqdvT7BYu_MVqbak5FLShXBMNA=" alt="Slide 3" class="slideshow-img" />
+    <img src="https://plus.unsplash.com/premium_photo-1661902899911-d7b89906e638?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c29pbCUyMG1vaXN0dXJlJTIwdHJhY2tpbmd8ZW58MHwwfDB8fHww" alt="Soil Moisture Tracking" class="slideshow-img" />
+    <img src="https://media.istockphoto.com/id/2017196787/photo/world-water-day-concept-with-world-in-clean-water-drop-on-and-fresh.webp?a=1&b=1&s=612x612&w=0&k=20&c=Bqb7PFbcsIHif2vE7zZCATqRfAK0XcBPVxKmWNAlPQk=" alt="Slide 5" class="slideshow-img" />
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Case Study: IoT in Indian Agriculture</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-6">How smallholder farmers in India used IoT-based systems to increase yield by 30% and reduce water usage by 40%.</p>
+      <a href="#studyDetails" class="inline-block bg-white text-green-700 px-6 py-3 rounded-full font-semibold hover:bg-green-50 transition-colors shadow-md">Explore the Case Study</a> 
+    </div>
+  </section>
+
+  <!-- Slideshow JS Animation -->
+  <script>
+    const slides = document.querySelectorAll('.slideshow-img');
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 6000); // Change every 6 seconds
+  </script>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Overview of the IoT Adoption in Indian Farming</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        In rural parts of Gujarat and Maharashtra, over 5,000 smallholder farmers adopted IoT-based soil sensors and smart irrigation systems.
+        This case study explores how technology helped them optimize resource use, improve crop yields, and access better market prices through data-backed decisions.
+      </p>
+    </section>
+
+    <!-- Key Findings -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Key Findings</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li><strong>30% Yield Increase:</strong> Better planting and watering schedules led to higher productivity.</li>
+        <li><strong>40% Water Savings:</strong> Drip irrigation controlled by soil moisture sensors reduced waste.</li>
+        <li><strong>25% Cost Reduction:</strong> Farmers saved on fertilizers and labor due to precise monitoring.</li>
+        <li><strong>Better Market Access:</strong> Data transparency helped farmers negotiate better prices with buyers.</li>
+        <li><strong>Digital Literacy:</strong> Training programs increased farmer confidence in using mobile apps and dashboards.</li>
+        <li><strong>Scalability:</strong> The model is now being expanded to other states like Punjab and Tamil Nadu.</li>
+      </ul>
+    </section>
+
+    <!-- Study Details -->
+    <section id="studyDetails" class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Study Breakdown</h3>
+
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Project Background</h4>
+        <p class="text-gray-600 mb-4">The project was launched by NARO (National Agricultural Research Organization) in partnership with local farming cooperatives and tech startups like AgNext and Cropster.</p>
+        <button onclick="toggleDetails(event, 'background')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-background" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="background" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">The initiative started in 2023 with pilot programs involving 1,200 farms across three districts. By 2024, it expanded to over 5,000 farms in six states.</p>
+          <p class="text-gray-700 mt-2">Farmers received training on interpreting sensor data via mobile apps and making informed irrigation and harvest decisions.</p>
+          <p class="text-gray-700 mt-2">The government provided subsidies for sensor installation and connectivity tools to ensure accessibility for low-income farmers.</p>
+          <p class="text-gray-700 mt-2">Graph below shows adoption growth year-over-year:</p>
+            <!-- IoT Adoption Growth Chart using Chart.js -->
+            <div class="flex flex-col md:flex-row gap-6">
+              <div class="flex-1">
+              <canvas id="adoptionGrowthChart" width="900" height="450" class="graph-placeholder bg-white"></canvas>
+              </div>
+              <div class="flex-1"></div>
+              <canvas id="adoptionByStateChart" width="900" height="450" class="graph-placeholder bg-white"></canvas>
+              </div>
+            </div>
+            <div class="flex gap-4 mt-4">
+              <button id="showGrowthChart" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow font-semibold">Adoption Growth</button>
+              <button id="showStateChart" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow font-semibold">Adoption by State</button>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+              // Adoption Growth Chart
+              const ctxGrowth = document.getElementById('adoptionGrowthChart').getContext('2d');
+              const adoptionGrowthChart = new Chart(ctxGrowth, {
+              type: 'line',
+              data: {
+                labels: ['2022', '2023', '2024'],
+                datasets: [{
+                label: 'Number of Farms with IoT',
+                data: [1200, 3200, 5000],
+                backgroundColor: 'rgba(34,197,94,0.2)',
+                borderColor: 'rgba(34,197,94,1)',
+                borderWidth: 3,
+                pointBackgroundColor: 'rgba(34,197,94,1)',
+                pointRadius: 8,
+                fill: true,
+                tension: 0.4
+                }]
+              },
+              options: {
+                responsive: false,
+                plugins: {
+                legend: { display: false },
+                title: {
+                  display: true,
+                  text: 'IoT Adoption Growth (2022–2024)',
+                  color: '#15803d',
+                  font: { size: 22 }
+                }
+                },
+                scales: {
+                x: {
+                  title: { display: true, text: 'Year', color: '#334155', font: { size: 18 } },
+                  ticks: { color: '#334155', font: { size: 16 } }
+                },
+                y: {
+                  title: { display: true, text: 'Number of Farms', color: '#334155', font: { size: 18 } },
+                  beginAtZero: true,
+                  ticks: { color: '#334155', stepSize: 1000, font: { size: 16 } }
+                }
+                }
+              }
+              });
+
+              // Adoption by State Chart
+              const ctxState = document.getElementById('adoptionByStateChart').getContext('2d');
+              const adoptionByStateChart = new Chart(ctxState, {
+              type: 'bar',
+              data: {
+                labels: ['Gujarat', 'Maharashtra', 'Punjab', 'Tamil Nadu', 'Karnataka', 'Rajasthan'],
+                datasets: [{
+                label: 'Farms with IoT (2024)',
+                data: [1500, 1200, 900, 800, 700, 900],
+                backgroundColor: [
+                  'rgba(34,197,94,0.7)',
+                  'rgba(16,185,129,0.7)',
+                  'rgba(59,130,246,0.7)',
+                  'rgba(251,191,36,0.7)',
+                  'rgba(239,68,68,0.7)',
+                  'rgba(168,85,247,0.7)'
+                ],
+                borderColor: [
+                  'rgba(34,197,94,1)',
+                  'rgba(16,185,129,1)',
+                  'rgba(59,130,246,1)',
+                  'rgba(251,191,36,1)',
+                  'rgba(239,68,68,1)',
+                  'rgba(168,85,247,1)'
+                ],
+                borderWidth: 2
+                }]
+              },
+              options: {
+                responsive: false,
+                plugins: {
+                legend: { display: false },
+                title: {
+                  display: true,
+                  text: 'IoT Adoption by State (2024)',
+                  color: '#15803d',
+                  font: { size: 22 }
+                }
+                },
+                scales: {
+                x: {
+                  title: { display: true, text: 'State', color: '#334155', font: { size: 18 } },
+                  ticks: { color: '#334155', font: { size: 16 } }
+                },
+                y: {
+                  title: { display: true, text: 'Number of Farms', color: '#334155', font: { size: 18 } },
+                  beginAtZero: true,
+                  ticks: { color: '#334155', stepSize: 200, font: { size: 16 } }
+                }
+                }
+              }
+              });
+
+              // Show/hide charts
+              const growthChartCanvas = document.getElementById('adoptionGrowthChart');
+              const stateChartCanvas = document.getElementById('adoptionByStateChart');
+              const showGrowthBtn = document.getElementById('showGrowthChart');
+              const showStateBtn = document.getElementById('showStateChart');
+
+              function showGrowthChart() {
+              growthChartCanvas.parentElement.style.display = 'block';
+              stateChartCanvas.parentElement.style.display = 'none';
+              showGrowthBtn.classList.add('bg-green-700');
+              showGrowthBtn.classList.remove('bg-green-600');
+              showStateBtn.classList.remove('bg-green-700');
+              showStateBtn.classList.add('bg-green-600');
+              }
+              function showStateChart() {
+              growthChartCanvas.parentElement.style.display = 'none';
+              stateChartCanvas.parentElement.style.display = 'block';
+              showStateBtn.classList.add('bg-green-700');
+              showStateBtn.classList.remove('bg-green-600');
+              showGrowthBtn.classList.remove('bg-green-700');
+              showGrowthBtn.classList.add('bg-green-600');
+              }
+              // Initial state: show growth chart, hide state chart
+              showGrowthChart();
+              showGrowthBtn.addEventListener('click', showGrowthChart);
+              showStateBtn.addEventListener('click', showStateChart);
+            </script>
+        </div>
+      </div>
+
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow mt-6">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Technology Used</h4>
+        <p class="text-gray-600 mb-4">Farmers deployed soil sensors, weather stations, and automated drip irrigation systems connected to cloud-based platforms.</p>
+        <button onclick="toggleDetails(event, 'technology')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-technology" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="technology" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Each farm installed wireless soil sensors that monitored moisture, temperature, and nutrient levels in real-time.</p>
+          <p class="text-gray-700 mt-2">Data was sent to a central dashboard accessible via smartphones or web browsers — allowing farmers to monitor field conditions remotely.</p>
+          <p class="text-gray-700 mt-2">AI-powered alerts were also implemented to warn about extreme weather, pest outbreaks, and optimal harvest times.</p>
+          <p class="text-gray-700 mt-2">Graph below shows reduction in water usage after implementation:</p>
+            <!-- Water Usage Reduction Bar Chart using Chart.js -->
+            <canvas id="waterUsageBarChart" width="600" height="300" class="graph-placeholder bg-white mb-6"></canvas>
+            <script>
+            const ctxWaterBar = document.getElementById('waterUsageBarChart').getContext('2d');
+            new Chart(ctxWaterBar, {
+              type: 'bar',
+              data: {
+              labels: ['Before IoT', 'After IoT'],
+              datasets: [{
+                label: 'Water Usage (liters/acre)',
+                data: [4000, 2400],
+                backgroundColor: [
+                'rgba(239,68,68,0.7)',
+                'rgba(34,197,94,0.7)'
+                ],
+                borderColor: [
+                'rgba(239,68,68,1)',
+                'rgba(34,197,94,1)'
+                ],
+                borderWidth: 2
+              }]
+              },
+              options: {
+              responsive: false,
+              plugins: {
+                legend: { display: false },
+                title: {
+                display: true,
+                text: 'Water Usage Reduction (Bar Chart)',
+                color: '#15803d',
+                font: { size: 20 }
+                }
+              },
+              scales: {
+                x: {
+                title: { display: true, text: 'Period', color: '#334155', font: { size: 16 } },
+                ticks: { color: '#334155', font: { size: 14 } }
+                },
+                y: {
+                title: { display: true, text: 'Water Usage (liters/acre)', color: '#334155', font: { size: 16 } },
+                beginAtZero: true,
+                ticks: { color: '#334155', stepSize: 500, font: { size: 14 } }
+                }
+              }
+              }
+            });
+            </script>
+
+            <!-- Water Usage Reduction Line Chart using Chart.js -->
+            <canvas id="waterUsageLineChart" width="600" height="300" class="graph-placeholder bg-white"></canvas>
+            <script>
+            const ctxWaterLine = document.getElementById('waterUsageLineChart').getContext('2d');
+            new Chart(ctxWaterLine, {
+              type: 'line',
+              data: {
+              labels: ['Before IoT', 'After IoT'],
+              datasets: [{
+                label: 'Water Usage (liters/acre)',
+                data: [4000, 2400],
+                borderColor: 'rgba(34,197,94,1)',
+                backgroundColor: 'rgba(34,197,94,0.1)',
+                borderWidth: 3,
+                tension: 0.4,
+                fill: false,
+                pointBackgroundColor: 'rgba(34,197,94,1)',
+                pointRadius: 7
+              }]
+              },
+              options: {
+              responsive: false,
+              plugins: {
+                legend: { display: false },
+                title: {
+                display: true,
+                text: 'Water Usage Reduction (Line Chart)',
+                color: '#15803d',
+                font: { size: 20 }
+                }
+              },
+              scales: {
+                x: {
+                title: { display: true, text: 'Period', color: '#334155', font: { size: 16 } },
+                ticks: { color: '#334155', font: { size: 14 } }
+                },
+                y: {
+                title: { display: true, text: 'Water Usage (liters/acre)', color: '#334155', font: { size: 16 } },
+                beginAtZero: true,
+                ticks: { color: '#334155', stepSize: 500, font: { size: 14 } }
+                }
+              }
+              }
+            });
+            </script>
+        </div>
+      </div>
+
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow mt-6">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Impact on Farmer Income</h4>
+        <p class="text-gray-600 mb-4">With optimized inputs and better yield, participating farmers reported an average income boost of 25–30% within one growing season.</p>
+        <button onclick="toggleDetails(event, 'income')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-income" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="income" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">By reducing input costs and improving quality, farmers could sell their produce at premium rates to organic markets and export buyers.</p>
+          <p class="text-gray-700 mt-2">The ability to prove sustainable practices using sensor data helped them qualify for fair-trade certification and direct contracts with urban retailers.</p>
+          <p class="text-gray-700 mt-2">Graph below shows average income increase before and after IoT adoption:</p>
+          <canvas id="incomeIncreaseChart" width="600" height="300" class="graph-placeholder bg-white mb-6"></canvas>
+          <script>
+            const ctxIncome = document.getElementById('incomeIncreaseChart').getContext('2d');
+            new Chart(ctxIncome, {
+              type: 'bar',
+              data: {
+                labels: ['Before IoT', 'After IoT'],
+                datasets: [{
+                  label: 'Average Farmer Income (INR/season)',
+                  data: [48000, 62000],
+                  backgroundColor: [
+                    'rgba(251,191,36,0.7)',
+                    'rgba(34,197,94,0.7)'
+                  ],
+                  borderColor: [
+                    'rgba(251,191,36,1)',
+                    'rgba(34,197,94,1)'
+                  ],
+                  borderWidth: 2
+                }]
+              },
+              options: {
+                responsive: false,
+                plugins: {
+                  legend: { display: false },
+                  title: {
+                    display: true,
+                    text: 'Average Farmer Income Before and After IoT Adoption',
+                    color: '#15803d',
+                    font: { size: 20 }
+                  }
+                },
+                scales: {
+                  x: {
+                    title: { display: true, text: 'Period', color: '#334155', font: { size: 16 } },
+                    ticks: { color: '#334155', font: { size: 14 } }
+                  },
+                  y: {
+                    title: { display: true, text: 'Income (INR/season)', color: '#334155', font: { size: 16 } },
+                    beginAtZero: true,
+                    ticks: { color: '#334155', stepSize: 5000, font: { size: 14 } }
+                  }
+                }
+              }
+            });
+          </script>
+        </div>
+      </div>
+
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow mt-6">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Farmer Training & Support</h4>
+        <p class="text-gray-600 mb-4">Digital literacy and technical support played a key role in successful IoT integration.</p>
+        <button onclick="toggleDetails(event, 'training')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-training" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="training" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">A major challenge in implementing IoT tools was ensuring farmers could interpret and act on the data effectively.</p>
+          <p class="text-gray-700 mt-2">To address this, extension officers conducted workshops and created localized app interfaces in Hindi, Marathi, and Gujarati.</p>
+          <p class="text-gray-700 mt-2">WhatsApp-based advisory services were introduced to provide quick troubleshooting and agronomic advice directly to farmers' phones.</p>
+          <p class="text-gray-700 mt-2">Graph below shows improvement in digital literacy among farmers over time:</p>
+            <canvas id="digitalLiteracyPieChart" width="900" height="450" class="graph-placeholder bg-white mb-6"></canvas>
+            <script>
+            const ctxPie = document.getElementById('digitalLiteracyPieChart').getContext('2d');
+            new Chart(ctxPie, {
+              type: 'pie',
+              data: {
+              labels: ['Basic', 'Intermediate', 'Advanced'],
+              datasets: [{
+                label: 'Digital Literacy Levels (2024)',
+                data: [40, 45, 15],
+                backgroundColor: [
+                'rgba(34,197,94,0.7)',
+                'rgba(251,191,36,0.7)',
+                'rgba(59,130,246,0.7)'
+                ],
+                borderColor: [
+                'rgba(34,197,94,1)',
+                'rgba(251,191,36,1)',
+                'rgba(59,130,246,1)'
+                ],
+                borderWidth: 2
+              }]
+              },
+              options: {
+              responsive: false,
+              plugins: {
+                legend: { display: true, position: 'bottom' },
+                title: {
+                display: true,
+                text: 'Digital Literacy Levels Among Farmers (2024)',
+                color: '#15803d',
+                font: { size: 24 }
+                }
+              }
+              }
+            });
+            </script>
+        </div>
+      </div>
+
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow mt-6">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Future Expansion Plans</h4>
+        <p class="text-gray-600 mb-4">Success has led to plans for national expansion and integration with AI-driven analytics.</p>
+        <button onclick="toggleDetails(event, 'future')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-future" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="future" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">The Ministry of Agriculture plans to scale the IoT program to over 50,000 farms nationwide by 2026.</p>
+          <p class="text-gray-700 mt-2">Integration with AI and satellite data will allow for predictive analytics and more accurate yield forecasting.</p>
+          <p class="text-gray-700 mt-2">Partnerships are forming with Microsoft FarmBeats and IBM Weather for Agriculture to enhance climate resilience.</p>
+          <p class="text-gray-700 mt-2">Graph below shows projected adoption growth by state:</p>
+          <canvas id="projectedAdoptionChart" width="900" height="450" class="graph-placeholder bg-white mb-6"></canvas>
+          <script>
+            const ctxProjected = document.getElementById('projectedAdoptionChart').getContext('2d');
+            new Chart(ctxProjected, {
+              type: 'line',
+              data: {
+                labels: ['2024', '2025', '2026'],
+                datasets: [
+                  {
+                    label: 'Gujarat',
+                    data: [1500, 6000, 12000],
+                    borderColor: 'rgba(34,197,94,1)',
+                    backgroundColor: 'rgba(34,197,94,0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: false,
+                    pointBackgroundColor: 'rgba(34,197,94,1)',
+                    pointRadius: 7
+                  },
+                  {
+                    label: 'Maharashtra',
+                    data: [1200, 5000, 10000],
+                    borderColor: 'rgba(16,185,129,1)',
+                    backgroundColor: 'rgba(16,185,129,0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: false,
+                    pointBackgroundColor: 'rgba(16,185,129,1)',
+                    pointRadius: 7
+                  },
+                  {
+                    label: 'Punjab',
+                    data: [900, 4000, 8000],
+                    borderColor: 'rgba(59,130,246,1)',
+                    backgroundColor: 'rgba(59,130,246,0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: false,
+                    pointBackgroundColor: 'rgba(59,130,246,1)',
+                    pointRadius: 7
+                  },
+                  {
+                    label: 'Tamil Nadu',
+                    data: [800, 3500, 7000],
+                    borderColor: 'rgba(251,191,36,1)',
+                    backgroundColor: 'rgba(251,191,36,0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: false,
+                    pointBackgroundColor: 'rgba(251,191,36,1)',
+                    pointRadius: 7
+                  },
+                  {
+                    label: 'Karnataka',
+                    data: [700, 3000, 6000],
+                    borderColor: 'rgba(239,68,68,1)',
+                    backgroundColor: 'rgba(239,68,68,0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: false,
+                    pointBackgroundColor: 'rgba(239,68,68,1)',
+                    pointRadius: 7
+                  },
+                  {
+                    label: 'Rajasthan',
+                    data: [900, 3500, 7000],
+                    borderColor: 'rgba(168,85,247,1)',
+                    backgroundColor: 'rgba(168,85,247,0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: false,
+                    pointBackgroundColor: 'rgba(168,85,247,1)',
+                    pointRadius: 7
+                  }
+                ]
+              },
+              options: {
+                responsive: false,
+                plugins: {
+                  legend: { display: true, position: 'bottom' },
+                  title: {
+                    display: true,
+                    text: 'Projected IoT Adoption Growth by State (2024–2026)',
+                    color: '#15803d',
+                    font: { size: 22 }
+                  }
+                },
+                scales: {
+                  x: {
+                    title: { display: true, text: 'Year', color: '#334155', font: { size: 18 } },
+                    ticks: { color: '#334155', font: { size: 16 } }
+                  },
+                  y: {
+                    title: { display: true, text: 'Number of Farms', color: '#334155', font: { size: 18 } },
+                    beginAtZero: true,
+                    ticks: { color: '#334155', stepSize: 2000, font: { size: 16 } }
+                  }
+                }
+              }
+            });
+          </script>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Institutions Involved -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Institutions Involved</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li><strong>NARO – National Agricultural Research Organization:</strong> Led the pilot and rollout of IoT systems in selected regions.</li>
+        <li><strong>AgNext:</strong> Provided blockchain-backed traceability and sensor data management platform.</li>
+        <li><strong>Cropster:</strong> Integrated with farm planning tools to improve logistics and buyer connections.</li>
+        <li><strong>World Bank:</strong> Funded part of the project under its Climate-Smart Agriculture Initiative.</li>
+        <li><strong>Microsoft FarmBeats:</strong> Supported data analysis and AI integration into farm decision-making.</li>
+      </ul>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Start Adopting IoT Tools in Your Farm Today</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">Whether you're managing a small plot or large operation, IoT can help you make smarter decisions and increase profitability while conserving resources.</p>
+      <a href="../index.html#resources" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition-colors">Explore More Resources</a> 
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li>
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Expandable Sections -->
+  <script>
+    function toggleDetails(e, id) {
+      e.preventDefault();
+      const section = document.getElementById(id);
+      const arrow = document.getElementById("arrow-" + id);
+      const isVisible = !section.classList.contains("hidden");
+
+      if (isVisible) {
+        section.classList.add("hidden");
+        arrow.style.transform = "rotate(0deg)";
+      } else {
+        section.classList.remove("hidden");
+        arrow.style.transform = "rotate(90deg)";
+      }
+    }
+  </script>
+
+  <!-- JavaScript for Auto Theme Detection -->
+  <script>
+    const body = document.getElementById("body");
+    const themeToggle = document.getElementById("themeToggle");
+
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDarkMode) {
+      body.classList.add("dark");
+      themeToggle.textContent = "Light Mode";
+    } else {
+      body.classList.remove("dark");
+      themeToggle.textContent = "Dark Mode";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      themeToggle.textContent = body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
+    });
+  </script>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

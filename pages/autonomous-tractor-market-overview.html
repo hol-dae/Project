@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Autonomous Tractor Market Overview</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/home.theme-light.png" type="image/x-icon">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#about" class="capitalize hover:text-green-200 transition-colors">About</a>
+      </nav>
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#about" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About Us</a>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="relative bg-gradient-to-r from-yellow-600 to-green-700 text-white py-16">
+    <div class="absolute inset-0 bg-black opacity-20"></div>
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Autonomous Tractor Market Overview</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto">Explore how self-driving farm equipment is revolutionizing large-scale agriculture through automation and precision farming.</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">The Rise of Autonomous Farming Equipment</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        Autonomous tractors are transforming modern agriculture by reducing labor dependency, increasing efficiency, and enabling precision farming.
+        These machines use GPS, AI, and IoT sensors to navigate fields, till soil, plant seeds, and apply fertilizers with minimal human intervention.
+      </p>
+      <img src="https://media.istockphoto.com/id/1407513934/photo/future-proofing-the-land.webp?a=1&b=1&s=612x612&w=0&k=20&c=lQO1e49k7Qt06x8uFvFP27J3sl-_ePXsVf8tj7Vi1fc=" alt="Farmer Using Autonomous Tractor" class="w-full rounded-lg shadow-md mb-6 h-80 object-cover">
+    </section>
+
+    <!-- Market Overview -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Market Growth & Trends</h3>
+      <ul class="space-y-4 list-disc list-inside text-gray-700">
+        <li><strong>Global Market Size:</strong> Valued at over $2 billion in 2024 and growing rapidly due to labor shortages and climate change pressures.</li>
+        <li><strong>Key Players:</strong> John Deere, AGCO, CNH Industrial, Kubota, and startups offering affordable AI-based tractor kits.</li>
+        <li><strong>Adoption Regions:</strong> North America leads, followed closely by Europe, China, and India.</li>
+        <li><strong>Expected CAGR:</strong> Over 15% from 2024–2030 as technology becomes more accessible.</li>
+      </ul>
+    </section>
+
+    <!-- Types of Autonomous Tractors -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Types of Autonomous Tractors Available</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Electric Small Tractors -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h4 class="text-lg font-semibold text-gray-800 mb-2">Electric Small Tractors</h4>
+          <p class="text-gray-600 mb-4">Ideal for small farms and orchards. Quiet, eco-friendly, and easy to maintain.</p>
+          <button onclick="toggleDetails('electric')" class="text-green-600 hover:text-green-800 font-medium hover:underline inline-flex items-center focus:outline-none">
+            Learn More
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 transform transition-transform" id="arrow-electric" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 011.414 0L10 16.414l1.293-1.707a1 1 0 011.414 1.414l-2 2.5a1 1 0 01-1.414 0l-2-2.5a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="electric" class="mt-2 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">
+              Electric autonomous tractors are powered by solar or battery systems. They're ideal for precision tasks like seeding, weeding, and spraying in confined spaces.
+            </p>
+          </div>
+        </div>
+
+        <!-- GPS Guided Tractors -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h4 class="text-lg font-semibold text-gray-800 mb-2">GPS-Guided Tractors</h4>
+          <p class="text-gray-600 mb-4">Use satellite navigation for accurate row alignment and field coverage without overlap.</p>
+          <button onclick="toggleDetails('gps')" class="text-green-600 hover:text-green-800 font-medium hover:underline inline-flex items-center focus:outline-none">
+            Learn More
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 transform transition-transform" id="arrow-gps" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 011.414 0L10 16.414l1.293-1.707a1 1 0 011.414 1.414l-2 2.5a1 1 0 01-1.414 0l-2-2.5a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="gps" class="mt-2 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">
+              These tractors rely on RTK GPS systems for centimeter-level accuracy. Used extensively in corn and wheat fields to reduce fuel and fertilizer waste.
+            </p>
+          </div>
+        </div>
+
+        <!-- Swarm Robotics -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h4 class="text-lg font-semibold text-gray-800 mb-2">Swarm-Based Mini Tractors</h4>
+          <p class="text-gray-600 mb-4">Small robot tractors working together for distributed farming tasks like planting and weeding.</p>
+          <button onclick="toggleDetails('swarm')" class="text-green-600 hover:text-green-800 font-medium hover:underline inline-flex items-center focus:outline-none">
+            Learn More
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 transform transition-transform" id="arrow-swarm" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 011.414 0L10 16.414l1.293-1.707a1 1 0 011.414 1.414l-2 2.5a1 1 0 01-1.414 0l-2-2.5a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="swarm" class="mt-2 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">
+              Swarm robotics involves fleets of small autonomous robots performing tasks like weeding, planting, and harvesting in coordination — ideal for organic and low-till farms.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Benefits of Autonomous Tractors -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Benefits of Using Autonomous Tractors</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white border-l-4 border-green-600 p-6 rounded shadow-inner">
+          <h4 class="font-semibold text-lg mb-2">Labor Shortage Solution</h4>
+          <p class="text-gray-700">Automated operations reduce reliance on seasonal labor and improve productivity during peak seasons.</p>
+        </div>
+        <div class="bg-white border-l-4 border-green-600 p-6 rounded shadow-inner">
+          <h4 class="font-semibold text-lg mb-2">Precision Farming</h4>
+          <p class="text-gray-700">Tractors can follow precise paths, reducing overlap and saving up to 20% in inputs like seed and fertilizer.</p>
+        </div>
+        <div class="bg-white border-l-4 border-green-600 p-6 rounded shadow-inner">
+          <h4 class="font-semibold text-lg mb-2">Data Integration</h4>
+          <p class="text-gray-700">Connects with farm management platforms to collect real-time data on soil health and crop conditions.</p>
+        </div>
+        <div class="bg-white border-l-4 border-green-600 p-6 rounded shadow-inner">
+          <h4 class="font-semibold text-lg mb-2">Reduced Fatigue</h4>
+          <p class="text-gray-700">Farmers can monitor operations remotely, allowing better work-life balance and safety.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">How Autonomous Tractors Work</h3>
+      <ol class="list-decimal list-inside text-gray-700 space-y-4">
+        <li><strong>Sensors & GPS:</strong> Use LiDAR, cameras, and GPS to map the field and avoid obstacles.</li>
+        <li><strong>Path Planning:</strong> Pre-programmed routes ensure efficient plowing, sowing, and harvesting cycles.</li>
+        <li><strong>Remote Monitoring:</strong> Farmers track tractor performance via mobile apps and dashboards.</li>
+        <li><strong>Machine Learning:</strong> Some models learn from field data to improve performance over time.</li>
+      </ol>
+    </section>
+
+    <!-- Case Study Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Real-Life Application: Autonomous Tractors in Iowa Farms</h3>
+      <div class="flex flex-col md:flex-row gap-6 items-center">
+        <img src="https://media.istockphoto.com/id/1154958041/photo/taking-care-of-the-crop-aerial-view-of-a-tractor-fertilizing-a-cultivated-agricultural-field.webp?a=1&b=1&s=612x612&w=0&k=20&c=2pRgEudzIhbHqSf1Is8oGMP59QWIaTF7QW5T-HBvqlc=" alt="Autonomous Tractor in Action" class="w-full md:w-1/2 rounded-lg shadow-md h-80 object-cover">
+        <div>
+          <p class="text-gray-700 mb-4">
+            In Iowa, large soybean farms have adopted autonomous tractor fleets for 24/7 operation during critical planting and harvesting windows.
+          </p>
+          <p class="text-gray-700 mb-4">
+            By using autonomous equipment, farmers increased yield by 10% while cutting fuel usage by 15% due to optimized route planning.
+          </p>
+          <p class="text-gray-700">
+            This trend is now spreading to smaller farms through rental and shared-use programs.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Market Comparison Table -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Traditional vs. Autonomous Tractors</h3>
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-sm">
+          <thead class="bg-green-100">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-green-800 uppercase tracking-wider">Feature</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-green-800 uppercase tracking-wider">Traditional Tractors</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-green-800 uppercase tracking-wider">Autonomous Tractors</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Labor Required</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600">High</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">Low</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Operational Hours</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Limited by human fatigue</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">Can operate day and night</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Fuel Efficiency</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Standard</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">Optimized path reduces waste</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Cost</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Lower upfront cost</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">Higher initial investment</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Scalability</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Manual adjustments needed</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">Fully programmable and scalable</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Challenges and Solutions -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Challenges & Solutions</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded shadow-inner">
+          <h4 class="font-semibold text-red-700">Common Challenges</h4>
+          <ul class="mt-2 list-disc list-inside text-gray-700 space-y-1">
+            <li>High initial costs</li>
+            <li>Limited technical expertise</li>
+            <li>Poor connectivity in rural areas</li>
+          </ul>
+        </div>
+        <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded shadow-inner">
+          <h4 class="font-semibold text-green-700">Practical Solutions</h4>
+          <ul class="mt-2 list-disc list-inside text-gray-700 space-y-1">
+            <li>Leasing and pay-per-use models</li>
+            <li>Farm tech training programs</li>
+            <li>Partnerships with telecom companies for better connectivity</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tools & Platforms -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Leading Autonomous Tractor Brands</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- John Deere -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h4 class="text-lg font-semibold text-gray-800 mb-2">John Deere Autonomous Tractor</h4>
+          <p class="text-gray-600 mb-4">Uses advanced AI and GPS to automate plowing, planting, and harvesting operations across large farms.</p>
+          <button onclick="toggleDetails('deere')" class="text-green-600 hover:text-green-800 font-medium hover:underline inline-flex items-center focus:outline-none">
+            Learn More
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 transform transition-transform" id="arrow-deere" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 011.414 0L10 16.414l1.293-1.707a1 1 0 011.414 1.414l-2 2.5a1 1 0 01-1.414 0l-2-2.5a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="deere" class="mt-2 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">John Deere’s fully autonomous tractor uses AI vision and GPS to navigate complex terrain and optimize field operations.</p>
+          </div>
+        </div>
+
+        <!-- Fendt Xaver -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h4 class="text-lg font-semibold text-gray-800 mb-2">AGCO Fendt Xaver System</h4>
+          <p class="text-gray-600 mb-4">Modular autonomous tractor system designed for smart farming and swarm robotics integration.</p>
+          <button onclick="toggleDetails('fendt')" class="text-green-600 hover:text-green-800 font-medium hover:underline inline-flex items-center focus:outline-none">
+            Learn More
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 transform transition-transform" id="arrow-fendt" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 011.414 0L10 16.414l1.293-1.707a1 1 0 011.414 1.414l-2 2.5a1 1 0 01-1.414 0l-2-2.5a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="fendt" class="mt-2 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">The Fendt Xaver system works with drones and mini-tractors to coordinate planting and monitoring across large fields.</p>
+          </div>
+        </div>
+
+        <!-- Small Ag-Bots -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h4 class="text-lg font-semibold text-gray-800 mb-2">SwarmFarm Robotics</h4>
+          <p class="text-gray-600 mb-4">Designed for small and mid-sized farms, these compact bots perform tasks like weeding and spraying autonomously.</p>
+          <button onclick="toggleDetails('farmbot')" class="text-green-600 hover:text-green-800 font-medium hover:underline inline-flex items-center focus:outline-none">
+            Learn More
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 transform transition-transform" id="arrow-farmbot" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 011.414 0L10 16.414l1.293-1.707a1 1 0 011.414 1.414l-2 2.5a1 1 0 01-1.414 0l-2-2.5a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="farmbot" class="mt-2 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">SwarmFarm’s robotic ag-bots allow decentralized, low-cost automation for organic and regenerative farming practices.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- How to Get Started -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">How Farmers Can Start Adopting Autonomous Tractors</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white p-6 border border-green-200 rounded-lg shadow-sm">
+          <h4 class="font-semibold text-lg mb-2">Assess Needs</h4>
+          <p class="text-gray-700">Understand which tasks can be automated and what size machine you need.</p>
+        </div>
+        <div class="bg-white p-6 border border-green-200 rounded-lg shadow-sm">
+          <h4 class="font-semibold text-lg mb-2">Explore Financing</h4>
+          <p class="text-gray-700">Look into government subsidies or leasing options for easier adoption.</p>
+        </div>
+        <div class="bg-white p-6 border border-green-200 rounded-lg shadow-sm">
+          <h4 class="font-semibold text-lg mb-2">Get Training</h4>
+          <p class="text-gray-700">Many manufacturers offer training sessions for setup, maintenance, and remote operation.</p>
+        </div>
+        <div class="bg-white p-6 border border-green-200 rounded-lg shadow-sm">
+          <h4 class="font-semibold text-lg mb-2">Monitor Performance</h4>
+          <p class="text-gray-700">Use dashboards and reports to assess efficiency and return on investment.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Start Exploring Autonomous Farming Tools Today</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">
+        Whether you're managing a small plot or large commercial farm, autonomous tractors can help boost efficiency and reduce operational stress.
+      </p>
+      <a href="../index.html#resources" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition-colors">Explore More Resources</a> 
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li>
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News & Articles</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+
+  <!-- JavaScript for Expandable Sections -->
+  <script>
+    function toggleDetails(id) {
+      const section = document.getElementById(id);
+      const arrow = document.getElementById(`arrow-${id}`);
+      const isVisible = !section.classList.contains('hidden');
+
+      if (isVisible) {
+        section.classList.add('hidden');
+        arrow.style.transform = 'rotate(0deg)';
+      } else {
+        section.classList.remove('hidden');
+        arrow.style.transform = 'rotate(90deg)';
+      }
+    }
+  </script>
+</body>
+</html>

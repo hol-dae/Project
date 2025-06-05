@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Soil Health Monitoring App</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/soil.png" type="image/x-icon">
+
+  <!-- CSS for Animations -->
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .transition-max-h {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .transition-max-h.expanded {
+      max-height: 500px;
+      overflow: visible;
+    }
+
+    .rotate-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .rotate-icon.open {
+      transform: rotate(90deg);
+    }
+
+    .slideshow-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow-img.active {
+      opacity: 1;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans" id="body">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#about" class="capitalize hover:text-green-200 transition-colors">About</a>
+      </nav>
+
+      <!-- Theme Toggle -->
+      <button id="themeToggle" class="ml-4 bg-green-600 hover:bg-green-500 px-3 py-1 rounded-full text-sm">Dark Mode</button>
+
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#about" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About Us</a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Slideshow -->
+  <section class="relative bg-gradient-to-r from-green-600 to-teal-500 text-white py-16 min-h-[80vh] flex items-center">
+    <div class="absolute inset-0 z-0">
+      <img src="https://media.istockphoto.com/id/1413842071/photo/hand-holding-a-young-plant-with-environment-icons-over-the-network-connection-on-a-green.webp?a=1&b=1&s=612x612&w=0&k=20&c=agIlW-hC-wF2Mo2_X8jlYUeFPM_eVNWv9gQVOgIYuhU=" alt="Slide 1" class="slideshow-img active" />
+      <img src="https://media.istockphoto.com/id/1360520451/photo/top-view-of-soil-in-hands-for-check-the-quality-of-the-soil-for-control-soil-quality-before.webp?a=1&b=1&s=612x612&w=0&k=20&c=TQzwUj4FkIikldE5Zl2RdVHP9ki0HeTDbh-nBlSg5FI=" alt="Slide 2" class="slideshow-img" />
+      <img src="https://media.istockphoto.com/id/1300746302/photo/agriculture-and-technology-agritech-environment-communication-network.webp?a=1&b=1&s=612x612&w=0&k=20&c=dOYCvXIUogwJLAtX8BjQV_P0aS2onpwgAAAAwzAkZgQ=" alt="Slide 3" class="slideshow-img" />
+      <img src="https://plus.unsplash.com/premium_photo-1683133591246-588a6b680d74?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZmFybWluZyUyMGFwcHxlbnwwfDB8MHx8fDA%3D" alt="Slide 4" class="slideshow-img" />
+      <img src="https://media.istockphoto.com/id/1620079913/photo/measurement-of-soil-density.webp?a=1&b=1&s=612x612&w=0&k=20&c=4kZ4fRRMyOw50020gGqUg7yIg8B1h3PLbRE7Sfjp1n8=" alt="Slide 5" class="slideshow-img" />
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Soil Health Monitoring App</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-6">Explore mobile and web-based tools that help farmers analyze soil nutrients, moisture, pH, and organic matter to improve crop yield and sustainability.</p>
+      <a href="#appList" class="inline-block bg-white text-green-700 px-6 py-3 rounded-full font-semibold hover:bg-green-50 transition-colors shadow-md">Explore Soil Apps</a> 
+    </div>
+  </section>
+
+  <!-- Slideshow JS Animation -->
+  <script>
+    const slides = document.querySelectorAll('.slideshow-img');
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 6000); // Change every 6 seconds
+  </script>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">What Is a Soil Health Monitoring App?</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        A soil health monitoring app helps farmers collect and interpret real-time data about their soil’s condition — including moisture levels, nutrient content, pH, and microbial activity.
+        These apps often integrate with IoT sensors or allow manual input, giving users actionable insights into fertilizer use, irrigation planning, and sustainable farming practices.
+      </p>
+    </section>
+
+    <!-- Benefits of Soil Monitoring Apps -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Key Benefits</h3>
+      <ul class="space-y-2 list-disc list-inside text-gray-700">
+        <li><strong>Real-Time Data:</strong> Get instant updates on soil conditions directly from field sensors.</li>
+        <li><strong>Improved Fertilizer Use:</strong> Optimize nutrient application and reduce chemical waste.</li>
+        <li><strong>Water Conservation:</strong> Guide irrigation schedules to avoid overwatering or drought stress.</li>
+        <li><strong>Better Crop Yields:</strong> Make informed decisions to maximize productivity and soil fertility.</li>
+        <li><strong>Remote Access:</strong> Monitor farms from anywhere via smartphone or tablet.</li>
+        <li><strong>Sustainability Insights:</strong> Track carbon sequestration, soil erosion, and regenerative impact.</li>
+      </ul>
+    </section>
+
+    <!-- Featured Soil Apps Grid -->
+    <section id="appList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+
+      <!-- App 1 - AgNext SoilSense -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=AgNext+SoilSense" alt="AgNext SoilSense" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">AgNext SoilSense</h4>
+        <p class="text-gray-600 mb-4">Tracks soil nutrients, moisture, and microbial activity across smallholder farms in Africa and India.</p>
+        <button onclick="toggleDetails(event, 'agnext')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-agnext" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="agnext" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">AgNext SoilSense integrates with handheld sensors and provides AI-driven recommendations for organic matter balance, nitrogen deficiency, and optimal planting times. Used by cooperatives and individual farmers alike.</p>
+        </div>
+      </div>
+
+      <!-- App 2 - Soilspectra -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=Soilspectra" alt="Soilspectra" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Soilspectra</h4>
+        <p class="text-gray-600 mb-4">A cloud-based platform offering soil spectroscopy analysis through portable sensors and lab integration.</p>
+        <button onclick="toggleDetails(event, 'spectra')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-spectra" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="spectra" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Soilspectra uses spectral analysis to detect soil composition instantly. Farmers upload sensor readings and get detailed reports on macronutrient levels, compaction zones, and microbial diversity.</p>
+        </div>
+      </div>
+
+      <!-- App 3 - FarmWebb Soil Module -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=FarmWebb+Soil+Module" alt="FarmWebb Soil Module" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">FarmWebb Soil Module</h4>
+        <p class="text-gray-600 mb-4">Part of the FarmWebb suite, this tool tracks soil health over time and generates improvement plans.</p>
+        <button onclick="toggleDetails(event, 'farmwebb')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-farmwebb" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="farmwebb" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">FarmWebb’s soil module allows farmers to log sensor data, track trends, and generate alerts when key parameters fall below optimal levels. Great for livestock and mixed-use farms.</p>
+        </div>
+      </div>
+
+      <!-- App 4 - SoilCares -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=SoilCares" alt="SoilCares" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">SoilCares</h4>
+        <p class="text-gray-600 mb-4">Used by African and Asian farmers, SoilCares offers lab-grade soil diagnostics via mobile app and local partners.</p>
+        <button onclick="toggleDetails(event, 'soilcares')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-soilcares" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="soilcares" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Farmers can submit soil samples via local labs and receive full diagnostic reports within 48 hours. Includes fertilizer recommendations and composting guides tailored to local conditions.</p>
+        </div>
+      </div>
+
+      <!-- App 5 - Teralytic -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=Teralytic" alt="Teralytic" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Teralytic</h4>
+        <p class="text-gray-600 mb-4">AI-powered soil scanner that works with drone or satellite imagery to assess soil health across large fields.</p>
+        <button onclick="toggleDetails(event, 'teralytic')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-teralytic" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="teralytic" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Teralytic analyzes satellite data to map soil health across farms without requiring physical sensors. It's ideal for remote sensing and conservation agriculture.</p>
+        </div>
+      </div>
+
+      <!-- App 6 - Hello Tractor Soil Insights -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=Hello+Tractor+Soil+Insights" alt="Hello Tractor Soil Insights" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Hello Tractor Soil Insights</h4>
+        <p class="text-gray-600 mb-4">Integrated with tractor rental services, this feature gives farmers soil reports during field operations.</p>
+        <button onclick="toggleDetails(event, 'helloTractor')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-helloTractor" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="helloTractor" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Available in Kenya, Nigeria, and India, this module delivers soil data during tractor rentals, helping farmers understand field variability and improve inputs per hectare.</p>
+        </div>
+      </div>
+
+      <!-- App 7 - SoilCove -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=SoilCove" alt="SoilCove" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">SoilCove</h4>
+        <p class="text-gray-600 mb-4">A mobile app that combines soil testing kits and AI models to offer regenerative soil health strategies.</p>
+        <button onclick="toggleDetails(event, 'soilcove')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-soilcove" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="soilcove" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">SoilCove includes a DIY soil test kit you mail back for lab analysis. The app then shows you how to restore degraded soils using composting, mulching, and biochar applications.</p>
+        </div>
+      </div>
+
+      <!-- App 8 - MySoil -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=MySoil" alt="MySoil" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">MySoil</h4>
+        <p class="text-gray-600 mb-4">Designed for small farms and backyard gardens — connects with smart sensors and offers easy-to-follow soil care tips.</p>
+        <button onclick="toggleDetails(event, 'mysoil')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-mysoil" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="mysoil" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">MySoil is available on Android and iOS, with offline access and multilingual support. Offers soil scorecards, improvement goals, and step-by-step regeneration guides.</p>
+        </div>
+      </div>
+
+      <!-- App 9 - AgriSens -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=AgriSens" alt="AgriSens" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">AgriSens</h4>
+        <p class="text-gray-600 mb-4">An app connected to wireless soil sensors, providing live updates on moisture, temperature, and nutrient levels.</p>
+        <button onclick="toggleDetails(event, 'agrisens')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-agrisens" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="agrisens" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">AgriSens supports plug-and-play soil probes and integrates with farm management systems. Used by commercial farms in Australia and Brazil to optimize precision irrigation and fertilization.</p>
+        </div>
+      </div>
+
+      <!-- App 10 - RegenAg -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=RegenAg" alt="RegenAg" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">RegenAg</h4>
+        <p class="text-gray-600 mb-4">Tailored for regenerative farms — includes soil health scoring, compost tracking, and microbial diversity indicators.</p>
+        <button onclick="toggleDetails(event, 'regenag')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-regenag" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="regenag" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">RegenAg helps farmers practicing no-till and cover cropping monitor long-term soil improvements. Provides visual dashboards and exportable data for grant applications or research.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Institutions Supporting Soil Tech -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Institutions Supporting Soil Health Technology</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li><strong>CIMMYT – Mexico:</strong> Supports digital tools for maize and wheat farmers to track soil fertility.</li>
+        <li><strong>IITA – Nigeria:</strong> Promotes soil scanning and digital record keeping for cassava and yam farms.</li>
+        <li><strong>FAO:</strong> Encourages global adoption of soil health apps for climate-smart agriculture.</li>
+        <li><strong>ICAR – India:</strong> Partners with startups to provide soil analytics and advisory via mobile platforms.</li>
+        <li><strong>World Bank:</strong> Funds soil tech projects in sub-Saharan Africa and Southeast Asia.</li>
+      </ul>
+    </section>
+
+    <!-- Case Study Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-semibold text-green-700 mb-6">Case Studies</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- Case 1 - Ugandan Smallholders -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Uganda - Digital Soil Mapping for Smallholders</h4>
+          <p class="text-gray-600 mb-4">Using soil scanning drones and AI, 5,000 Ugandan farmers received free soil health reports and customized crop rotation plans.</p>
+          <button onclick="toggleDetails(event, 'ugandaCase')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+            Read Full Case Study
+            <svg id="arrow-ugandaCase" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="ugandaCase" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">The project was funded by FAO and used low-cost soil sensors distributed to rural communities. Over 80% reported improved yields after one season.</p>
+          </div>
+        </div>
+
+        <!-- Case 2 - Brazilian Soybean Farms -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Brazil - Smart Sensors in Soybean Fields</h4>
+          <p class="text-gray-600 mb-4">Commercial soybean farms in Mato Grosso integrated soil sensors with farm management software to reduce water usage by 35% and boost yields by 20%.</p>
+          <button onclick="toggleDetails(event, 'brazilCase')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+            Read Full Case Study
+            <svg id="arrow-brazilCase" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="brazilCase" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">By combining AgriSens with drip irrigation, Brazilian soybean farms achieved higher efficiency and lower environmental impact.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Start Monitoring Your Soil Health Today</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">Whether you're managing a small plot or large operation, adopting soil health monitoring apps can protect your land and increase productivity in the long run.</p>
+      <a href="../index.html#resources" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition-colors">Explore More Resources</a> 
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li>
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News & Articles</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Expandable Sections -->
+  <script>
+    function toggleDetails(e, id) {
+      e.preventDefault();
+      const section = document.getElementById(id);
+      const arrow = document.getElementById("arrow-" + id);
+      const isVisible = !section.classList.contains("hidden");
+
+      if (isVisible) {
+        section.classList.add("hidden");
+        arrow.style.transform = "rotate(0deg)";
+      } else {
+        section.classList.remove("hidden");
+        arrow.style.transform = "rotate(90deg)";
+      }
+    }
+  </script>
+
+  <!-- JavaScript for Auto Theme Detection -->
+  <script>
+    const body = document.getElementById("body");
+    const themeToggle = document.getElementById("themeToggle");
+
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (prefersDarkMode) {
+      body.classList.add("dark");
+      themeToggle.textContent = "Light Mode";
+    } else {
+      body.classList.remove("dark");
+      themeToggle.textContent = "Dark Mode";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      themeToggle.textContent = body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
+    });
+  </script>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

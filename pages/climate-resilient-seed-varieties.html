@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Climate-Resilient Seed Varieties</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/seed.png" type="image/x-icon">
+
+  <!-- CSS for animations -->
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .transition-max-h {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .transition-max-h.expanded {
+      max-height: 500px;
+      overflow: visible;
+    }
+
+    .rotate-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .rotate-icon.open {
+      transform: rotate(90deg);
+    }
+
+    .slideshow-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow-img.active {
+      opacity: 1;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans" id="body">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#about" class="capitalize hover:text-green-200 transition-colors">About</a>
+      </nav>
+
+      <!-- Theme Toggle -->
+      <button id="themeToggle" class="ml-4 bg-green-600 hover:bg-green-500 px-3 py-1 rounded-full text-sm">Dark Mode</button>
+
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#about" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About Us</a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Slideshow -->
+  <section class="relative bg-gradient-to-r from-green-600 to-teal-500 text-white py-16 min-h-[80vh] flex items-center">
+    <div class="absolute inset-0 z-0">
+      <img src="https://media.istockphoto.com/id/979951542/photo/soybean-field-ripening-at-spring-season-stormy-day.webp?a=1&b=1&s=612x612&w=0&k=20&c=XmMkiVgK_IDEmEA7ppWc46S0w7CowP8IIHS8_aV5NTU=" alt="Slide 1" class="slideshow-img active" />
+      <img src="https://media.istockphoto.com/id/2215770116/photo/soybean-plants-display-their-pods-filled-with-seeds-thriving-in-a-sun-kissed-field-during-the.webp?a=1&b=1&s=612x612&w=0&k=20&c=cskmndZwBC1Ti2vlon7CMTnzbQMb2VL5z9-EO-_qPuE=" alt="Slide 2" class="slideshow-img" />
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfDB8MHx8fDA%3D" alt="Slide 3" class="slideshow-img" />
+      <img src="https://plus.unsplash.com/premium_photo-1674654419403-1a80edb26881?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8xfxjaGVhdCUyMHRvbGVyYW50JTIwcmljZXxlbnwwfDB8MHx8fDA%3D" alt="Slide 4" class="slideshow-img" />
+      <img src="https://plus.unsplash.com/premium_photo-1661932971080-c6ec2a91f64c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h85xxyZWd1bGFyJTIwcmFpbiUyMGluJTIwdGhlJTIwZmllbGR8ZW58MHwxfHNlYXJjaHwxfHxpbnRlcm5hdGlvbmFsJTIwcmVzZWFyY2glMjBwcm9ncmFtbXxlbnwwfHx8fDE3NDg5NTE4Nzd8MA&ixid=M3wzNjI3NTRlNzZ8MHwxfHNlYXJjaHwxfHxpbnRlcm5hdGlvbmFsJTIwcmVzZWFyY2glMjBwcm9ncmFtbXxlbnwwfHx8fDE3NDg5NTE4Nzd8MA&ixlib=rb-4.1.0" alt="Slide 5" class="slideshow-img" />
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Climate-Resilient Seed Varieties</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-6">Discover crop seed varieties designed to thrive under extreme weather conditions — drought, floods, heat, and salinity.</p>
+      <a href="#seedList" class="inline-block bg-white text-green-700 px-6 py-3 rounded-full font-semibold hover:bg-green-50 transition-colors shadow-md">Explore Seed Varieties</a> 
+    </div>
+  </section>
+
+  <!-- Slideshow JS Animation -->
+  <script>
+    const slides = document.querySelectorAll('.slideshow-img');
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 6000); // Change every 6 seconds
+  </script>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">What Are Climate-Resilient Seeds?</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        Climate-resilient seeds are specially bred or genetically selected to survive extreme environmental conditions like drought, flooding, high temperatures, and soil salinity.
+        These seeds ensure stable yields even under adverse climatic changes — helping farmers maintain productivity while adapting to global warming.
+      </p>
+    </section>
+
+    <!-- Benefits of Resilient Seeds -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Key Benefits</h3>
+      <ul class="space-y-2 list-disc list-inside text-gray-700">
+        <li><strong>Drought Tolerance:</strong> Survive with minimal water during dry spells.</li>
+        <li><strong>Flood Resistance:</strong> Grow well in waterlogged fields and heavy rain zones.</li>
+        <li><strong>Heat Adaptation:</strong> Maturity cycles match changing temperature patterns.</li>
+        <li><strong>Salinity Tolerance:</strong> Grow in salt-affected soils due to sea-level rise or irrigation damage.</li>
+        <li><strong>Higher Yields:</strong> Maintain productivity despite erratic weather.</li>
+        <li><strong>Improved Food Security:</strong> Ensure harvest stability in vulnerable regions.</li>
+      </ul>
+    </section>
+
+    <!-- Featured Seed Cards -->
+    <section id="seedList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+
+      <!-- Card 1 - Drought-Tolerant Maize -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=Drought+Tolerant+Maize" alt="Drought-Tolerant Maize" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Drought-Tolerant Maize</h4>
+        <p class="text-gray-600 mb-4">Ideal for semi-arid areas where rainfall is unpredictable and water scarcity is common.</p>
+        <button onclick="toggleDetails(event, 'maize')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-maize" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="maize" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Developed by CIMMYT, these maize hybrids help African farmers grow crops with up to 40% less water than traditional varieties. Farmers report better germination rates and higher grain quality even during prolonged dry periods.</p>
+        </div>
+      </div>
+
+      <!-- Card 2 - Flood-Tolerant Rice -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=Flood+Tolerant+Rice" alt="Flood-Tolerant Rice" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Flood-Tolerant Rice</h4>
+        <p class="text-gray-600 mb-4">These rice strains can survive submersion for up to two weeks without loss of viability.</p>
+        <button onclick="toggleDetails(event, 'rice')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-rice" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="rice" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Known as “Scuba Rice,” this variety has been introduced across Bangladesh, India, and parts of Southeast Asia. It allows farmers to recover quickly after monsoon floods.</p>
+        </div>
+      </div>
+
+      <!-- Card 3 - Heat-Resistant Wheat -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=Heat+Resistant+Wheat" alt="Heat-Resistant Wheat" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Heat-Resistant Wheat</h4>
+        <p class="text-gray-600 mb-4">Matures faster before peak summer heat impacts grain development and yield.</p>
+        <button onclick="toggleDetails(event, 'wheat')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-wheat" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="wheat" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">ICAR and IRRI have developed wheat lines that mature quickly before the worst heatwaves hit. Ideal for Central Asia and North Africa.</p>
+        </div>
+      </div>
+
+      <!-- Card 4 - Salt-Tolerant Barley -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=Salt+Tolerant+Barley" alt="Salt-Tolerant Barley" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Salt-Tolerant Barley</h4>
+        <p class="text-gray-600 mb-4">Thrives in coastal and arid regions affected by rising salinity levels in soil and water.</p>
+        <button onclick="toggleDetails(event, 'barley')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-barley" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="barley" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Used in Middle Eastern countries and coastal regions in South Asia, these barley strains resist salt buildup in soil and allow year-round cultivation.</p>
+        </div>
+      </div>
+
+      <!-- Card 5 - Disease-Resistant Cassava -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=Disease+Resistant+Cassava" alt="Disease-Resistant Cassava" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Disease-Resistant Cassava</h4>
+        <p class="text-gray-600 mb-4">Genetically improved cassava resists whitefly infestation and brown streak virus affecting East African farms.</p>
+        <button onclick="toggleDetails(event, 'cassava')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-cassava" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="cassava" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">The International Institute of Tropical Agriculture (IITA) has introduced disease-resistant cassava in Uganda, Kenya, and Tanzania, boosting food security and reducing losses.</p>
+        </div>
+      </div>
+
+      <!-- Card 6 - Heat-Tolerant Sorghum -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=Heat+Tolerant+Sorghum" alt="Heat-Tolerant Sorghum" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Heat-Tolerant Sorghum</h4>
+        <p class="text-gray-600 mb-4">Performs well in hot, semi-arid regions and supports livestock feed and human consumption.</p>
+        <button onclick="toggleDetails(event, 'sorghum')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-sorghum" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="sorghum" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">ICRISAT’s heat-tolerant sorghum strains are now being used in Ethiopia, Sudan, and parts of India to sustain yields during rising temperatures.</p>
+        </div>
+      </div>
+
+      <!-- Card 7 - Climate-Resilient Beans -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=Climate+Resilient+Beans" alt="Climate-Resilient Beans" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Climate-Resilient Beans</h4>
+        <p class="text-gray-600 mb-4">Bean varieties that resist pests and diseases caused by shifting climate patterns and rising humidity.</p>
+        <button onclick="toggleDetails(event, 'beans')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-beans" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="beans" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">CIAT and NARO Uganda have developed bean strains that mature faster and resist rust and wilt under erratic rainfall and high humidity.</p>
+        </div>
+      </div>
+
+      <!-- Card 8 - Salinity-Tolerant Tomatoes -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=Salinity+Tolerant+Tomatoes" alt="Salinity-Tolerant Tomatoes" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Salinity-Tolerant Tomatoes</h4>
+        <p class="text-gray-600 mb-4">Grow in saline soils where regular tomatoes fail due to salt stress and low water availability.</p>
+        <button onclick="toggleDetails(event, 'tomatoes')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-tomatoes" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="tomatoes" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Used in Egypt, Philippines, and coastal India, these tomato plants withstand salt intrusion and deliver reliable yields even in degraded lands.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Institutions Working on Seed Development -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Leading Institutions in Seed Innovation</h3>
+      <ul class="space-y-2 list-disc list-inside text-gray-700">
+        <li><strong>CIMMYT – Mexico:</strong> Breeding drought-tolerant maize and wheat for smallholder farms globally.</li>
+        <li><strong>IRRI – Philippines:</strong> Developing flood-tolerant rice and training local agronomists in climate-adaptive farming techniques.</li>
+        <li><strong>IITA – Nigeria:</strong> Improving cassava and yam resistance to pests and viruses through biotech and farmer-led breeding programs.</li>
+        <li><strong>ICAR – India:</strong> Introducing heat-tolerant pulses and millets for arid and semi-arid climates.</li>
+        <li><strong>World Bank:</strong> Funding large-scale resilient seed distribution in climate-vulnerable regions.</li>
+      </ul>
+    </section>
+
+    <!-- Case Study Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-semibold text-green-700 mb-6">Real-Life Applications</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- Zambia - Drought-Tolerant Maize -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Zambia - Drought-Tolerant Maize</h4>
+          <p class="text-gray-600 mb-4">Over 10,000 smallholder farmers adopted new hybrid maize strains, increasing average yield by 25% during dry seasons.</p>
+          <button onclick="toggleDetails(event, 'zambiaCase')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+            Learn More
+            <svg id="arrow-zambiaCase" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="zambiaCase" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">This project was supported by the Zambian Ministry of Agriculture and international seed banks to improve food access in Southern Africa.</p>
+          </div>
+        </div>
+
+        <!-- Bangladesh - Flood-Tolerant Rice -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Bangladesh - Flood-Tolerant Rice</h4>
+          <p class="text-gray-600 mb-4">Submersion-tolerant rice varieties helped farmers recover faster after monsoon floods in southern Bangladesh.</p>
+          <button onclick="toggleDetails(event, 'bangladeshCase')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+            Learn More
+            <svg id="arrow-bangladeshCase" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="bangladeshCase" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">The Scuba Rice program expanded to Nepal and Myanmar, providing flood-prone communities with life-saving agricultural tools.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Start Using Climate-Resilient Seeds Today</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">Whether you're managing a small plot or large operation, adopting climate-resilient seeds can protect your farm from unpredictable weather and improve long-term sustainability.</p>
+      <a href="../index.html#resources" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition-colors">Explore More Resources</a> 
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li>
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News & Articles</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Expandable Sections -->
+  <script>
+    function toggleDetails(e, id) {
+      e.preventDefault();
+      const section = document.getElementById(id);
+      const arrow = document.getElementById("arrow-" + id);
+      const isVisible = !section.classList.contains("hidden");
+
+      if (isVisible) {
+        section.classList.add("hidden");
+        arrow.style.transform = "rotate(0deg)";
+      } else {
+        section.classList.remove("hidden");
+        arrow.style.transform = "rotate(90deg)";
+      }
+    }
+  </script>
+
+  <!-- JavaScript for Auto Theme Detection -->
+  <script>
+    const body = document.getElementById("body");
+    const themeToggle = document.getElementById("themeToggle");
+
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDarkMode) {
+      body.classList.add("dark");
+      themeToggle.textContent = "Light Mode";
+    } else {
+      body.classList.remove("dark");
+      themeToggle.textContent = "Dark Mode";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      themeToggle.textContent = body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
+    });
+  </script>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

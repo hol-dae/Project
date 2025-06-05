@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sustainable Water Management Systems</title>
+  <script src="https://cdn.tailwindcss.com"></script>  
+  <link rel="icon" href="../images/home.theme-light.png" type="image/x-icon">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#about" class="capitalize hover:text-green-200 transition-colors">About</a>
+      </nav>
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#about" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About Us</a>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="relative bg-gradient-to-r from-blue-500 to-teal-400 text-white py-16">
+    <div class="absolute inset-0 bg-black opacity-20"></div>
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Sustainable Water Management Systems</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto">Learn how modern water-saving technologies are helping farmers optimize irrigation and preserve this vital resource.</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Why Sustainable Water Management Matters</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        With increasing droughts and water scarcity, sustainable water management systems are essential for ensuring long-term food security.
+        These systems help farmers use water more efficiently, reduce waste, and improve crop yields even in arid regions.
+      </p>
+      <img src="https://media.istockphoto.com/id/183109504/photo/drip-irrigation-system-close-up.webp?a=1&b=1&s=612x612&w=0&k=20&c=Yru4GH9VsMBV0g-ndtN4gplF8m4i2VktgMvxuEr1OO4=" alt="Drip Irrigation in Farming" class="w-full rounded-lg shadow-md mb-6 h-80 object-cover">
+    </section>
+
+    <!-- Types of Water Management Systems -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Types of Sustainable Water Management Systems</h3>
+      <ul class="space-y-4 list-disc list-inside text-gray-700">
+        <li><strong>Drip Irrigation:</strong> Delivers water directly to plant roots, reducing evaporation and runoff.</li>
+        <li><strong>Rainwater Harvesting:</strong> Collects and stores rain for use during dry periods — especially effective in seasonal climates.</li>
+        <li><strong>Irrigation Sensors:</strong> Soil moisture sensors ensure watering only when needed, minimizing waste.</li>
+        <li><strong>Aquaponics & Hydroponics:</strong> Recirculating water systems used in vertical farming and greenhouse production.</li>
+        <li><strong>Contour Farming:</strong> Helps retain water on sloped land by planting along elevation lines.</li>
+        <li><strong>Mulching & Cover Crops:</strong> Reduces soil evaporation and improves moisture retention naturally.</li>
+      </ul>
+    </section>
+
+    <!-- Tools & Technologies -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Tools and Technologies for Water Efficiency</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Smart Irrigation Controllers -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h4 class="text-lg font-semibold text-gray-800 mb-2">Smart Irrigation Controllers</h4>
+          <p class="text-gray-600 mb-4">Automated systems that adjust watering based on weather forecasts and soil conditions.</p>
+          <button onclick="toggleDetails('controller')" class="text-green-600 hover:text-green-800 font-medium hover:underline inline-flex items-center focus:outline-none">
+            Learn More
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 transform transition-transform" :class="{ 'rotate-90': open }" viewBox="0 0 20 20" fill="currentColor" id="arrow-controller">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 011.414 0L10 16.414l1.293-1.707a1 1 0 011.414 1.414l-2 2.5a1 1 0 01-1.414 0l-2-2.5a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="controller" class="mt-2 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">
+              These controllers integrate with IoT sensors and can be managed via smartphone apps.
+              They reduce overwatering by up to 40% and help conserve water while improving yield.
+            </p>
+          </div>
+        </div>
+
+        <!-- Soil Moisture Sensors -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h4 class="text-lg font-semibold text-gray-800 mb-2">Soil Moisture Sensors</h4>
+          <p class="text-gray-600 mb-4">Help determine exact water needs, avoiding both over and under irrigation.</p>
+          <button onclick="toggleDetails('sensor')" class="text-green-600 hover:text-green-800 font-medium hover:underline inline-flex items-center focus:outline-none">
+            Learn More
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 transform transition-transform" id="arrow-sensor" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 011.414 0L10 16.414l1.293-1.707a1 1 0 011.414 1.414l-2 2.5a1 1 0 01-1.414 0l-2-2.5a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="sensor" class="mt-2 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">
+              Wireless soil moisture sensors provide real-time data on soil hydration levels.
+              Farmers can connect these to smart irrigation systems or mobile dashboards for precise water control.
+            </p>
+          </div>
+        </div>
+
+        <!-- Drip Irrigation Kits -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h4 class="text-lg font-semibold text-gray-800 mb-2">Drip Irrigation Kits</h4>
+          <p class="text-gray-600 mb-4">Low-cost kits ideal for small farms, available in manual and automated versions.</p>
+          <button onclick="toggleDetails('drip')" class="text-green-600 hover:text-green-800 font-medium hover:underline inline-flex items-center focus:outline-none">
+            Learn More
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 transform transition-transform" id="arrow-drip" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 011.414 0L10 16.414l1.293-1.707a1 1 0 011.414 1.414l-2 2.5a1 1 0 01-1.414 0l-2-2.5a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="drip" class="mt-2 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">
+              Drip irrigation is one of the most efficient ways to deliver water directly to crops.
+              It reduces water loss through evaporation and ensures consistent delivery at optimal rates.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Real-Life Application -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Real-Life Application: Ethiopia's Smallholder Farmers</h3>
+      <div class="flex flex-col md:flex-row gap-6 items-center">
+        <img src="https://media.istockphoto.com/id/108310732/photo/crop-irrigation.webp?a=1&b=1&s=612x612&w=0&k=20&c=SekGs_kz6fqGaSMB2oR-jAo0nCf5mfCOq3i_2PIgN6E=" class="w-full md:w-1/2 rounded-lg shadow-md h-80 object-cover">
+        <div>
+          <p class="text-gray-700 mb-4">
+            In Ethiopia, smallholder farmers adopted solar-powered drip irrigation and rainwater harvesting systems.
+          </p>
+          <p class="text-gray-700 mb-4">
+            As a result, they were able to grow crops year-round despite low rainfall and poor infrastructure.
+          </p>
+          <p class="text-gray-700">
+            The system reduced water use by 50%, increased income through market gardening, and improved household nutrition.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Challenges and Solutions -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Challenges & Solutions</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded shadow-inner">
+          <h4 class="font-semibold text-red-700">Common Challenges</h4>
+          <ul class="mt-2 list-disc list-inside text-gray-700 space-y-1">
+            <li>High upfront cost for equipment</li>
+            <li>Limited technical knowledge among farmers</li>
+            <li>Inadequate access to financing</li>
+          </ul>
+        </div>
+        <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded shadow-inner">
+          <h4 class="font-semibold text-green-700">Practical Solutions</h4>
+          <ul class="mt-2 list-disc list-inside text-gray-700 space-y-1">
+            <li>Use government or NGO-supported programs</li>
+            <li>Adopt modular, low-cost systems</li>
+            <li>Provide training and demonstration plots</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to Get Started -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">How Farmers Can Start Implementing Water-Saving Techniques</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white p-6 border border-green-200 rounded-lg shadow-sm">
+          <h4 class="font-semibold text-lg mb-2">Assess Water Needs</h4>
+          <p class="text-gray-700">Understand your local climate, crop types, and irrigation requirements.</p>
+        </div>
+        <div class="bg-white p-6 border border-green-200 rounded-lg shadow-sm">
+          <h4 class="font-semibold text-lg mb-2">Install Sensors</h4>
+          <p class="text-gray-700">Set up soil moisture sensors to guide irrigation decisions.</p>
+        </div>
+        <div class="bg-white p-6 border border-green-200 rounded-lg shadow-sm">
+          <h4 class="font-semibold text-lg mb-2">Adopt Efficient Practices</h4>
+          <p class="text-gray-700">Switch to drip irrigation, mulching, or conservation agriculture.</p>
+        </div>
+        <div class="bg-white p-6 border border-green-200 rounded-lg shadow-sm">
+          <h4 class="font-semibold text-lg mb-2">Track and Optimize</h4>
+          <p class="text-gray-700">Monitor performance regularly and refine techniques for best results.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Start Using Sustainable Water Practices Today</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">
+        Whether you're managing a small plot or large commercial farm, adopting sustainable water practices will help ensure long-term success.
+      </p>
+      <a href="../index.html#resources" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition-colors">Explore More Resources</a> 
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li>
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News & Articles</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+
+  <!-- JavaScript for Expandable Sections -->
+  <script>
+    function toggleDetails(id) {
+      const section = document.getElementById(id);
+      const arrow = document.getElementById(`arrow-${id}`);
+      const isVisible = !section.classList.contains('hidden');
+
+      // Animate arrow rotation and slide effect
+      if (isVisible) {
+        section.classList.add('hidden');
+        arrow.style.transform = 'rotate(0deg)';
+      } else {
+        section.classList.remove('hidden');
+        arrow.style.transform = 'rotate(90deg)';
+      }
+    }
+  </script>
+</body>
+</html>

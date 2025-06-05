@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blockchain Traceability in Food Supply</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/agri.png" type="image/x-icon">
+
+  <!-- Cursor Blink Animation -->
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .transition-max-h {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .transition-max-h.expanded {
+      max-height: 1200px;
+      overflow: visible;
+    }
+
+    #cursor {
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      25%, 75% { opacity: 0; }
+    }
+
+    .rotate-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .rotate-icon.open {
+      transform: rotate(90deg);
+    }
+
+    .slideshow-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow-img.active {
+      opacity: 1;
+      z-index: 10;
+    }
+
+    .graph-placeholder {
+      width: 100%;
+      height: auto;
+      margin-top: 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark {
+      background-color: #1e293b;
+      color: #f8fafc;
+    }
+
+    body.dark .text-green-600,
+    body.dark .text-green-700,
+    body.dark .text-green-800 {
+      color: #86efac !important;
+    }
+
+    body.dark .bg-white {
+      background-color: #334155 !important;
+    }
+
+    body.dark .border-green-200 {
+      border-color: #22c55e !important;
+    }
+
+    body.dark .hover\:bg-green-200:hover {
+      background-color: #22c55e !important;
+    }
+
+    body.dark .bg-green-100 {
+      background-color: #16a34a !important;
+    }
+
+    body.dark .text-green-200 {
+      color: #86efac !important;
+    }
+
+    body.dark .hover\:text-green-200:hover {
+      color: #a3e635 !important;
+    }
+
+    body.dark .bg-green-800 {
+      background-color: #16a34a !important;
+    }
+
+    body.dark .text-green-600 {
+      color: #86efac !important;
+    }
+
+    body.dark .hover\:text-green-800:hover {
+      color: #bef264 !important;
+    }
+
+    body.dark .bg-green-700 {
+      background-color: #16a34a !important;
+    }
+
+    body.dark .bg-green-900 {
+      background-color: #14532d !important;
+    }
+
+    body.dark .hover\:bg-green-700:hover {
+      background-color: #15803d !important;
+    }
+
+    body.dark .border-green-700 {
+      border-color: #22c55e !important;
+    }
+
+    body.dark .text-green-300 {
+      color: #86efac !important;
+    }
+
+    body.dark .text-green-400 {
+      color: #a3e635 !important;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans" id="body">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#about" class="capitalize hover:text-green-200 transition-colors">About</a>
+      </nav>
+
+      <!-- Theme Toggle -->
+      <button id="themeToggle" class="ml-4 bg-green-600 hover:bg-green-500 px-3 py-1 rounded-full text-sm">Dark Mode</button>
+
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#about" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About Us</a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Slideshow -->
+  <section class="relative bg-gradient-to-r from-green-600 to-teal-500 text-white py-16 min-h-[80vh] flex items-center">
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1718806748183-edb0c438a006?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dHJhY2VhYmlsaXR5JTIwYmxvY2tjaGFpbnxlbnwwfHwwfHx8MA%3D%3D" alt="Slide 1" class="slideshow-img active" />
+      <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHRyYW5zcGFyZW50JTIwZm9vZCUyMHN1cHBseXxlbnwwfHwwfHx8MA%3D%3D" alt="Slide 2" class="slideshow-img" />
+      <img src="https://media.istockphoto.com/id/1673372371/photo/farmer-using-digital-tablet-computer-and-modern-interface-icons.webp?a=1&b=1&s=612x612&w=0&k=20&c=t4PNd6Arhakam3Jbtw7M23OOywU6bx6EjpdEO9u_LlU=" alt="Slide 3" class="slideshow-img" />
+      <img src="https://plus.unsplash.com/premium_photo-1661479206877-b1267f2c5a0f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZGlnaXRhbCUyMGxlZGdlciUyMGNyb3BzfGVufDB8MHwwfHx8MA%3D%3D" alt="Slide 4" class="slideshow-img" />
+      <img src="https://media.istockphoto.com/id/1352130137/photo/delivery-and-logistics-concept.webp?a=1&b=1&s=612x612&w=0&k=20&c=lxX7oElKDaw2N9jxp2JERL7UINpGWxv8a4BygNeZw2o=" alt="Slide 5" class="slideshow-img" />
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <!-- Typewriter Headline -->
+      <h2 class="text-3xl md:text-4xl font-bold mb-4 overflow-hidden whitespace-nowrap">
+        <span>Understanding Blockchain in Food Supply</span>
+        <span id="dynamicText" class="inline-block align-bottom h-10 leading-loose text-left px-1"></span>
+        <span class="inline-block w-1 h-8 bg-white align-middle" id="cursor"></span>
+      </h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-6">Explore how blockchain technology improves transparency, trust, and traceability in food supply chains — from farm to fork.</p>
+      <a href="#useCases" class="inline-block bg-white text-green-700 px-6 py-3 rounded-full font-semibold hover:bg-green-50 transition-colors shadow-md">Explore Use Cases</a> 
+    </div>
+  </section>
+
+  <!-- Slideshow JS -->
+  <script>
+    const slides = document.querySelectorAll('.slideshow-img');
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 6000); // Change every 6 seconds
+  </script>
+
+  <!-- Typing Animation Script -->
+  <script>
+    const dynamicText = document.getElementById("dynamicText");
+    const dynamicTextPrefix = document.getElementById("dynamicTextPrefix");
+    const cursor = document.getElementById("cursor");
+
+    const words = ["Food Supply", "Agriculture"];
+    let loopIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function type() {
+      const originalPrefix = "Understanding Blockchain in ";
+      const fullWord = words[loopIndex];
+      const currentChar = fullWord.slice(0, charIndex + 1);
+
+      if (!isDeleting) {
+        dynamicTextPrefix.textContent = originalPrefix;
+        dynamicText.textContent = currentChar;
+        charIndex++;
+        if (currentChar === fullWord) {
+          isDeleting = true;
+          setTimeout(() => {
+            charIndex = fullWord.length;
+          }, 1000);
+        } else {
+          setTimeout(type, 100);
+        }
+      } else {
+        dynamicText.textContent = currentChar;
+        charIndex--;
+        if (charIndex <= 0) {
+          isDeleting = false;
+          loopIndex = (loopIndex + 1) % words.length;
+          setTimeout(type, 500);
+        } else {
+          setTimeout(type, 50);
+        }
+      }
+    }
+
+    window.onload = () => {
+      type();
+    };
+  </script>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">What Is Blockchain Traceability in Agriculture?</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        Blockchain technology enables transparent, decentralized tracking of agricultural products throughout the supply chain.
+        From planting to harvest, packaging, transport, and retail — each step can be recorded immutably on a digital ledger, ensuring authenticity, reducing fraud, and empowering consumers with knowledge about their food sources.
+      </p>
+    </section>
+
+    <!-- Key Benefits -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Key Benefits of Blockchain in Food Supply Chains</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li><strong>Transparency:</strong> Every transaction and movement is recorded and accessible to all stakeholders.</li>
+        <li><strong>Anti-Fraud:</strong> Reduces fake certifications and mislabeling of organic or fair-trade products.</li>
+        <li><strong>Improved Recall:</strong> Enables faster identification and removal of contaminated products.</li>
+        <li><strong>Farmer Empowerment:</strong> Ensures fair pricing and direct payment through smart contracts.</li>
+        <li><strong>Consumer Trust:</strong> Buyers can verify origin, quality, and ethical practices behind their purchases.</li>
+        <li><strong>Global Compliance:</strong> Meets international standards like ISO, HACCP, and organic certification requirements.</li>
+      </ul>
+    </section>
+
+    <!-- Use Case Cards -->
+    <section id="useCases" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+
+      <!-- Use Case 1 - Coffee Supply Chain -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=600&q=80" alt="Coffee Traceability" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Coffee Supply Chain Tracking</h4>
+        <p class="text-gray-600 mb-4">Using blockchain to track coffee beans from smallholder farms in Ethiopia to global buyers in Europe and North America.</p>
+        <button onclick="toggleDetails(event, 'coffee')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-coffee" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="coffee" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">In Ethiopia, blockchain has been used by cooperatives to log every stage of coffee production — including soil health, harvesting dates, and roasting processes.</p>
+          <p class="text-gray-700 mt-2">Each batch receives a unique QR code, which consumers can scan to view the bean's journey from farm to cup.</p>
+          <p class="text-gray-700 mt-2">This has increased premium market access and reduced post-harvest losses due to mislabeling or poor logistics.</p>
+          <p class="text-gray-700 mt-2">Graph below shows improved farmer income after adopting blockchain traceability tools:</p>
+        <canvas id="coffeeIncomeGraph" width="600" height="300" class="graph-placeholder bg-white"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+            #coffeeIncomeGraph {
+                max-width: 350px;
+                height: 180px !important;
+                margin: 0 auto;
+                display: block;
+            }
+        </style>
+        <script>
+            // Example data: Ethiopian coffee farmer income before and after blockchain adoption
+            const coffeeIncomeData = {
+                labels: ['2018', '2019', '2020', '2021', '2022', '2023'],
+                datasets: [{
+                    label: 'Average Income per Farmer (USD)',
+                    data: [900, 950, 1000, 1200, 1350, 1450],
+                    backgroundColor: 'rgba(47,133,90,0.3)',
+                    borderColor: 'rgba(47,133,90,1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(47,133,90,1)',
+                    tension: 0.3,
+                    fill: true,
+                }]
+            };
+
+            const coffeeIncomeConfig = {
+                type: 'line',
+                data: coffeeIncomeData,
+                options: {
+                    responsive: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Ethiopian Coffee Farmer Income (2018–2023)'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: { display: true, text: 'USD per Farmer' }
+                        },
+                        x: {
+                            title: { display: true, text: 'Year' }
+                        }
+                    }
+                }
+            };
+
+            window.addEventListener('DOMContentLoaded', function() {
+                const ctx = document.getElementById('coffeeIncomeGraph').getContext('2d');
+                new Chart(ctx, coffeeIncomeConfig);
+            });
+        </script>
+          <p class="text-gray-700 mt-2">Platforms like Cropster and AgNext are helping farmers manage this data efficiently via mobile apps and web dashboards.</p>
+        </div>
+      </div>
+
+      <!-- Use Case 2 - Rice Export -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://media.istockphoto.com/id/2180240817/photo/hands-of-a-woman-buying-rice.webp?a=1&b=1&s=612x612&w=0&k=20&c=sUoXazK-kFLGG8w-BWbdLA5t0ZjMLaO-PGlSdarzGAM=" alt="Rice Export Traceability - Buying Rice" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Rice Export Traceability</h4>
+        <p class="text-gray-600 mb-4">Blockchain ensures compliance and fair trade status for rice exports from Southeast Asia to international markets.</p>
+        <button onclick="toggleDetails(event, 'rice')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-rice" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="rice" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Bangladesh and Vietnam have implemented blockchain-based systems to monitor rice exports and ensure they meet international food safety standards.</p>
+          <p class="text-gray-700 mt-2">Farmers receive real-time payments once shipment milestones are verified using smart contracts on the Ethereum network.</p>
+          <p class="text-gray-700 mt-2">The system also helps prevent middlemen from inflating prices or altering product quality claims.</p>
+          <p class="text-gray-700 mt-2">Graph below shows reduction in price discrepancies before and after blockchain integration:</p>
+        <canvas id="ricePriceGraph" width="350" height="180" class="graph-placeholder bg-white"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            // Example data: Rice price discrepancy before and after blockchain adoption
+            const ricePriceData = {
+                labels: ['2018', '2019', '2020', '2021', '2022', '2023'],
+                datasets: [{
+                    label: 'Price Discrepancy (%)',
+                    data: [12, 11, 9, 6, 4, 2],
+                    backgroundColor: 'rgba(79,209,197,0.3)',
+                    borderColor: 'rgba(79,209,197,1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(79,209,197,1)',
+                    tension: 0.3,
+                    fill: true,
+                }]
+            };
+
+            const ricePriceConfig = {
+                type: 'line',
+                data: ricePriceData,
+                options: {
+                    responsive: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Rice Price Discrepancy Reduction (2018–2023)'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Discrepancy (%)' }
+                        },
+                        x: {
+                            title: { display: true, text: 'Year' }
+                        }
+                    }
+                }
+            };
+
+            window.addEventListener('DOMContentLoaded', function() {
+                const ctx = document.getElementById('ricePriceGraph').getContext('2d');
+                new Chart(ctx, ricePriceConfig);
+            });
+        </script>
+          <p class="text-gray-700 mt-2">These improvements have helped stabilize export markets and increase farmer confidence in international trade.</p>
+        </div>
+      </div>
+
+      <!-- Use Case 3 - Organic Certification -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://media.istockphoto.com/id/1058525446/photo/wooden-100-organic-stamp-on-recycled-paper.webp?a=1&b=1&s=612x612&w=0&k=20&c=nGyOQFVHVcVJJIISFIiz90cKP0bHaVhvKYZoQLiTo5Q=" alt="Organic Certification" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Organic Certification Verification</h4>
+        <p class="text-gray-600 mb-4">Consumers can now verify whether products are truly organic through immutable records stored on the blockchain.</p>
+        <button onclick="toggleDetails(event, 'organic')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-organic" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="organic" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Traditional organic certification often relies on paper documentation that can be forged or lost. With blockchain, every inspection, pesticide-free cycle, and harvest event is digitally recorded and timestamped.</p>
+          <p class="text-gray-700 mt-2">This allows retailers and regulators to audit farming practices without relying solely on third-party certification bodies.</p>
+          <p class="text-gray-700 mt-2">In Kenya, blockchain-backed organic labels have helped tea and avocado exporters enter European markets with higher premiums.</p>
+          <p class="text-gray-700 mt-2">Graph below shows growth in certified organic farms over time with blockchain adoption:</p>
+        <canvas id="organicGrowthGraph" width="350" height="180" class="graph-placeholder bg-white"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            // Example data: Growth in certified organic farms with blockchain adoption
+            const organicGrowthData = {
+                labels: ['2018', '2019', '2020', '2021', '2022', '2023'],
+                datasets: [{
+                    label: 'Certified Organic Farms',
+                    data: [120, 180, 260, 400, 600, 850],
+                    backgroundColor: 'rgba(251,191,36,0.3)',
+                    borderColor: 'rgba(251,191,36,1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(251,191,36,1)',
+                    tension: 0.3,
+                    fill: true,
+                }]
+            };
+
+            const organicGrowthConfig = {
+                type: 'line',
+                data: organicGrowthData,
+                options: {
+                    responsive: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Growth in Certified Organic Farms (2018–2023)'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Number of Farms' }
+                        },
+                        x: {
+                            title: { display: true, text: 'Year' }
+                        }
+                    }
+                }
+            };
+
+            window.addEventListener('DOMContentLoaded', function() {
+                const ctx = document.getElementById('organicGrowthGraph').getContext('2d');
+                new Chart(ctx, organicGrowthConfig);
+            });
+        </script>
+          <p class="text-gray-700 mt-2">This level of verification is especially important as demand for sustainable and ethical sourcing grows globally.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Institutions Using Blockchain -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Institutions & Platforms Using Blockchain</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li><strong>Cropster:</strong> Used by coffee and cacao cooperatives for end-to-end traceability and export documentation.</li>
+        <li><strong>AgNext:</strong> Offers blockchain-backed certification and GPS-based harvest tracking in Africa and India.</strong></li>
+        <li><strong>IBM Food Trust:</strong> Tracks produce from field to store shelves using Hyperledger Fabric.</li>
+        <li><strong>Hello Tractor:</strong> Uses blockchain to match tractor owners with farmers needing equipment sharing.</li>
+        <li><strong>FAO:</strong> Piloting blockchain solutions for grain storage and commodity trading in Nigeria and Ghana.</li>
+        <li><strong>World Bank:</strong> Funding blockchain-enabled supply chain projects in vulnerable regions.</li>
+      </ul>
+    </section>
+
+    <!-- Real-World Applications -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-semibold text-green-700 mb-6">Real-World Applications</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- Application 1 - Indian Cotton Coop -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Indian Cotton Cooperatives</h4>
+          <p class="text-gray-600 mb-4">Over 10,000 cotton farmers in Gujarat use blockchain to record pesticide-free cycles and receive fair-trade premiums directly.</p>
+          <button onclick="toggleDetails(event, 'indiaCase')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+            Learn More
+            <svg id="arrow-indiaCase" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="indiaCase" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">By using AgNext’s blockchain platform, Indian cotton growers bypassed traditional traders and connected directly with textile companies in Germany and the US.</p>
+            <p class="text-gray-700 mt-2">This shift allowed them to earn up to 25% more per bale and ensured buyers received ethically grown fiber.</p>
+            <p class="text-gray-700 mt-2">Graph below shows income improvement over two years:</p>
+            <canvas id="indiaIncomeGraph" width="600" height="300" class="graph-placeholder bg-white"></canvas>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                // Example data: Indian cotton farmer income before and after blockchain adoption
+                const indiaIncomeData = {
+                    labels: ['2018', '2019', '2020', '2021', '2022', '2023'],
+                    datasets: [{
+                        label: 'Average Income per Bale (USD)',
+                        data: [320, 340, 355, 410, 430, 445],
+                        backgroundColor: 'rgba(34,197,94,0.3)',
+                        borderColor: 'rgba(34,197,94,1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(34,197,94,1)',
+                        tension: 0.3,
+                        fill: true,
+                    }]
+                };
+
+                const indiaIncomeConfig = {
+                    type: 'line',
+                    data: indiaIncomeData,
+                    options: {
+                        responsive: false,
+                        plugins: {
+                            legend: { display: false },
+                            title: {
+                                display: true,
+                                text: 'Indian Cotton Farmer Income (2018–2023)'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                title: { display: true, text: 'USD per Bale' }
+                            },
+                            x: {
+                                title: { display: true, text: 'Year' }
+                            }
+                        }
+                    }
+                };
+
+                window.addEventListener('DOMContentLoaded', function() {
+                    const ctx = document.getElementById('indiaIncomeGraph').getContext('2d');
+                    new Chart(ctx, indiaIncomeConfig);
+                });
+            </script>
+          </div>
+        </div>
+
+        <!-- Application 2 - Kenyan Coffee Growers -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Kenyan Coffee Growers</h4>
+          <p class="text-gray-600 mb-4">Kenya’s coffee cooperatives use blockchain to track beans from individual farms to international buyers in Europe and Japan.</p>
+          <button onclick="toggleDetails(event, 'kenyaCase')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+            Learn More
+            <svg id="arrow-kenyaCase" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="kenyaCase" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">Using blockchain, Kenyan cooperatives improved traceability and reduced post-harvest losses caused by mismanagement and corruption.</p>
+            <p class="text-gray-700 mt-2">Buyers could see exactly where the beans were grown, processed, and shipped from — improving brand trust and consumer loyalty.</p>
+            <p class="text-gray-700 mt-2">Graph below shows export volume increase after blockchain implementation:</p>
+            <canvas id="kenyaExportGraph" width="600" height="300" class="graph-placeholder bg-white"></canvas>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                // Example data: Kenyan coffee export volume before and after blockchain adoption
+                const kenyaExportData = {
+                    labels: ['2018', '2019', '2020', '2021', '2022', '2023'],
+                    datasets: [{
+                        label: 'Export Volume (tons)',
+                        data: [12000, 12500, 13000, 14500, 17000, 18500],
+                        backgroundColor: 'rgba(34,197,94,0.3)',
+                        borderColor: 'rgba(34,197,94,1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(34,197,94,1)',
+                        tension: 0.3,
+                        fill: true,
+                    }]
+                };
+
+                const kenyaExportConfig = {
+                    type: 'line',
+                    data: kenyaExportData,
+                    options: {
+                        responsive: false,
+                        plugins: {
+                            legend: { display: false },
+                            title: {
+                                display: true,
+                                text: 'Kenyan Coffee Export Volume (2018–2023)'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                title: { display: true, text: 'Tons' }
+                            },
+                            x: {
+                                title: { display: true, text: 'Year' }
+                            }
+                        }
+                    }
+                };
+
+                window.addEventListener('DOMContentLoaded', function() {
+                    const ctx = document.getElementById('kenyaExportGraph').getContext('2d');
+                    new Chart(ctx, kenyaExportConfig);
+                });
+            </script>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Start Using Blockchain in Your Farm Supply Chain</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">Whether you're part of a cooperative or an independent grower, integrating blockchain into your supply chain can improve transparency, reduce losses, and increase buyer confidence in your products.</p>
+      <a href="../index.html#resources" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition-colors">Explore More Resources</a> 
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li>
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News & Articles</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Expandable Sections -->
+  <script>
+    function toggleDetails(e, id) {
+      e.preventDefault();
+      const section = document.getElementById(id);
+      const arrow = document.getElementById(`arrow-${id}`);
+      const isVisible = !section.classList.contains("hidden");
+
+      if (isVisible) {
+        section.classList.add("hidden");
+        arrow.style.transform = "rotate(0deg)";
+      } else {
+        section.classList.remove("hidden");
+        arrow.style.transform = "rotate(90deg)";
+      }
+    }
+  </script>
+
+  <!-- JavaScript for Auto Theme Detection -->
+  <script>
+    const body = document.getElementById("body");
+    const themeToggle = document.getElementById("themeToggle");
+
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDarkMode) {
+      body.classList.add("dark");
+      themeToggle.textContent = "Light Mode";
+    } else {
+      body.classList.remove("dark");
+      themeToggle.textContent = "Dark Mode";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      themeToggle.textContent = body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
+    });
+  </script>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

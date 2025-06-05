@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Downloadable Resources - Agri-Technology Resource Center</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/home.theme-light.png" type="image/x-icon">
+  <style>
+    .slide {
+      animation: fade 8s infinite;
+    }
+    @keyframes fade {
+      0% { opacity: 0; }
+      5% { opacity: 1; }
+      20% { opacity: 1; }
+      25% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    .slide:nth-child(1) {
+      animation-delay: 8s;
+    }
+    .slide:nth-child(2) {
+      animation-delay: 8s;
+    }
+    .slide:nth-child(3) {
+      animation-delay: 8s;
+    }
+    .slide:nth-child(4) {
+      animation-delay: 8s;
+    }
+    .slide:nth-child(5) {
+      animation-delay: 10s;
+    }
+  </style>
+</head>
+<body class="light bg-gray-50 text-gray-800 font-sans transition-colors duration-300" id="body">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#technologies" class="capitalize hover:text-green-200 transition-colors">Technologies</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#case-studies" class="capitalize hover:text-green-200 transition-colors">Case Studies</a>
+        <a href="../index.html#about" class="capitalize hover:text-green-200 transition-colors">About</a>
+      </nav>
+      <!-- Theme Toggle -->
+      <button id="themeToggle" class="ml-4 bg-green-600 hover:bg-green-500 px-3 py-1 rounded text-sm">Dark Mode</button>
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#technologies" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Technologies</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#case-studies" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Case Studies</a>
+      <a href="../index.html#about" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About</a>
+      <a href="downloadable.html" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors font-semibold">Downloads</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative bg-green-700 text-white py-20 text-center">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl font-bold mb-4">Downloadable Agri-Tech Resources</h2>
+      <p class="text-lg max-w-xl mx-auto">Access whitepapers, research studies, software tools, and more to support your work in modern agriculture.</p>
+    </div>
+  </section>
+
+  <!-- Downloadable Resources Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="mb-6 flex flex-col sm:flex-row gap-4 justify-center">
+        <input type="text" id="searchInput" placeholder="Search downloads..." class="px-4 py-2 border border-green-300 rounded w-full sm:w-1/2 focus:outline-none focus:ring-2 focus:ring-green-300">
+        <div class="flex flex-wrap gap-2 justify-center">
+          <button onclick="filterResources('all')" class="px-4 py-2 bg-green-100 text-green-800 rounded-full hover:bg-green-200 transition-colors active">All</button>
+          <button onclick="filterResources('iot')" class="px-4 py-2 bg-green-100 text-green-800 rounded-full hover:bg-green-200 transition-colors">IoT</button>
+          <button onclick="filterResources('ai')" class="px-4 py-2 bg-green-100 text-green-800 rounded-full hover:bg-green-200 transition-colors">AI</button>
+          <button onclick="filterResources('robotics')" class="px-4 py-2 bg-green-100 text-green-800 rounded-full hover:bg-green-200 transition-colors">Robotics</button>
+          <button onclick="filterResources('drones')" class="px-4 py-2 bg-green-100 text-green-800 rounded-full hover:bg-green-200 transition-colors">Drones</button>
+          <button onclick="filterResources('blockchain')" class="px-4 py-2 bg-green-100 text-green-800 rounded-full hover:bg-green-200 transition-colors">Blockchain</button>
+          <button onclick="filterResources('climate')" class="px-4 py-2 bg-green-100 text-green-800 rounded-full hover:bg-green-200 transition-colors">Climate Tech</button>
+        </div>
+      </div>
+
+      <div id="resourceGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+        <!-- Resources are dynamically inserted here by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li> 
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#technologies" class="text-green-200 hover:text-white transition-colors block">Technologies</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News & Articles</a></li>
+            <li><a href="../index.html#case-studies" class="text-green-200 hover:text-white transition-colors block">Case Studies</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Mobile menu toggle
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.getElementById('body');
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark') {
+      body.classList.remove('light');
+      body.classList.add('dark');
+      themeToggle.textContent = 'Light Mode';
+    }
+    themeToggle.addEventListener('click', () => {
+      if (body.classList.contains('dark')) {
+        body.classList.remove('dark');
+        body.classList.add('light');
+        themeToggle.textContent = 'Dark Mode';
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.classList.remove('light');
+        body.classList.add('dark');
+        themeToggle.textContent = 'Light Mode';
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    // Dynamic resource filter
+    const resources = [
+      { title: "Case-Study-Nepal", tag: "iot", link: "../resources/case-study-nepal.pdf" },
+      { title: "Crop Yield Guide", tag: "drones", link: "../resources/crop-yield-guide.docx" },
+      { title: "Crop Disease Identification Chart", tag: "ai", link: "../resources/crop_disease_identification_chart.pdf" },
+      { title: "Irrigation Planner", tag: "ai", link: "../resources/Irrigation_Planner.xlsx" },
+      { title: "Pest Management", tag: "robotics", link: "../resources/pest.docx" },
+      { title: "Remote Sensing Workshop Materials", tag: "climate", link: "../resources/remote-sensing-workshop-materials.pdf" },
+      { title: "Soil Quality Checklist", tag: "ai", link: "../resources/Soil_Quality_Checklist.docx" },
+      { title: "Soil Fertility Guide", tag: "drones", link: "../resources/soil-fertility-guide.pdf" },
+      { title: "Soil Mapping Report", tag: "blockchain", link: "../resources/soil-mapping-report.pdf" },
+      { title: "Solar Maintenence", tag: "iot", link: "../resources/solar.pdf" },
+      { title: "Role of Drones In Modern Agriculture", tag: "robotics", link: "../resources/role-of-drones-in-modern-agriculture.pdf" },
+
+    ];
+
+    function filterResources(tag) {
+      const grid = document.getElementById("resourceGrid");
+      grid.innerHTML = "";
+      const filtered = tag === "all" ? resources : resources.filter(r => r.tag === tag);
+      filtered.forEach(res => {
+        grid.innerHTML += `
+          <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+            <span class="text-xs font-semibold text-green-600 uppercase">${res.tag.toUpperCase()}</span>
+            <h3 class="mt-2 text-lg font-semibold text-gray-800">${res.title}</h3>
+            <a href="${res.link}" download class="mt-4 inline-block text-green-600 hover:underline">Download PDF</a>
+          </div>`;
+      });
+    }
+
+    window.onload = () => filterResources("all");
+
+    document.getElementById("searchInput").addEventListener("input", function() {
+      const query = this.value.toLowerCase();
+      const grid = document.getElementById("resourceGrid");
+      grid.innerHTML = "";
+      resources.filter(r => r.title.toLowerCase().includes(query)).forEach(res => {
+        grid.innerHTML += `
+          <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+            <span class="text-xs font-semibold text-green-600 uppercase">${res.tag.toUpperCase()}</span>
+            <h3 class="mt-2 text-lg font-semibold text-gray-800">${res.title}</h3>
+            <a href="${res.link}" download class="mt-4 inline-block text-green-600 hover:underline">Download PDF</a>
+          </div>`;
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Case Study: Kenya Drone Mapping Project</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/agri.png" type="image/x-icon">
+
+  <!-- CSS for animations -->
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .transition-max-h {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .transition-max-h.expanded {
+      max-height: 1200px;
+      overflow: visible;
+    }
+
+    .rotate-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .rotate-icon.open {
+      transform: rotate(90deg);
+    }
+
+    .slideshow-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow-img.active {
+      opacity: 1;
+      z-index: 10;
+    }
+
+    .graph-placeholder {
+      width: 100%;
+      height: auto;
+      margin-top: 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark {
+      background-color: #1e293b;
+      color: #f8fafc;
+    }
+
+    body.dark .bg-white {
+      background-color: #334155;
+    }
+
+    body.dark .text-green-600,
+    body.dark .text-green-700,
+    body.dark .text-green-800 {
+      color: #86efac !important;
+    }
+
+    body.dark .border-green-200 {
+      border-color: #22c55e;
+    }
+
+    body.dark .hover\:bg-green-200:hover {
+      background-color: #22c55e;
+    }
+
+    body.dark .bg-green-100 {
+      background-color: #16a34a;
+    }
+
+    body.dark .hover\:text-green-200:hover {
+      color: #bef264 !important;
+    }
+
+    body.dark .bg-green-700 {
+      background-color: #16a34a !important;
+    }
+
+    body.dark .bg-green-800 {
+      background-color: #15803d !important;
+    }
+
+    body.dark .text-green-200 {
+      color: #a3e635 !important;
+    }
+
+    body.dark .text-green-300 {
+      color: #86efac !important;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans" id="body">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#about" class="capitalize hover:text-green-200 transition-colors">About Us</a>
+      </nav>
+
+      <!-- Theme Toggle -->
+      <button id="themeToggle" class="ml-4 bg-green-600 hover:bg-green-500 px-3 py-1 rounded-full text-sm">Dark Mode</button>
+
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#about" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About Us</a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Slideshow -->
+  <section class="relative bg-gradient-to-r from-green-600 to-teal-500 text-white py-16 min-h-[80vh] flex items-center">
+    <div class="absolute inset-0 z-0">
+    <img src="https://media.istockphoto.com/id/1332536923/photo/a-computer-futuristic-digital-software-interface-with-a-motion-control-system-and-a.webp?a=1&b=1&s=612x612&w=0&k=20&c=u_20NuLoP3kZXVwMtyscqFrv9iWxbCzzb7q2NE5wRfk=" alt="Slide 1" class="slideshow-img active" />
+    <img src="https://media.istockphoto.com/id/1165115420/photo/aerial-flying-over-corn-sunflowers-soybean-and-fields-with-straw-bales.webp?a=1&b=1&s=612x612&w=0&k=20&c=9ql0zTCZFTf2Vuj1CBc9etwxwLz4SZd0lFMoQYcazU0=" alt="Slide 2" class="slideshow-img" />
+    <img src="https://images.unsplash.com/photo-1713952152768-5f28b8093166?w=900&auto=format&fit=crop&q=80&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZHJvbmUlMjBzcHJheWluZ3xlbnwwfDB8MHx8fDA%3D" alt="Slide 3" class="slideshow-img" />
+    <img src="https://media.istockphoto.com/id/1371705013/photo/3d-illustration-of-smart-farming-concept-tractor-on-a-smartphone-farm-online-management-ads.webp?a=1&b=1&s=612x612&w=0&k=20&c=DBHQJLBMF2RNXpCC9dlXQA35a01VXn8YldXBd2FixEA=" alt="Slide 4" class="slideshow-img" />
+    <img src="https://media.istockphoto.com/id/1904084976/photo/smart-agriculture-with-modern-technology-for-sustainable-practices-rice-farm-smart-farming.webp?a=1&b=1&s=612x612&w=0&k=20&c=4clfqOmcB9_B0E230IbEW2RSUlE0y5wtVKUCEdICGDs=" alt="Slide 5" class="slideshow-img" />
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Kenya Drone Mapping Project</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-6">Discover how drone technology is helping smallholder farmers in Kenya map land use, improve crop monitoring, and optimize yields.</p>
+      <a href="#studyDetails" class="inline-block bg-white text-green-700 px-6 py-3 rounded-full font-semibold hover:bg-green-50 transition-colors shadow-md">Explore the Case Study</a> 
+    </div>
+  </section>
+
+  <!-- Slideshow JS Animation -->
+  <script>
+    const slides = document.querySelectorAll('.slideshow-img');
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 6000); // Change every 6 seconds
+  </script>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Overview of Drone Adoption in Kenyan Agriculture</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        In rural parts of Kenya, drones are being used to create accurate farmland maps, assess crop health, and support precision farming techniques.
+        This case study explores how over 3,000 farmers adopted drone-based tools — increasing productivity by up to 20% and reducing input costs through better planning.
+      </p>
+    </section>
+
+    <!-- Key Findings -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Key Outcomes</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li><strong>Farm Mapping:</strong> Over 10,000 hectares mapped using drone imaging in western and central Kenya.</li>
+        <li><strong>Crop Monitoring:</strong> Weekly aerial scans helped identify stressed areas before visible damage occurred.</li>
+        <li><strong>Precision Spraying:</strong> Drones reduced pesticide usage by targeting only affected zones.</li>
+        <li><strong>Yield Prediction:</strong> AI-assisted image analysis predicted harvest outcomes with 92% accuracy.</li>
+        <li><strong>Training Programs:</strong> Farmers learned to interpret drone data via mobile apps and local extension services.</li>
+        <li><strong>Government Support:</strong> The Ministry of Agriculture funded pilot programs in collaboration with FAO and private tech firms.</li>
+      </ul>
+    </section>
+
+    <!-- Study Details Cards -->
+    <section id="studyDetails" class="mb-12">
+
+      <!-- Section 1 - Project Background -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=Drone+Mapping+Project" alt="Drone Mapping Project" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Project Background</h4>
+        <p class="text-gray-600 mb-4">In partnership with local cooperatives and international agritech firms, Kenya launched a drone-based mapping initiative in 2023 to help smallholder farmers visualize their land and track changes in vegetation index.</p>
+        <button onclick="toggleDetails(event, 'background')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-background" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="background" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">The project was initiated by the Kenyan Ministry of Agriculture in collaboration with FAO and Microsoft FarmBeats.</p>
+          <p class="text-gray-700 mt-2">Over 3,000 smallholder farms participated in the pilot program across Kakamega, Kisumu, and Embu counties.</p>
+          <p class="text-gray-700 mt-2">Drones equipped with multispectral sensors were deployed to capture high-resolution images of farmland weekly.</p>
+          <p class="text-gray-700 mt-2">Graph below shows land use efficiency improvements after drone mapping:</p>
+        <canvas id="landUseEfficiencyChart" width="600" height="300" class="graph-placeholder bg-white"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            const ctx = document.getElementById('landUseEfficiencyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Before Drones', 'After Drones'],
+                    datasets: [{
+                        label: 'Land Use Efficiency (%)',
+                        data: [65, 83],
+                        backgroundColor: ['#4ade80', '#16a34a'],
+                        borderColor: ['#22c55e', '#15803d'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Land Use Efficiency Improvement'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { stepSize: 10 }
+                        }
+                    }
+                }
+            });
+        </script>
+        </div>
+      </div>
+
+      <!-- Section 2 - Technology Used -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow mt-8 group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=Multispectral+Drone+Tech" alt="Multispectral Drone Tech" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Technology Used</h4>
+        <p class="text-gray-600 mb-4">DJI Mavic 3 Multispectral drones and Parrot Bluegrass Fields were used to generate NDVI maps and detect early signs of plant stress.</p>
+        <button onclick="toggleDetails(event, 'technology')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-technology" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="technology" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Each drone flight covered 50–100 acres in under 30 minutes, capturing both RGB and near-infrared imagery.</p>
+          <p class="text-gray-700 mt-2">These images were processed into NDVI (Normalized Difference Vegetation Index) maps to assess plant health and water needs.</p>
+          <p class="text-gray-700 mt-2">Farmers received reports directly on WhatsApp or through AgNext's mobile app, showing heatmaps and spray zones.</p>
+          <p class="text-gray-700 mt-2">Graph below shows average time saved per hectare using drone vs traditional surveying:</p>
+        <canvas id="timeSavedChart" width="600" height="350" class="graph-placeholder bg-white"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            const ctx2 = document.getElementById('timeSavedChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: ['2019', '2020', '2021', '2022', '2023'],
+                    datasets: [
+                        {
+                            label: 'Drone Survey (minutes/hectare)',
+                            data: [18, 15, 12, 10, 8],
+                            borderColor: '#16a34a',
+                            backgroundColor: 'rgba(22,163,74,0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#16a34a'
+                        },
+                        {
+                            label: 'Traditional Survey (minutes/hectare)',
+                            data: [60, 58, 57, 56, 55],
+                            borderColor: '#4fd1c5',
+                            backgroundColor: 'rgba(79,209,197,0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#4fd1c5'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Average Time Saved per Hectare (2019–2023)'
+                        },
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Minutes per Hectare'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Year'
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+        </div>
+      </div>
+
+      <!-- Section 3 - Farmer Impact -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow mt-8 group">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=Farmer+Using+Drone+App" alt="Farmer Using Drone App" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Impact on Smallholder Farmers</h4>
+        <p class="text-gray-600 mb-4">Access to drone data improved decision-making and allowed farmers to apply inputs more efficiently, boosting overall farm profitability.</p>
+        <button onclick="toggleDetails(event, 'farmers')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-farmers" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="farmers" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Before this project, many farmers relied on visual inspection or outdated satellite data, which lacked timely insights.</p>
+          <p class="text-gray-700 mt-2">With drone-generated maps, they could spot irrigation issues, pest infestations, and soil degradation earlier than ever before.</p>
+          <p class="text-gray-700 mt-2">This led to faster interventions and higher yields during dry seasons and unexpected weather events.</p>
+          <p class="text-gray-700 mt-2">Graph below shows yield improvement among participating farms:</p>
+        <canvas id="yieldImprovementChart" width="600" height="350" class="graph-placeholder bg-white"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            const ctx4 = document.getElementById('yieldImprovementChart').getContext('2d');
+            new Chart(ctx4, {
+                type: 'bar',
+                data: {
+                    labels: ['2019', '2020', '2021', '2022', '2023'],
+                    datasets: [
+                        {
+                            label: 'Yield Before Drones (tons/hectare)',
+                            data: [2.1, 2.2, 2.3, 2.4, 2.5],
+                            backgroundColor: '#fbbf24',
+                            borderColor: '#f59e42',
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Yield After Drones (tons/hectare)',
+                            data: [2.1, 2.5, 2.8, 3.0, 3.2],
+                            backgroundColor: '#16a34a',
+                            borderColor: '#15803d',
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Yield Improvement Among Participating Farms (2019–2023)'
+                        },
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Tons per Hectare'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Year'
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+        </div>
+      </div>
+
+      <!-- Section 4 - Challenges -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow mt-8 group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=Challenges+in+Adoption" alt="Challenges in Adoption" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Challenges Faced</h4>
+        <p class="text-gray-600 mb-4">While the benefits were clear, adoption faced hurdles like digital literacy, equipment maintenance, and access to charging stations.</p>
+        <button onclick="toggleDetails(event, 'challenges')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-challenges" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="challenges" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Some farmers had limited experience with smartphones or digital platforms, requiring hands-on training sessions conducted by field officers.</p>
+          <p class="text-gray-700 mt-2">Maintaining drones in remote areas proved difficult due to lack of spare parts and technical expertise.</p>
+          <p class="text-gray-700 mt-2">Battery life and recharging infrastructure also posed challenges, especially in off-grid locations.</p>
+          <p class="text-gray-700 mt-2">Graph below shows farmer adoption rates by region:</p>
+        <canvas id="adoptionRateChart" width="600" height="300" class="graph-placeholder bg-white"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            const ctx3 = document.getElementById('adoptionRateChart').getContext('2d');
+            new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: ['Kakamega', 'Kisumu', 'Embu', 'Nakuru', 'Bungoma'],
+                    datasets: [{
+                        label: 'Adoption Rate (%)',
+                        data: [78, 65, 54, 41, 29],
+                        backgroundColor: [
+                            '#4ade80',
+                            '#16a34a',
+                            '#4fd1c5',
+                            '#fbbf24',
+                            '#f87171'
+                        ],
+                        borderColor: [
+                            '#22c55e',
+                            '#15803d',
+                            '#2dd4bf',
+                            '#f59e42',
+                            '#ef4444'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Farmer Adoption Rate by Region'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { stepSize: 10 }
+                        }
+                    }
+                }
+            });
+        </script>
+        </div>
+      </div>
+
+      <!-- Section 5 - Future Plans -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow mt-8 group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=Future+Plans" alt="Future Plans" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Future Expansion</h4>
+        <p class="text-gray-600 mb-4">Based on the success of the pilot, plans are underway to expand drone use to more districts and integrate AI-based recommendations.</p>
+        <button onclick="toggleDetails(event, 'future')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-future" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="future" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">The Kenyan government aims to scale the drone program to 10,000 farms by 2026, supported by World Bank funding and FAO advisory services.</p>
+          <p class="text-gray-700 mt-2">AI integration will allow for automated disease detection, yield forecasting, and spraying optimization based on real-time conditions.</p>
+          <p class="text-gray-700 mt-2">Local universities are developing Swahili and Luo language versions of drone report summaries to improve accessibility.</p>
+          <p class="text-gray-700 mt-2">Graph below shows projected growth in drone usage by 2026:</p>
+        <canvas id="projectedGrowthChart" width="700" height="400" class="graph-placeholder bg-white"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            const ctx5 = document.getElementById('projectedGrowthChart').getContext('2d');
+            new Chart(ctx5, {
+                type: 'line',
+                data: {
+                    labels: ['2023', '2024', '2025', '2026'],
+                    datasets: [{
+                        label: 'Farms Using Drones',
+                        data: [3000, 5000, 7500, 10000],
+                        borderColor: '#16a34a',
+                        backgroundColor: 'rgba(22,163,74,0.15)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 6,
+                        pointBackgroundColor: '#16a34a'
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Projected Growth in Drone Usage (2023–2026)',
+                            font: { size: 20 }
+                        },
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Farms'
+                            },
+                            ticks: {
+                                stepSize: 2000
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Year'
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Institutions Involved -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Institutions Involved</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li><strong>Ministry of Agriculture – Kenya:</strong> Led the national rollout and partnered with global agritech firms.</li>
+        <li><strong>FAO:</strong> Provided technical guidance and funding for drone-based crop monitoring systems.</li>
+        <li><strong>AgNext:</strong> Delivered drone data to farmers via mobile app and web dashboard in local languages.</li>
+        <li><strong>DJI & Parrot:</strong> Supplied drones and software support for aerial imaging and spraying operations.</li>
+        <li><strong>Microsoft FarmBeats:</strong> Integrated drone data with cloud analytics and AI-driven alerts.</li>
+      </ul>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Start Using Drone Technology Today</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">Whether you're managing a small plot or part of a cooperative, drone technology can help you monitor crops, reduce waste, and increase yield sustainably.</p>
+      <a href="../index.html#resources" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition-colors">Explore More Resources</a> 
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li>
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Expandable Sections -->
+  <script>
+    function toggleDetails(e, id) {
+      e.preventDefault();
+      const section = document.getElementById(id);
+      const arrow = document.getElementById("arrow-" + id);
+      const isVisible = !section.classList.contains("hidden");
+
+      if (isVisible) {
+        section.classList.add("hidden");
+        arrow.style.transform = "rotate(0deg)";
+      } else {
+        section.classList.remove("hidden");
+        arrow.style.transform = "rotate(90deg)";
+      }
+    }
+  </script>
+
+  <!-- JavaScript for Auto Theme Detection -->
+  <script>
+    const body = document.getElementById("body");
+    const themeToggle = document.getElementById("themeToggle");
+
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDarkMode) {
+      body.classList.add("dark");
+      themeToggle.textContent = "Light Mode";
+    } else {
+      body.classList.remove("dark");
+      themeToggle.textContent = "Dark Mode";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      themeToggle.textContent = body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
+    });
+  </script>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

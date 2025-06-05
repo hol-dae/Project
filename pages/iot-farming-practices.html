@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IoT Farming Systems</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/agri.png" type="image/x-icon">
+
+  <!-- CSS for animations -->
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .transition-max-h {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .transition-max-h.expanded {
+      max-height: 500px;
+      overflow: visible;
+    }
+
+    .rotate-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .rotate-icon.open {
+      transform: rotate(90deg);
+    }
+
+    .slideshow-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow-img.active {
+      opacity: 1;
+      z-index: 10;
+    }
+
+    body.dark {
+      background-color: #1e293b;
+      color: #f8fafc;
+    }
+
+    body.dark .bg-white {
+      background-color: #334155;
+    }
+
+    body.dark .text-green-600,
+    body.dark .text-green-700,
+    body.dark .text-green-800 {
+      color: #86efac !important;
+    }
+
+    body.dark .border-green-200 {
+      border-color: #22c55e;
+    }
+
+    body.dark .hover\:bg-green-200:hover {
+      background-color: #22c55e;
+    }
+
+    body.dark .bg-green-100 {
+      background-color: #16a34a;
+    }
+
+    body.dark .hover\:text-green-200:hover {
+      color: #bef264 !important;
+    }
+
+    body.dark .bg-green-700 {
+      background-color: #16a34a !important;
+    }
+
+    body.dark .bg-green-800 {
+      background-color: #15803d !important;
+    }
+
+    body.dark .text-green-200 {
+      color: #a3e635 !important;
+    }
+
+    body.dark .text-green-300 {
+      color: #86efac !important;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans" id="body">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#about" class="capitalize hover:text-green-200 transition-colors">About Us</a>
+      </nav>
+
+      <!-- Theme Toggle -->
+      <button id="themeToggle" class="ml-4 bg-green-600 hover:bg-green-500 px-3 py-1 rounded-full text-sm">Dark Mode</button>
+
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#about" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About Us</a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Slideshow -->
+  <section class="relative bg-gradient-to-r from-green-600 to-teal-500 text-white py-16 min-h-[80vh] flex items-center">
+    <div class="absolute inset-0 z-0">
+    <img src="https://media.istockphoto.com/id/1463452333/photo/smart-farming-holding-young-plant-smart-farming-and-precision-agriculture-4-0-agriculture.webp?a=1&b=1&s=612x612&w=0&k=20&c=5IbWrVxTW2jJwkScVLqEOBpMYi8ZKWx7F5Y1dzqcPhg=" alt="Slide 1" class="slideshow-img active" />
+    <img src="https://media.istockphoto.com/id/1296904409/photo/artificial-intelligence-and-technology.webp?a=1&b=1&s=612x612&w=0&k=20&c=D6BfVKb7-Crul89SCIl1khJtT78-xYk7GjC0GIdVzE8=" alt="Slide 2" class="slideshow-img" />
+    <img src="https://media.istockphoto.com/id/1270833926/photo/measuring-soil-ph-value-environmental-illumination-and-humidity-in-a-vegetable-garden.webp?a=1&b=1&s=612x612&w=0&k=20&c=q6dMOk-XR9zq0LUO2dtNioHMx5JpjTFkg6C_d9UaZC8=" alt="Slide 3" class="slideshow-img" />
+      <img src="https://media.istockphoto.com/id/1011270416/photo/agricultural-irrigation-of-a-field-in-dry-countryside.webp?a=1&b=1&s=612x612&w=0&k=20&c=eVOpJgkaB3HYGnGNiogtGJ6Mds5Rcouzrn8owKoI8lk=" alt="Slide 4" class="slideshow-img" />
+      <img src="https://media.istockphoto.com/id/1139306496/photo/a-farmer-with-digital-tablet-controls-an-autonomous-tractor.webp?a=1&b=1&s=612x612&w=0&k=20&c=Wn-Ab4qxKphep-bXCeSfgpzW7DkPQGKrD2qh3SHHyl4=" alt="Slide 5" class="slideshow-img" />
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">IoT Farming Systems</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-6">Explore how Internet of Things (IoT) devices are transforming agriculture through smart irrigation, soil monitoring, and remote farm control.</p>
+      <a href="#systemsList" class="inline-block bg-white text-green-700 px-6 py-3 rounded-full font-semibold hover:bg-green-50 transition-colors shadow-md">Explore IoT Systems</a> 
+    </div>
+  </section>
+
+  <!-- Slideshow JS Animation -->
+  <script>
+    const slides = document.querySelectorAll('.slideshow-img');
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 6000); // Change every 6 seconds
+  </script>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">What Are IoT Farming Systems?</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        IoT farming systems use interconnected sensors, cloud platforms, and real-time data analytics to improve agricultural efficiency.
+        These tools help farmers monitor soil health, automate irrigation, track weather conditions, and manage crops remotely — all from their smartphones or web dashboards.
+      </p>
+    </section>
+
+    <!-- Benefits of IoT -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Key Benefits</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li><strong>Real-Time Monitoring:</strong> Track field conditions like soil moisture, temperature, and humidity live.</li>
+        <li><strong>Water Conservation:</strong> Smart irrigation reduces water usage by up to 40% in many regions.</li>
+        <li><strong>Disease & Pest Alerts:</strong> Early detection via AI-assisted image recognition and sensor alerts.</li>
+        <li><strong>Remote Access:</strong> Farmers can manage fields from anywhere using mobile apps.</li>
+        <li><strong>Improved Yield:</strong> Better decision-making leads to increased productivity and reduced losses.</li>
+        <li><strong>Data Transparency:</strong> Helps meet export standards and fair-trade certification requirements.</li>
+        <li><strong>Cost Savings:</strong> Automation and precise input application lower labor and material costs.</li>
+        <li><strong>Environmental Sustainability:</strong> Reduces chemical runoff and supports eco-friendly farming practices.</li>
+        <li><strong>Predictive Analytics:</strong> Historical and real-time data enable forecasting for planting, harvesting, and resource planning.</li>
+        <li><strong>Scalability:</strong> IoT solutions can be adapted for smallholder farms or large commercial operations.</li>
+      </ul>
+    </section>
+
+    <!-- Featured Systems Grid -->
+    <section id="systemsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+
+      <!-- System 1 - Soil Sensors -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=Soil+Sensors" alt="Soil Sensor Tech" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Soil Health Monitoring</h4>
+        <p class="text-gray-600 mb-4">Wireless soil sensors collect and transmit data about nutrient levels, pH, and moisture directly to farmer's phones or dashboards.</p>
+        <button onclick="toggleDetails(event, 'soil')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-soil" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="soil" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Soil sensors provide continuous updates on fertility, compaction, and moisture levels. This helps optimize fertilizer application and irrigation timing.</p>
+            <p class="text-gray-700 mt-2">In India, over 10,000 smallholder farms have adopted soil sensors through the Kisan Suvidha program, reducing input costs and increasing yields by 30%.</p>
+            <p class="text-gray-700 mt-2">These sensors are often solar-powered and connect wirelessly to cloud dashboards, providing farmers with instant alerts about soil dryness or nutrient deficiencies.</p>
+            <p class="text-gray-700 mt-2">Some advanced systems integrate with weather forecasts and irrigation controllers, enabling fully automated watering schedules based on real-time soil and climate data.</p>
+            <p class="text-gray-700 mt-2">In East Africa, similar technology is being piloted to help farmers adapt to unpredictable rainfall and optimize fertilizer use, improving food security and sustainability.</p>
+        </div>
+      </div>
+
+      <!-- System 2 - Smart Irrigation -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=Smart+Irrigation" alt="Smart Irrigation" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Smart Irrigation Systems</h4>
+        <p class="text-gray-600 mb-4">Automated irrigation adjusts water flow based on real-time soil and weather data, ensuring optimal hydration without waste.</p>
+        <button onclick="toggleDetails(event, 'irrigation')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-irrigation" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="irrigation" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Drip and sprinkler systems controlled by IoT sensors reduce water usage by delivering it only where needed, when needed.</p>
+          <p class="text-gray-700 mt-2">FarmERP and Netafim’s smart valves allow farmers to adjust flow rates from mobile apps — especially useful during dry spells or high-demand seasons.</p>
+            <p class="text-gray-700 mt-2">In Kenya, these systems helped tomato growers maintain production even during prolonged droughts.</p>
+            <p class="text-gray-700 mt-2">Some systems use AI to predict irrigation needs, further reducing water waste and maximizing crop health.</p>
+        </div>
+      </div>
+
+      <!-- System 3 - Climate Sensors -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=Climate+Sensors" alt="Climate Sensors" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Weather & Climate Monitoring</h4>
+        <p class="text-gray-600 mb-4">IoT-enabled climate stations track rainfall, UV index, wind speed, and temperature to guide planting and harvesting decisions.</p>
+        <button onclick="toggleDetails(event, 'climate')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-climate" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="climate" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Climate sensors help farmers prepare for extreme weather events such as heatwaves, frost, and storms.</p>
+          <p class="text-gray-700 mt-2">They also integrate with mobile apps like Hello Tractor and Kisan Suvidha to send personalized weather alerts and advisories.</p>
+          <p class="text-gray-700 mt-2">In Bangladesh, this tech has improved flood preparedness and crop insurance claims by providing accurate data logs.</p>
+          <p class="text-gray-700 mt-2">In the Netherlands, climate sensors are used in greenhouses to optimize temperature and humidity, resulting in higher yields and reduced energy costs.</p>
+          <p class="text-gray-700 mt-2">Some African countries use solar-powered weather stations to provide smallholder farmers with SMS weather alerts, helping them plan planting and harvesting more effectively.</p>
+        </div>
+      </div>
+
+      <!-- System 4 - Livestock Tracking -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=Livestock+Tracking" alt="Livestock Tracking" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Livestock Health Monitoring</h4>
+        <p class="text-gray-600 mb-4">Wearable IoT tags track animal movement, health indicators, and feeding patterns — improving herd management and reducing disease outbreaks.</p>
+        <button onclick="toggleDetails(event, 'livestock')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-livestock" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="livestock" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">IoT collars and ear tags monitor cattle behavior, body temperature, and grazing patterns — helping prevent illness and improve breeding outcomes.</p>
+          <p class="text-gray-700 mt-2">In Brazil, dairy farms now use these trackers to improve milk yield and detect heat cycles for better insemination timing.</p>
+          <p class="text-gray-700 mt-2">In the Netherlands, IoT ear tags are integrated with automated milking systems, allowing real-time monitoring of cow health, milk production, and movement. This data helps farmers quickly identify sick animals and optimize feeding schedules, leading to healthier herds and higher productivity.</p>
+          <p class="text-gray-700 mt-2">Australian cattle ranchers use GPS-enabled collars to track grazing patterns across vast rangelands. The collected data helps prevent overgrazing, supports rotational grazing plans, and reduces labor costs by automating herd location tracking.</p>
+          <p class="text-gray-700 mt-2">In East Africa, smallholder farmers use low-cost IoT tags to monitor goats and sheep. These devices send SMS alerts if an animal strays outside a designated area or shows signs of illness, reducing losses from theft and disease.</p>
+          <p class="text-gray-700 mt-2">Some advanced systems combine biometric sensors with AI algorithms to predict calving dates, monitor rumination, and detect early signs of lameness or mastitis. This proactive approach reduces veterinary costs and improves animal welfare.</p>
+          <p class="text-gray-700 mt-2">Globally, livestock IoT solutions are helping farmers meet traceability requirements for export markets by providing digital records of animal health, movement, and treatments. This increases transparency and consumer confidence in meat and dairy products.</p>
+          <p class="text-gray-700 mt-2">Data is synced to mobile apps, allowing farmers to receive instant alerts if an animal's vital signs change dramatically.</p>
+        </div>
+      </div>
+
+      <!-- System 5 - Crop Spraying Drones -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=Crop+Spraying+Drones" alt="Crop Spraying Drones" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Drone-Assisted Spraying</h4>
+        <p class="text-gray-600 mb-4">Drones equipped with IoT spray systems apply fertilizers and pesticides only where needed — reducing chemical use by up to 30%.</p>
+        <button onclick="toggleDetails(event, 'drones')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-drones" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="drones" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">DJI and Parrot drones are used in India, Brazil, and Ethiopia to identify pest-infested zones and apply targeted spraying.</p>
+          <p class="text-gray-700 mt-2">This precision approach lowers input cost, improves environmental sustainability, and boosts productivity by avoiding blanket spraying.</p>
+          <p class="text-gray-700 mt-2">Drones can cover large fields quickly, reaching areas that are difficult or dangerous for manual labor, such as steep slopes or waterlogged plots. This reduces labor requirements and exposure to chemicals for farm workers.</p>
+          <p class="text-gray-700 mt-2">Advanced drones use multispectral cameras and AI to analyze crop health, identify nutrient deficiencies, and detect pest outbreaks before they spread. This allows for targeted interventions and reduces unnecessary chemical use.</p>
+          <p class="text-gray-700 mt-2">In China, rice farmers have adopted drone spraying to manage pests and diseases, resulting in a 20% reduction in pesticide use and improved crop yields. The government supports drone training programs to accelerate adoption among smallholder farmers.</p>
+          <p class="text-gray-700 mt-2">African startups like Aerobotics and Uhurulabs provide drone services to small farms, offering affordable pay-per-use spraying and crop monitoring. This democratizes access to high-tech solutions and supports climate resilience.</p>
+          <p class="text-gray-700 mt-2">Drones can also be used for seeding, reforestation, and spreading beneficial insects, expanding their role beyond spraying. Some models are equipped with real-time data transmission, enabling farmers to monitor operations from their smartphones.</p>
+          <p class="text-gray-700 mt-2">Regulatory frameworks for drone use in agriculture are evolving, with many countries now offering special licenses for agricultural drone pilots. This ensures safe operation and encourages responsible use of the technology.</p>
+          <p class="text-gray-700 mt-2">Overall, drone-assisted spraying is transforming crop management by making it more efficient, data-driven, and environmentally friendly, helping farmers adapt to labor shortages and changing climate conditions.</p>
+        </div>
+      </div>
+
+      <!-- System 6 - Farm Management Platforms -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=Farm+Management+Platforms" alt="Farm Management Platforms" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Farm Management Software</h4>
+        <p class="text-gray-600 mb-4">Integrated platforms like FarmERP and AgNext combine IoT sensors with inventory tracking, market access, and cooperative planning tools.</p>
+        <button onclick="toggleDetails(event, 'platforms')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-platforms" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="platforms" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">These platforms offer centralized control for cooperatives and individual farms, combining data from soil sensors, drones, and satellite imaging into one dashboard.</p>
+          <p class="text-gray-700 mt-2">Farmers can log activities, plan harvests, and share insights with buyers — improving transparency and fair trade practices.</p>
+          <p class="text-gray-700 mt-2">These platforms often include modules for inventory management, financial tracking, and compliance documentation, making it easier for farmers to meet export and certification requirements.</p>
+          <p class="text-gray-700 mt-2">IoT integration allows for real-time monitoring of equipment, weather, and crop conditions, which can trigger automated alerts or recommendations for actions such as irrigation, fertilization, or pest control.</p>
+          <p class="text-gray-700 mt-2">Some systems offer mobile apps with offline capabilities, enabling field workers to record data even in remote areas without internet connectivity. Data syncs automatically when a connection is available.</p>
+          <p class="text-gray-700 mt-2">Farm management platforms support collaboration among cooperatives by allowing multiple users to access shared dashboards, assign tasks, and track progress on group projects.</p>
+          <p class="text-gray-700 mt-2">Advanced analytics and AI features help predict yields, optimize resource allocation, and identify trends in crop performance over time. This data-driven approach leads to better decision-making and increased profitability.</p>
+          <p class="text-gray-700 mt-2">Integration with market platforms and e-commerce tools enables farmers to connect directly with buyers, negotiate prices, and manage logistics, reducing reliance on intermediaries and improving income.</p>
+          <p class="text-gray-700 mt-2">In India, FarmERP has been adopted by large cooperatives and agribusinesses to manage thousands of hectares, track sustainability metrics, and ensure traceability from farm to fork.</p>
+          <p class="text-gray-700 mt-2">In Africa, platforms like AgUnity provide blockchain-based recordkeeping, ensuring that smallholder farmers have secure, tamper-proof records of their activities and transactions.</p>
+          <p class="text-gray-700 mt-2">Many platforms offer integration with government and NGO programs, streamlining access to subsidies, training, and technical support for digital agriculture adoption.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Real-World Applications -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-semibold text-green-700 mb-6">Real-World Applications</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- Application 1 - Indian Cotton Coop -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Indian Cotton Cooperative – Gujarat</h4>
+          <p class="text-gray-600 mb-4">Over 10,000 cotton farmers adopted IoT-based soil sensors and drip irrigation systems, boosting income by 25% and reducing water use by 40%.</p>
+          <button onclick="toggleDetails(event, 'indiaCase')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+            Learn More
+            <svg id="arrow-indiaCase" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="indiaCase" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">The project was led by NARO India in partnership with local farming cooperatives and AgNext.</p>
+            <p class="text-gray-700 mt-2">Each farmer received a solar-powered gateway device to connect multiple soil sensors and irrigation controllers.</p>
+            <p class="text-gray-700 mt-2">The system enabled real-time monitoring of soil moisture, temperature, and nutrient levels, allowing farmers to make data-driven decisions on irrigation and fertilization schedules.</p>
+            <p class="text-gray-700 mt-2">Farmers accessed dashboards via mobile apps in local languages, receiving instant alerts about drought risk, optimal watering times, and fertilizer recommendations tailored to their specific plots.</p>
+            <p class="text-gray-700 mt-2">The cooperative used aggregated data to negotiate better prices for bulk fertilizer and seeds, and to coordinate planting and harvesting activities for maximum efficiency.</p>
+            <p class="text-gray-700 mt-2">IoT-enabled drip irrigation systems reduced manual labor and minimized water waste, especially during peak dry seasons. Automated scheduling ensured that water was delivered only when and where it was needed.</p>
+            <p class="text-gray-700 mt-2">The project included training sessions for farmers on digital literacy, sensor maintenance, and interpreting data, increasing technology adoption and confidence among older and less tech-savvy members.</p>
+            <p class="text-gray-700 mt-2">Yield mapping and historical data analysis helped identify underperforming plots, enabling targeted interventions such as soil amendments or pest management.</p>
+            <p class="text-gray-700 mt-2">The cooperative partnered with local universities and extension officers to validate sensor data and provide agronomic advice, further improving outcomes.</p>
+            <p class="text-gray-700 mt-2">By integrating IoT data with weather forecasts, the cooperative was able to plan irrigation around expected rainfall, reducing unnecessary water use and preventing crop losses from flooding or drought.</p>
+            <p class="text-gray-700 mt-2">The success of the project attracted additional funding from government and international donors, allowing expansion to neighboring districts and the introduction of new IoT tools such as pest detection cameras and automated fertilizer dispensers.</p>
+            <p class="text-gray-700 mt-2">Overall, the initiative demonstrated how affordable IoT solutions, combined with cooperative organization and training, can drive sustainable agriculture and improve livelihoods in rural India.</p>
+          </div>
+        </div>
+
+        <!-- Application 2 - Brazilian Soybean Farms -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Brazilian Soybean Farms – Mato Grosso</h4>
+          <p class="text-gray-600 mb-4">Soybean exporters integrated IoT soil sensors and satellite imaging to ensure sustainable land use and traceability for EU markets.</p>
+          <button onclick="toggleDetails(event, 'brazilCase')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+            Learn More
+            <svg id="arrow-brazilCase" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="brazilCase" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">Using Microsoft FarmBeats and DJI drone data, Brazilian soybean producers optimized planting density and reduced chemical inputs by targeting only affected areas.</p>
+            <p class="text-gray-700 mt-2">This not only improved profitability but also enhanced ESG compliance for international exports.</p>
+            <p class="text-gray-700 mt-2">Smallholder and large-scale farms alike benefited from IoT adoption, with some cooperatives using mobile apps to coordinate planting and harvesting schedules, reducing overlap and resource waste.</p>
+            <p class="text-gray-700 mt-2">Women-led farming groups in Mato Grosso received training on digital tools, increasing their participation in decision-making and improving access to market data.</p>
+            <p class="text-gray-700 mt-2">The integration of IoT with satellite imaging helped identify areas at risk of deforestation, supporting sustainable land management and compliance with EU traceability requirements.</p>
+            <p class="text-gray-700 mt-2">Partnerships with local universities and tech startups enabled ongoing innovation, such as the use of AI to predict pest outbreaks and optimize fertilizer application, further boosting yields and reducing environmental impact.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Institutions Supporting IoT -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Institutions Supporting IoT Adoption</h3>
+      <div class="space-y-6"></div>
+        <ul class="""list-disc list-inside text-gray-700 space-y-2"></ul>
+          <li>
+        <strong>NARO – India:</strong> Promotes IoT-based tools for smallholder farms and cooperatives, offering training, pilot projects, and partnerships with local tech startups. NARO also collaborates with universities to develop affordable sensor kits and provides extension services to help farmers interpret data for better decision-making.
+          </li>
+          <li>
+        <strong>Embrapa – Brazil:</strong> The Brazilian Agricultural Research Corporation leads national research on smart farming, integrating IoT into soybean, sugarcane, and livestock programs. Embrapa partners with agribusinesses and rural cooperatives to deploy climate stations, soil sensors, and drone monitoring, supporting both large-scale and family farms.
+          </li>
+          <li>
+        <strong>FAO (Food and Agriculture Organization):</strong> Provides technical guidance and policy support for IoT adoption in Africa, Asia, and Latin America. FAO runs pilot projects on digital agriculture, develops best-practice toolkits, and helps governments integrate IoT into climate adaptation and food security strategies.
+          </li>
+          <li>
+        <strong>World Bank:</strong> Funds IoT projects under its Climate-Smart Agriculture initiative, supporting digital infrastructure, farmer training, and public-private partnerships. The World Bank’s programs in Kenya, India, and Vietnam have enabled thousands of farmers to access real-time weather and soil data.
+          </li>
+          <li>
+        <strong>Microsoft FarmBeats:</strong> Offers scalable cloud solutions for IoT data processing and analysis, working with governments, NGOs, and agritech startups globally. FarmBeats provides open-source toolkits and affordable sensor integration, making digital agriculture accessible to smallholders.
+          </li>
+          <li>
+        <strong>IBM Watson Decision Platform for Agriculture:</strong> Integrates weather, soil, drone, and satellite data for predictive analytics. IBM partners with cooperatives and agribusinesses to deliver AI-powered insights, helping optimize planting, irrigation, and pest management.
+          </li>
+          <li>
+        <strong>AgUnity:</strong> An Australian social enterprise providing blockchain-based mobile apps for smallholder farmers in Africa, Asia, and Latin America. AgUnity’s platform integrates IoT data for transparent recordkeeping, cooperative management, and access to digital financial services.
+          </li>
+          <li>
+        <strong>Netafim:</strong> A global leader in smart irrigation, Netafim develops IoT-enabled drip and sprinkler systems. The company partners with governments and NGOs to deploy water-saving technologies in drought-prone regions, supporting both commercial and smallholder farms.
+          </li>
+          <li>
+        <strong>Aerobotics (South Africa):</strong> Uses drones and AI to provide crop health analytics for fruit and nut farmers. Aerobotics’ platform integrates IoT sensor data and satellite imagery, helping farmers detect pests, diseases, and water stress early.
+          </li>
+          <li>
+        <strong>CGIAR:</strong> A global research partnership that pilots IoT and digital agriculture solutions in Africa and Asia. CGIAR’s Digital Innovation Initiative works with local partners to test low-cost sensors, mobile apps, and data platforms for climate resilience and food security.
+          </li>
+          <li>
+        <strong>Uhurulabs (Tanzania):</strong> Provides IoT-based pest monitoring and drone services for smallholder farmers, enabling targeted interventions and reducing crop losses.
+          </li>
+          <li>
+        <strong>Government Initiatives:</strong> Many countries, such as India (Digital India, eNAM), Kenya (Digital Agriculture Strategy), and the Netherlands (Smart Farming Program), have launched national strategies and funding schemes to accelerate IoT adoption in agriculture.
+          </li>
+          <li>
+        <strong>NGOs and Development Agencies:</strong> Organizations like USAID, GIZ, and the Bill & Melinda Gates Foundation fund IoT pilot projects, farmer training, and digital literacy programs, ensuring that women, youth, and marginalized groups benefit from smart farming technologies.
+          </li>
+        </ul>
+        <div class="text-gray-700">
+          <p>
+        These organizations and initiatives work across diverse regions and farm types, from smallholder cooperatives in Africa and Asia to large commercial operations in the Americas and Europe. Their efforts include research, funding, training, technology development, and policy advocacy, ensuring that IoT solutions are accessible, affordable, and tailored to local needs.
+          </p>
+          <p class="mt-2">
+        By fostering collaboration between governments, private companies, research institutions, and farmer groups, these organizations help bridge the digital divide and promote sustainable, climate-resilient agriculture worldwide.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Start Using IoT Tools in Your Farm Today</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">Whether you're managing a small plot or part of a cooperative, IoT farming systems can protect your crops, improve yield, and boost your income sustainably.</p>
+      <a href="../index.html#resources" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition-colors">Explore More Resources</a> 
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li>
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Expandable Sections -->
+  <script>
+    function toggleDetails(e, id) {
+      e.preventDefault();
+      const section = document.getElementById(id);
+      const arrow = document.getElementById(`arrow-${id}`);
+      const isVisible = !section.classList.contains("hidden");
+
+      if (isVisible) {
+        section.classList.add("hidden");
+        arrow.style.transform = "rotate(0deg)";
+      } else {
+        section.classList.remove("hidden");
+        arrow.style.transform = "rotate(90deg)";
+      }
+    }
+  </script>
+
+  <!-- JavaScript for Auto Theme Detection -->
+  <script>
+    const body = document.getElementById("body");
+    const themeToggle = document.getElementById("themeToggle");
+
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDarkMode) {
+      body.classList.add("dark");
+      themeToggle.textContent = "Light Mode";
+    } else {
+      body.classList.remove("dark");
+      themeToggle.textContent = "Dark Mode";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      themeToggle.textContent = body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
+    });
+  </script>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

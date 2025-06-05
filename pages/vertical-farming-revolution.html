@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vertical Farming Revolution</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/agri.png" type="image/x-icon">
+
+  <!-- CSS for animations -->
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .transition-max-h {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .transition-max-h.expanded {
+      max-height: 1200px;
+      overflow: visible;
+    }
+
+    .rotate-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .rotate-icon.open {
+      transform: rotate(90deg);
+    }
+
+    .slideshow-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow-img.active {
+      opacity: 1;
+      z-index: 10;
+    }
+
+    .graph-placeholder {
+      width: 100%;
+      height: auto;
+      margin-top: 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark {
+      background-color: #1e293b;
+      color: #f8fafc;
+    }
+
+    body.dark .bg-white {
+      background-color: #334155;
+    }
+
+    body.dark .text-green-600,
+    body.dark .text-green-700,
+    body.dark .text-green-800 {
+      color: #86efac !important;
+    }
+
+    body.dark .border-green-200 {
+      border-color: #22c55e;
+    }
+
+    body.dark .hover\:bg-green-200:hover {
+      background-color: #22c55e;
+    }
+
+    body.dark .bg-green-100 {
+      background-color: #16a34a;
+    }
+
+    body.dark .hover\:text-green-200:hover {
+      color: #bef264 !important;
+    }
+
+    body.dark .bg-green-700 {
+      background-color: #16a34a !important;
+    }
+
+    body.dark .bg-green-800 {
+      background-color: #15803d !important;
+    }
+
+    body.dark .text-green-200 {
+      color: #a3e635 !important;
+    }
+
+    body.dark .text-green-300 {
+      color: #86efac !important;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans" id="body">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#about" class="capitalize hover:text-green-200 transition-colors">About Us</a>
+      </nav>
+
+      <!-- Theme Toggle -->
+      <button id="themeToggle" class="ml-4 bg-green-600 hover:bg-green-500 px-3 py-1 rounded-full text-sm">Dark Mode</button>
+
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#about" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About Us</a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Slideshow -->
+  <section class="relative bg-gradient-to-r from-green-600 to-teal-500 text-white py-16 min-h-[80vh] flex items-center">
+    <div class="absolute inset-0 z-0">
+      <img src="https://media.istockphoto.com/id/1326357547/photo/high-angle-view-of-vertical-farmer-checking-plant-growth.webp?a=1&b=1&s=612x612&w=0&k=20&c=KFB7c7yVB9lKNQVyddL24Ti4dqZTV3edMdrNWOusRsA=" alt="Slide 1" class="slideshow-img active" />
+      <img src="https://media.istockphoto.com/id/1318242748/photo/organic-hydroponic-vegetable-garden-at-greenhouse-and-light-of-sunset.webp?a=1&b=1&s=612x612&w=0&k=20&c=W2eNt0gSep5Ayup_7F26sckQ_YzPxOFNf1oAimJyCnQ=" alt="Slide 2" class="slideshow-img" />
+      <img src="https://media.istockphoto.com/id/619412452/photo/vegetable-farm.webp?a=1&b=1&s=612x612&w=0&k=20&c=vKMgem4i1S7LGXbnWFux_FsUSKTVEW4Ybgy4mK5_CW8=" alt="Slide 3" class="slideshow-img" />
+      <img src="https://media.istockphoto.com/id/2007449981/photo/hydroponics-farm-with-multiple-rows-and-layers-of-eco-friendly-plants-growing-under.webp?a=1&b=1&s=612x612&w=0&k=20&c=SePfzQLJLiAJ2GfVKpKrmglBNabZQPBJo41k0z74GGk=" alt="Slide 4" class="slideshow-img" />
+      <img src="https://media.istockphoto.com/id/1152639935/photo/shelves-with-lettuce-in-aquaponics-system-combining-fish-aquaculture-with-hydroponics.webp?a=1&b=1&s=612x612&w=0&k=20&c=OLwuSFfC6P8QiPR5MKKmkSEt3qhL72Cj_bJiRJvGVs4=" alt="Slide 5" class="slideshow-img" />
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">The Vertical Farming Revolution</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-6">Explore how vertical farming is transforming food production in urban areas — using hydroponics, LED lighting, and AI-driven climate control systems.</p>
+      <a href="#caseStudies" class="inline-block bg-white text-green-700 px-6 py-3 rounded-full font-semibold hover:bg-green-50 transition-colors shadow-md">Explore Case Studies</a> 
+    </div>
+  </section>
+
+  <!-- Slideshow JS Animation -->
+  <script>
+    const slides = document.querySelectorAll('.slideshow-img');
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 6000); // Change every 6 seconds
+  </script>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">What Is Vertical Farming?</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        Vertical farming involves growing crops in stacked layers inside controlled environments such as warehouses or indoor farms.
+        Using hydroponics, aeroponics, and aquaponics, this method reduces land use, water consumption, and pesticide dependency while increasing yield per square meter.
+      </p>
+    </section>
+
+    <!-- Benefits of Vertical Farming -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Key Benefits</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li><strong>Space Efficiency:</strong> Grow more food in less area by stacking plants vertically.</li>
+        <li><strong>Water Conservation:</strong> Recirculating systems reduce water usage by up to 90% compared to traditional farming.</li>
+        <li><strong>Year-Round Production:</strong> Controlled environment means no seasonal limitations.</li>
+        <li><strong>Reduced Transportation:</strong> Farms located closer to cities cut down on carbon footprint.</li>
+        <li><strong>Pest-Free:</strong> Indoor setups reduce reliance on chemical pesticides.</li>
+        <li><strong>AI Integration:</strong> Smart sensors and machine learning optimize growth conditions automatically.</li>
+      </ul>
+    </section>
+
+    <!-- Featured Technologies -->
+    <section id="techList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+
+      <!-- Tech Card 1 - Hydroponic Systems -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://media.istockphoto.com/id/1318242748/photo/organic-hydroponic-vegetable-garden-at-greenhouse-and-light-of-sunset.webp?a=1&b=1&s=612x612&w=0&k=20&c=W2eNt0gSep5Ayup_7F26sckQ_YzPxOFNf1oAimJyCnQ=" alt="Hydroponic Crops" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Hydroponic Farming Systems</h4>
+        <p class="text-gray-600 mb-4">Growing plants without soil using nutrient-rich water solutions — ideal for lettuce, herbs, and leafy greens.</p>
+        <button onclick="toggleDetails(event, 'hydroponics')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-hydroponics" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="hydroponics" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Hydroponic systems are widely used in urban vertical farms to grow high-quality vegetables with minimal inputs.</p>
+          <p class="text-gray-700 mt-2">These systems rely on water-based nutrient delivery, eliminating the need for fertile land or large tracts of soil.</p>
+          <p class="text-gray-700 mt-2">They also allow for faster crop cycles and higher density planting, which increases productivity per square meter.</p>
+          <p class="text-gray-700 mt-2">Graph below shows water savings vs traditional farming:</p>
+        <canvas id="hydroponicsWaterSavings" width="600" height="300" class="graph-placeholder bg-white"></canvas>
+        <script>
+            // Draw a simple water savings bar graph using Canvas API
+            const canvas = document.getElementById('hydroponicsWaterSavings');
+            if (canvas && canvas.getContext) {
+                const ctx = canvas.getContext('2d');
+                // Data: [Traditional, Hydroponics]
+                const labels = ['Traditional', 'Hydroponics'];
+                const values = [100, 10]; // Hydroponics uses 90% less water
+                const colors = ['#4fd1c5', '#2f855a'];
+
+                // Draw axes
+                ctx.strokeStyle = '#888';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(60, 30);
+                ctx.lineTo(60, 250);
+                ctx.lineTo(550, 250);
+                ctx.stroke();
+
+                // Draw bars
+                const barWidth = 120;
+                for (let i = 0; i < values.length; i++) {
+                    const x = 100 + i * 200;
+                    const y = 250 - (values[i] * 2);
+                    ctx.fillStyle = colors[i];
+                    ctx.fillRect(x, y, barWidth, values[i] * 2);
+                    // Label
+                    ctx.fillStyle = '#222';
+                    ctx.font = 'bold 18px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(labels[i], x + barWidth / 2, 270);
+                    // Value
+                    ctx.font = '16px sans-serif';
+                    ctx.fillText(values[i] + ' L', x + barWidth / 2, y - 10);
+                }
+
+                // Title
+                ctx.fillStyle = '#2f855a';
+                ctx.font = 'bold 20px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Water Usage: Traditional vs Hydroponics', 300, 22);
+                // Y-axis label
+                ctx.save();
+                ctx.translate(20, 170);
+                ctx.rotate(-Math.PI / 2);
+                ctx.font = '16px sans-serif';
+                ctx.fillStyle = '#444';
+                ctx.fillText('Water Used (Liters)', 0, 0);
+                ctx.restore();
+            }
+        </script>
+          <p class="text-gray-700 mt-2">Hydroponics is especially useful in arid regions like the Middle East and North Africa, where land degradation is a major issue.</p>
+        </div>
+      </div>
+
+      <!-- Tech Card 2 - Aeroponics -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://plus.unsplash.com/premium_photo-1734554231510-e9c860f66a60?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8QWVyb3BvbmljJTIwRmFybWluZ3xlbnwwfDB8MHx8fDA%3D" alt="Aeroponics Setup" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Aeroponic Farming</h4>
+        <p class="text-gray-600 mb-4">Using mist-based nutrient delivery to grow plants with even less water than hydroponics — ideal for high-density urban farms.</p>
+        <button onclick="toggleDetails(event, 'aeroponics')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-aeroponics" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="aeroponics" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Aeroponics suspends plant roots in air and mists them with nutrient solution — reducing water use by over 95% compared to field farming.</p>
+          <p class="text-gray-700 mt-2">This method is ideal for fast-growing leafy greens like kale, spinach, and basil.</p>
+          <p class="text-gray-700 mt-2">NASA has tested aeroponics for future space missions due to its efficiency and low resource requirements.</p>
+          <p class="text-gray-700 mt-2">Graph below shows growth rate comparison between traditional, hydroponic, and aeroponic systems:</p>
+        <table class="w-full text-xs border border-green-200 rounded-lg overflow-hidden mb-4">
+            <thead class="bg-green-100">
+                <tr>
+                    <th class="px-2 py-1 font-semibold">System</th>
+                    <th class="px-2 py-1 font-semibold">Days to Harvest</th>
+                    <th class="px-2 py-1 font-semibold">Water Use</th>
+                    <th class="px-2 py-1 font-semibold">Crops</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-t">
+                    <td class="px-2 py-1">Soil</td>
+                    <td class="px-2 py-1">45–60</td>
+                    <td class="px-2 py-1">High</td>
+                    <td class="px-2 py-1">Lettuce, Herbs</td>
+                </tr>
+                <tr class="border-t bg-green-50">
+                    <td class="px-2 py-1">Hydroponics</td>
+                    <td class="px-2 py-1">30–40</td>
+                    <td class="px-2 py-1">Medium</td>
+                    <td class="px-2 py-1">Leafy Greens</td>
+                </tr>
+                <tr class="border-t">
+                    <td class="px-2 py-1">Aeroponics</td>
+                    <td class="px-2 py-1">25–35</td>
+                    <td class="px-2 py-1">Low</td>
+                    <td class="px-2 py-1">Kale, Basil</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="text-gray-700 mt-2">With continued innovation, aeroponics could become a mainstream solution for global food security in dense urban centers.</p>
+        </div>
+      </div>
+
+      <!-- Tech Card 3 - Aquaponics -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://media.istockphoto.com/id/496127910/photo/green-vegetable-hydroponics-farm.webp?a=1&b=1&s=612x612&w=0&k=20&c=2IGyntsJ6310MEV6CeSAn5QpHUOJKDEAGc18u79cSk0=" alt="Aquaponics System" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Aquaponic Farming</h4>
+        <p class="text-gray-600 mb-4">Combines fish farming with plant cultivation in a closed-loop ecosystem — using fish waste to nourish crops naturally.</p>
+        <button onclick="toggleDetails(event, 'aquaponics')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-aquaponics" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="aquaponics" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Aquaponics combines hydroponics with aquaculture — allowing farmers to grow both vegetables and fish in one integrated system.</p>
+          <p class="text-gray-700 mt-2">Fish waste provides natural fertilizer for plants, while plants filter the water for fish tanks — creating a self-sustaining cycle.</p>
+          <p class="text-gray-700 mt-2">This technique is being adopted in Singapore, Kenya, and Germany to improve protein and vegetable availability in limited-space environments.</p>
+          <p class="text-gray-700 mt-2">Graph below shows dual output of fish and crops over time:</p>
+        <canvas id="aquaponicsYieldGraph" width="600" height="300" class="graph-placeholder bg-white"></canvas>
+        <script>
+            // a dual output line graph for fish and crop yield over 12 months
+            const canvasAqua = document.getElementById('aquaponicsYieldGraph');
+            if (canvasAqua && canvasAqua.getContext) {
+                const ctx = canvasAqua.getContext('2d');
+                // Data for 12 months
+                const months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
+                const cropYield = [10, 15, 18, 22, 25, 28, 30, 32, 34, 36, 38, 40]; // tons
+                const fishYield = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]; // tons
+
+                // Axes
+                ctx.strokeStyle = "#888";
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(50, 30);
+                ctx.lineTo(50, 250);
+                ctx.lineTo(570, 250);
+                ctx.stroke();
+
+                // Y-axis labels (0 to 40)
+                ctx.font = "14px sans-serif";
+                ctx.fillStyle = "#444";
+                ctx.textAlign = "right";
+                for (let i = 0; i <= 4; i++) {
+                    let y = 250 - i * 50;
+                    ctx.fillText(i * 10, 45, y + 5);
+                    ctx.strokeStyle = "#eee";
+                    ctx.beginPath();
+                    ctx.moveTo(50, y);
+                    ctx.lineTo(570, y);
+                    ctx.stroke();
+                }
+
+                // X-axis labels (months)
+                ctx.textAlign = "center";
+                ctx.fillStyle = "#444";
+                for (let i = 0; i < months.length; i++) {
+                    let x = 80 + i * 45;
+                    ctx.fillText(months[i], x, 270);
+                }
+
+                // Draw crop yield line
+                ctx.strokeStyle = "#38a169";
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                for (let i = 0; i < cropYield.length; i++) {
+                    let x = 80 + i * 45;
+                    let y = 250 - (cropYield[i] * 5);
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+
+                // Draw fish yield line
+                ctx.strokeStyle = "#3182ce";
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                for (let i = 0; i < fishYield.length; i++) {
+                    let x = 80 + i * 45;
+                    let y = 250 - (fishYield[i] * 18); // scale fish yield for visibility
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+
+                // Draw points for crop yield
+                for (let i = 0; i < cropYield.length; i++) {
+                    let x = 80 + i * 45;
+                    let y = 250 - (cropYield[i] * 5);
+                    ctx.fillStyle = "#38a169";
+                    ctx.beginPath();
+                    ctx.arc(x, y, 5, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+
+                // Draw points for fish yield
+                for (let i = 0; i < fishYield.length; i++) {
+                    let x = 80 + i * 45;
+                    let y = 250 - (fishYield[i] * 18);
+                    ctx.fillStyle = "#3182ce";
+                    ctx.beginPath();
+                    ctx.arc(x, y, 5, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+
+                // Legend
+                ctx.fillStyle = "#38a169";
+                ctx.fillRect(420, 40, 18, 10);
+                ctx.fillStyle = "#222";
+                ctx.font = "bold 14px sans-serif";
+                ctx.fillText("Crop Yield (tons)", 445, 50);
+
+                ctx.fillStyle = "#3182ce";
+                ctx.fillRect(420, 60, 18, 10);
+                ctx.fillStyle = "#222";
+                ctx.fillText("Fish Yield (tons)", 445, 70);
+
+                // Title
+                ctx.fillStyle = "#2f855a";
+                ctx.font = "bold 18px sans-serif";
+                ctx.textAlign = "center";
+                ctx.fillText("Aquaponics: Crop & Fish Yield Over Time", 310, 22);
+
+                // Y-axis label
+                ctx.save();
+                ctx.translate(18, 170);
+                ctx.rotate(-Math.PI / 2);
+                ctx.font = "14px sans-serif";
+                ctx.fillStyle = "#444";
+                ctx.fillText("Yield (tons)", 0, 0);
+                ctx.restore();
+            }
+        </script>
+          <p class="text-gray-700 mt-2">Aquaponics is gaining traction among eco-conscious urban farmers and schools seeking sustainable education tools.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Real-World Applications -->
+    <section id="caseStudies" class="mb-12">
+      <h3 class="text-2xl font-semibold text-green-700 mb-6">Real-World Applications</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- Study 1 - Singapore Urban Farm -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Singapore Urban Farm Project</h4>
+          <p class="text-gray-600 mb-4">Skyp farms in Singapore produce fresh leafy greens in high-rise buildings using vertical farming and AI-powered environmental controls.</p>
+          <button onclick="toggleDetails(event, 'singaporeCase')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+            Learn More
+            <svg id="arrow-singaporeCase" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="singaporeCase" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">In Singapore, where land is scarce and import dependence is high, vertical farming has become a key strategy for local food security.</p>
+            <p class="text-gray-700 mt-2">Companies like Sky Greens have built rotating tower farms that use gravity-fed irrigation and minimal energy to grow vegetables year-round.</p>
+            <p class="text-gray-700 mt-2">These systems are now supplying supermarkets with locally grown lettuce, spinach, and cabbage — reducing carbon footprint and increasing freshness.</p>
+            <p class="text-gray-700 mt-2">Graph below shows local farm output before and after vertical farming adoption:</p>
+            <canvas id="singaporeFarmOutput" width="600" height="300" class="graph-placeholder bg-white"></canvas>
+            <script>
+            // Draw a before/after bar graph for local farm output using Canvas API
+            const canvasSG = document.getElementById('singaporeFarmOutput');
+            if (canvasSG && canvasSG.getContext) {
+                const ctx = canvasSG.getContext('2d');
+                // Data: [Before, After]
+                const labels = ['Before', 'After'];
+                const values = [20, 65]; // Example: tons per month
+                const colors = ['#4fd1c5', '#2f855a'];
+
+                // Draw axes
+                ctx.strokeStyle = '#888';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(60, 30);
+                ctx.lineTo(60, 250);
+                ctx.lineTo(550, 250);
+                ctx.stroke();
+
+                // Draw bars
+                const barWidth = 120;
+                for (let i = 0; i < values.length; i++) {
+                    const x = 120 + i * 200;
+                    const y = 250 - (values[i] * 3);
+                    ctx.fillStyle = colors[i];
+                    ctx.fillRect(x, y, barWidth, values[i] * 3);
+                    // Label
+                    ctx.fillStyle = '#222';
+                    ctx.font = 'bold 18px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(labels[i], x + barWidth / 2, 270);
+                    // Value
+                    ctx.font = '16px sans-serif';
+                    ctx.fillText(values[i] + ' tons', x + barWidth / 2, y - 10);
+                }
+
+                // Title
+                ctx.fillStyle = '#2f855a';
+                ctx.font = 'bold 20px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Local Farm Output: Before vs After Vertical Farming', 300, 22);
+                // Y-axis label
+                ctx.save();
+                ctx.translate(20, 170);
+                ctx.rotate(-Math.PI / 2);
+                ctx.font = '16px sans-serif';
+                ctx.fillStyle = '#444';
+                ctx.fillText('Output (tons/month)', 0, 0);
+                ctx.restore();
+            }
+            </script>
+          </div>
+        </div>
+
+        <!-- Study 2 - Berlin Smart Farm -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Berlin Smart Farm Initiative</h4>
+          <p class="text-gray-600 mb-4">Berlin’s ECF Farmsystems integrates vertical farming and aquaponics in repurposed city buildings — providing fresh food to urban consumers.</p>
+          <button onclick="toggleDetails(event, 'berlinCase')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+            Learn More
+            <svg id="arrow-berlinCase" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="berlinCase" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">ECF Farmsystems uses smart sensors and AI-controlled environments to manage temperature, humidity, and nutrient levels remotely via smartphone apps.</p>
+            <p class="text-gray-700 mt-2">Their setup includes vertical towers and fish tanks in a circular design that maximizes space and minimizes waste.</p>
+            <p class="text-gray-700 mt-2">Farmers receive alerts about pH imbalances, nutrient needs, and harvest readiness through integrated software platforms.</p>
+            <p class="text-gray-700 mt-2">Graph below shows reduction in post-harvest loss after implementation:</p>
+            <canvas id="berlinPostHarvestLoss" width="600" height="300" class="graph-placeholder bg-white"></canvas>
+            <script>
+            // Draw a bar graph for post-harvest loss reduction using Canvas API
+            const canvasBerlin = document.getElementById('berlinPostHarvestLoss');
+            if (canvasBerlin && canvasBerlin.getContext) {
+                const ctx = canvasBerlin.getContext('2d');
+                // Data: [Before, After]
+                const labels = ['Before', 'After'];
+                const values = [30, 10]; // Example: % post-harvest loss
+                const colors = ['#4fd1c5', '#2f855a'];
+
+                // Draw axes
+                ctx.strokeStyle = '#888';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(60, 30);
+                ctx.lineTo(60, 250);
+                ctx.lineTo(550, 250);
+                ctx.stroke();
+
+                // Draw bars
+                const barWidth = 120;
+                for (let i = 0; i < values.length; i++) {
+                    const x = 120 + i * 200;
+                    const y = 250 - (values[i] * 6);
+                    ctx.fillStyle = colors[i];
+                    ctx.fillRect(x, y, barWidth, values[i] * 6);
+                    // Label
+                    ctx.fillStyle = '#222';
+                    ctx.font = 'bold 18px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(labels[i], x + barWidth / 2, 270);
+                    // Value
+                    ctx.font = '16px sans-serif';
+                    ctx.fillText(values[i] + '%', x + barWidth / 2, y - 10);
+                }
+
+                // Title
+                ctx.fillStyle = '#2f855a';
+                ctx.font = 'bold 20px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Post-Harvest Loss: Before vs After Smart Farm', 300, 22);
+                // Y-axis label
+                ctx.save();
+                ctx.translate(20, 170);
+                ctx.rotate(-Math.PI / 2);
+                ctx.font = '16px sans-serif';
+                ctx.fillStyle = '#444';
+                ctx.fillText('Loss (%)', 0, 0);
+                ctx.restore();
+            }
+            </script>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Institutions Supporting Vertical Farming -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Leading Institutions in Vertical Farming</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li><strong>Wageningen University – Netherlands:</strong> Researches optimal light spectra and nutrient flow for high-efficiency vertical farming.</li>
+        <li><strong>Sky Greens – Singapore:</strong> Pioneered vertical farming towers that rotate for natural sunlight exposure and efficient water use.</li>
+        <li><strong>ECF Farmsystems – Germany:</strong> Integrates aquaponics with vertical farming to maximize protein and vegetable output in urban spaces.</li>
+        <li><strong>NASA – USA:</strong> Tests aeroponic systems for future food production in extreme environments like space stations and Mars habitats.</li>
+        <li><strong>FAO – Global:</strong> Promotes vertical farming in densely populated countries to reduce pressure on rural agriculture.</li>
+      </ul>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Start Adopting Vertical Farming Today</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">Whether you're managing a small rooftop garden or planning a commercial urban farm, vertical farming offers scalable, sustainable, and profitable food production methods for modern agriculture.</p>
+      <a href="../index.html#resources" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition-colors">Explore More Resources</a> 
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li>
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News & Articles</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Expandable Sections -->
+  <script>
+    function toggleDetails(e, id) {
+      e.preventDefault();
+      const section = document.getElementById(id);
+      const arrow = document.getElementById(`arrow-${id}`);
+      const isVisible = !section.classList.contains("hidden");
+
+      if (isVisible) {
+        section.classList.add("hidden");
+        arrow.style.transform = "rotate(0deg)";
+      } else {
+        section.classList.remove("hidden");
+        arrow.style.transform = "rotate(90deg)";
+      }
+    }
+  </script>
+
+  <!-- JavaScript for Auto Theme Detection -->
+  <script>
+    const body = document.getElementById("body");
+    const themeToggle = document.getElementById("themeToggle");
+
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDarkMode) {
+      body.classList.add("dark");
+      themeToggle.textContent = "Light Mode";
+    } else {
+      body.classList.remove("dark");
+      themeToggle.textContent = "Dark Mode";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      themeToggle.textContent = body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
+    });
+  </script>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI & Predictive Analytics in Agriculture</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/agri.png" type="image/x-icon">
+
+  <!-- CSS for animations -->
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .transition-max-h {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .transition-max-h.expanded {
+      max-height: 500px;
+      overflow: visible;
+    }
+
+    .rotate-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .rotate-icon.open {
+      transform: rotate(90deg);
+    }
+
+    .slideshow-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow-img.active {
+      opacity: 1;
+      z-index: 10;
+    }
+
+    body.dark {
+      background-color: #1e293b;
+      color: #f8fafc;
+    }
+
+    body.dark .bg-white {
+      background-color: #334155;
+    }
+
+    body.dark .text-green-600,
+    body.dark .text-green-700,
+    body.dark .text-green-800 {
+      color: #86efac !important;
+    }
+
+    body.dark .border-green-200 {
+      border-color: #22c55e;
+    }
+
+    body.dark .hover\:bg-green-200:hover {
+      background-color: #22c55e;
+    }
+
+    body.dark .bg-green-100 {
+      background-color: #16a34a;
+    }
+
+    body.dark .hover\:text-green-200:hover {
+      color: #bef264 !important;
+    }
+
+    body.dark .bg-green-700 {
+      background-color: #16a34a !important;
+    }
+
+    body.dark .bg-green-800 {
+      background-color: #15803d !important;
+    }
+
+    body.dark .text-green-200 {
+      color: #a3e635 !important;
+    }
+
+    body.dark .text-green-300 {
+      color: #86efac !important;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans" id="body">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#about" class="capitalize hover:text-green-200 transition-colors">About Us</a>
+      </nav>
+
+      <!-- Theme Toggle -->
+      <button id="themeToggle" class="ml-4 bg-green-600 hover:bg-green-500 px-3 py-1 rounded-full text-sm">Dark Mode</button>
+
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#about" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About Us</a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Slideshow -->
+  <section class="relative bg-gradient-to-r from-green-600 to-teal-500 text-white py-16 min-h-[80vh] flex items-center">
+    <div class="absolute inset-0 z-0">
+    <img src="https://media.istockphoto.com/id/2095551020/photo/farmer-inspects-barley-and-uses-agricultural-technology-to-analyze-data-via-tablet-concept-of.webp?a=1&b=1&s=612x612&w=0&k=20&c=Kf5kHQ5Ghfli3mICUo1FsoCfZREUATGrAUiMD9U9or4=" alt="AI in Farming" class="slideshow-img active" />
+    <img src="https://media.istockphoto.com/id/2157028800/photo/agriculture-technology-innovation-businessman-uses-tablet-and-digital-networking-interface-on.webp?a=1&b=1&s=612x612&w=0&k=20&c=GI4g-kWILc_k6X1Knp-jX1tiZOtyAg8lBbz9_xP6Xpo=" alt="Slide 2" class="slideshow-img" />
+    <img src="https://media.istockphoto.com/id/2154946310/photo/agriculture-technology-businessman-touching-the-agriculture-technology-icon-and-global.webp?a=1&b=1&s=612x612&w=0&k=20&c=Ik6DNrA8235whgIgGpzbGUO37AeWSTsqI6gZl2zM3VI=" alt="Slide 3" class="slideshow-img" />
+    <img src="https://images.unsplash.com/photo-1683476383052-150b12031d17?w=900&auto=format&fit=crop&q=80&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHNtYXJ0JTIwZmFybWluZyUyMHNvbHV0aW9uc3xlbnwwfDB8MHx8fDA%3D" alt="Smart Farming Solutions" class="slideshow-img" />
+    <img src="https://media.istockphoto.com/id/1447011255/photo/automated-hydroponic-farm.webp?a=1&b=1&s=612x612&w=0&k=20&c=jBsISyE5TOWSt3uvW90C1-ujXFwtw_JyomD7y5ntsjE=" alt="Automated Hydroponic Farm" class="slideshow-img" />
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">AI & Predictive Analytics in Agriculture</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-6">Discover how artificial intelligence and machine learning are transforming farming through yield prediction, pest detection, and smart decision-making tools.</p>
+      <a href="#aiTools" class="inline-block bg-white text-green-700 px-6 py-3 rounded-full font-semibold hover:bg-green-50 transition-colors shadow-md">Explore AI Tools</a> 
+    </div>
+  </section>
+
+  <!-- Slideshow JS Animation -->
+  <script>
+    const slides = document.querySelectorAll('.slideshow-img');
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 6000); // Change every 6 seconds
+  </script>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">What Is AI & Predictive Analytics in Farming?</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        Artificial Intelligence and predictive analytics are reshaping agriculture by enabling farmers to make data-driven decisions.
+        From forecasting yields to identifying crop stress early, these tools help reduce losses, optimize resource use, and increase profitability — especially in climate-vulnerable regions.
+        <br><br>
+        AI systems process vast amounts of data from sensors, satellites, and farm equipment to provide actionable insights. Predictive analytics can alert farmers to potential pest outbreaks, recommend optimal planting times, and even automate irrigation or fertilization schedules. By leveraging these technologies, both smallholders and large-scale producers can make smarter, faster decisions that improve sustainability and resilience.
+      </p>
+    </section>
+
+    <!-- Key Benefits -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Key Benefits</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li><strong>Improved Yield Forecasting:</strong> AI models analyze satellite, drone, and sensor data to predict harvest outcomes accurately.</li>
+        <li><strong>Pest & Disease Detection:</strong> Machine learning identifies infestations from image uploads before visible damage occurs.</li>
+        <li><strong>Weather Adaptation:</strong> Real-time weather integration helps plan planting and harvesting around extreme conditions.</li>
+        <li><strong>Labor Optimization:</strong> Smart scheduling tools improve workforce efficiency on large farms.</li>
+        <li>
+          <strong>FarmERP Integration:</strong> Many platforms connect directly with farm management software for seamless planning.
+          <ul class="list-disc list-inside ml-6 mt-2 text-gray-600 space-y-1">
+            <li>
+              <strong>Centralized Data Management:</strong> FarmERP and similar systems aggregate data from sensors, weather APIs, and field operations, providing a unified dashboard for tracking crop health, inventory, and finances.
+            </li>
+            <li>
+              <strong>Automated Recommendations:</strong> AI-powered modules within FarmERP analyze historical and real-time data to suggest optimal planting dates, irrigation schedules, and fertilizer application rates.
+            </li>
+            <li>
+              <strong>Resource Optimization:</strong> By integrating predictive analytics, FarmERP helps reduce input waste, lower costs, and improve sustainability by recommending precise resource allocation.
+            </li>
+            <li>
+              <strong>Compliance & Traceability:</strong> The platform supports digital record-keeping for certifications, traceability, and regulatory compliance, making it easier to access premium markets.
+            </li>
+            <li>
+              <strong>Mobile Accessibility:</strong> Farmers and managers can access insights and manage operations from anywhere using mobile apps, ensuring timely interventions and improved decision-making.
+            </li>
+            <li>
+              <strong>Case Example:</strong> In Kenya and India, cooperatives using FarmERP with AI modules have reported up to 30% higher yields and significant reductions in water and fertilizer usage.
+            </li>
+          </ul>
+        </li>
+        <li><strong>Market Insights:</strong> Predictive analytics track commodity prices and recommend optimal selling windows.</li>
+      </ul>
+    </section>
+
+    <!-- Featured AI Tools -->
+    <section id="aiTools" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+
+      <!-- Tool 1 - Yield Prediction -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=Yield+Prediction+Tool" alt="Yield Prediction Tool" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Crop Yield Prediction Tool</h4>
+        <p class="text-gray-600 mb-4">Uses historical and real-time field data to estimate harvest size and quality — helping farmers negotiate better contracts with buyers.</p>
+        <button onclick="toggleDetails(event, 'yield')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-yield" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="yield" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">This tool integrates with satellite and drone imaging to provide accurate yield estimates based on plant health, soil moisture, and weather forecasts.</p>
+          <p class="text-gray-700 mt-2">Used by cooperatives in India and Brazil, it has helped smallholder farms secure premium pricing by proving expected output before harvest.</p>
+          <p class="text-gray-700 mt-2">Some platforms also integrate with government subsidy programs, allowing farmers to access financial support based on predicted yields. Advanced versions offer scenario analysis, letting users adjust variables like fertilizer rates or planting dates to see projected impacts on yield and profitability.</p>
+          <p class="text-gray-700 mt-2">Integration with mobile apps enables real-time updates and notifications, making it easier for farmers to respond quickly to changing weather or pest threats.</p>
+        </div>
+      </div>
+
+      <!-- Tool 2 - Pest Detection -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=Pest+Detection+AI" alt="Pest Detection AI" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">AI-Powered Pest Detection</h4>
+        <p class="text-gray-600 mb-4">Upload leaf images or drone scans and receive instant alerts about pests and diseases affecting your crops.</p>
+        <button onclick="toggleDetails(event, 'pest')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-pest" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="pest" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Using convolutional neural networks, this tool analyzes leaf images uploaded via smartphone apps and detects signs of disease or insect damage with over 95% accuracy.</p>
+        <p class="text-gray-700 mt-2">Available as part of Microsoft FarmBeats and AgNext’s mobile platforms, it's used by coffee, rice, and cotton growers globally.</p>
+        <p class="text-gray-700 mt-2">The AI models are trained on thousands of annotated images, enabling them to distinguish between similar-looking diseases and pests, even at early stages. Some platforms offer multi-language support and offline analysis, making them accessible to farmers in remote areas with limited connectivity.</p>
+        <p class="text-gray-700 mt-2">Integration with farm management systems allows for automatic logging of detected issues, which can trigger recommendations for targeted pesticide application or agronomic advice. This reduces unnecessary chemical use, lowers costs, and supports more sustainable farming practices.</p>
+        <p class="text-gray-700 mt-2">Advanced versions provide heatmaps of pest outbreaks across regions, helping cooperatives and extension workers coordinate rapid responses. Some tools also connect with weather APIs to predict pest migration patterns and suggest preventive measures.</p>
+        <p class="text-gray-700 mt-2">Case studies from East Africa and Southeast Asia show that early detection using these AI tools has reduced crop losses by up to 40% and improved yields, especially for smallholder farmers. Many governments and NGOs now include such platforms in their digital agriculture initiatives.</p>
+        </div>
+      </div>
+
+      <!-- Tool 3 - Weather Forecast API -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=Weather+Forecast+API" alt="Weather Forecast API" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Weather Forecast API</h4>
+        <p class="text-gray-600 mb-4">Integrate localized weather predictions into your farm planning to avoid risks from storms, frost, and heatwaves.</p>
+        <button onclick="toggleDetails(event, 'weather')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-weather" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="weather" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Platforms like IBM Weather for Agriculture and NASA Harvest integrate advanced weather modeling into farm planning apps.</p>
+        <p class="text-gray-700 mt-2">Farmers receive hyper-local forecasts updated daily, including rainfall probability, wind speed, and UV index.</p>
+        <p class="text-gray-700 mt-2">These APIs can be integrated directly into farm management platforms or accessed via mobile apps, providing real-time alerts for severe weather events such as storms, droughts, or frost. This enables farmers to take preventive actions, such as adjusting irrigation schedules, applying crop protection, or rescheduling fieldwork to minimize losses.</p>
+        <p class="text-gray-700 mt-2">Advanced weather APIs use machine learning to analyze historical weather patterns, satellite data, and sensor inputs, offering predictive insights up to two weeks in advance. Some platforms also provide hourly breakdowns and customizable notifications for specific crops or fields.</p>
+        <p class="text-gray-700 mt-2">Integration with IoT devices allows for automated responses, such as activating irrigation systems when a dry spell is predicted or sending SMS alerts to workers about incoming storms. This level of automation helps reduce manual monitoring and improves farm resilience.</p>
+        <p class="text-gray-700 mt-2">Case studies from sub-Saharan Africa and Southeast Asia show that farms using AI-powered weather APIs have reduced crop losses from extreme weather by up to 30% and improved planning for planting and harvesting. Many government extension services now recommend these tools as part of climate adaptation strategies.</p>
+        <p class="text-gray-700 mt-2">Popular weather APIs for agriculture include IBM Weather Company, OpenWeatherMap, Tomorrow.io, and local meteorological services with agricultural extensions. These services often offer free basic access and premium plans for advanced analytics and integration.</p>
+        </div>
+      </div>
+
+      <!-- Tool 4 - Digital Twin Platforms -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=Digital+Twin+Platform" alt="Digital Twin Platform" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Digital Twin Farm Simulation</h4>
+        <p class="text-gray-600 mb-4">Simulate entire farms digitally to test different irrigation, planting, and fertilization strategies before applying them in the field.</p>
+        <button onclick="toggleDetails(event, 'digitalTwin')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-digitalTwin" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="digitalTwin" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Digital twin platforms allow virtual replication of physical farms using real-time sensor, drone, and satellite data.</p>
+        <p class="text-gray-700 mt-2">By simulating changes in irrigation, planting dates, or fertilizer application, farmers can predict outcomes and choose optimal strategies.</p>
+        <p class="text-gray-700 mt-2">Digital twin platforms create a virtual replica of the entire farm, integrating real-time data from IoT sensors, weather stations, drones, and satellite imagery. This allows farmers and agronomists to visualize crop growth, soil moisture, and nutrient levels across different fields, and to monitor the impact of interventions without risking actual crops.</p>
+        <p class="text-gray-700 mt-2">Advanced digital twins use AI and machine learning to model complex interactions between weather, soil, crop genetics, and management practices. Users can run "what-if" scenarios—such as testing new irrigation schedules, crop rotations, or pest management strategies—and instantly see projected effects on yield, resource use, and profitability.</p>
+        <p class="text-gray-700 mt-2">Some platforms, like Microsoft Azure FarmBeats and ETH Zurich's digital twin research, enable integration with farm management systems (FMS) and ERP software, providing seamless data flow and actionable recommendations. These systems can also generate alerts for anomalies, such as unexpected drops in soil moisture or signs of disease, allowing for rapid intervention.</p>
+        <p class="text-gray-700 mt-2">Digital twins are especially valuable for large-scale operations and research farms, but are increasingly accessible to smallholders through cloud-based services and mobile apps. They support sustainability by helping optimize water and fertilizer use, reduce waste, and minimize environmental impact.</p>
+        <p class="text-gray-700 mt-2">Case studies show that farms using digital twin simulations have achieved up to 20% higher yields and significant reductions in input costs. In Europe and North America, digital twins are also used for compliance reporting, traceability, and to support regenerative agriculture practices.</p>
+        <p class="text-gray-700 mt-2">As the technology matures, digital twins are expected to integrate with autonomous machinery, enabling fully automated, data-driven farm management and continuous improvement cycles.</p>
+        </div>
+      </div>
+
+      <!-- Tool 5 - Market Price Prediction -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=Market+Price+Prediction" alt="Market Price Prediction" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Market Price Forecasting</h4>
+        <p class="text-gray-600 mb-4">Use AI to track global market trends and decide when to sell your produce for maximum profit.</p>
+        <button onclick="toggleDetails(event, 'market')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-market" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="market" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">AI tools like Cropster and Hello Tractor now offer market price tracking, analyzing demand patterns and export pricing fluctuations.</p>
+        <p class="text-gray-700 mt-2">These insights help farmers time their sales better and access premium markets both locally and internationally.</p>
+        <p class="text-gray-700 mt-2">AI-powered market price forecasting tools aggregate data from commodity exchanges, local markets, weather trends, and even social media to predict short- and long-term price movements for crops such as maize, rice, coffee, and cotton. By analyzing historical pricing, seasonality, and global demand, these platforms provide actionable recommendations on when to sell, store, or transport produce.</p>
+        <p class="text-gray-700 mt-2">Some solutions integrate with farm management systems and mobile apps, sending real-time alerts to farmers about sudden price drops or spikes. This enables producers to avoid selling during market gluts and to capitalize on high-demand periods, increasing overall profitability.</p>
+        <p class="text-gray-700 mt-2">Advanced platforms also offer scenario analysis, allowing users to simulate the impact of different selling strategies, storage costs, and logistics options. For example, a farmer can compare the projected profit of selling immediately versus storing crops for a month, factoring in storage fees and expected price changes.</p>
+        <p class="text-gray-700 mt-2">In regions with volatile markets, these tools help cooperatives and aggregators coordinate bulk sales, negotiate better contracts, and reduce the risk of post-harvest losses. Some AI systems also track export regulations, tariffs, and currency fluctuations, providing a holistic view of market opportunities.</p>
+        <p class="text-gray-700 mt-2">Case studies from West Africa and Southeast Asia show that farmers using AI-driven price forecasting have increased their incomes by up to 20%, reduced reliance on middlemen, and improved their bargaining power with buyers and exporters. Many governments and NGOs now promote these tools as part of digital agriculture extension services.</p>
+        <p class="text-gray-700 mt-2">Popular platforms in this space include IBM Watson Decision Platform for Agriculture, AgroStar, Digital Green, and local market intelligence apps tailored to specific crops and regions.</p>
+        </div>
+      </div>
+
+      <!-- Tool 6 - Soil Health App -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=Soil+Health+App" alt="Soil Health App" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Soil Health Monitoring App</h4>
+        <p class="text-gray-600 mb-4">Analyze soil nutrient levels, pH, and moisture to guide precise input application and prevent degradation.</p>
+        <button onclick="toggleDetails(event, 'soilApp')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-soilApp" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="soilApp" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">The app connects with soil sensors and lab reports to deliver actionable insights about soil fertility and health indicators.</p>
+        <p class="text-gray-700 mt-2">Used widely in Kenya and Ethiopia, it helps smallholder farmers apply fertilizers more efficiently and restore degraded soils.</p>
+        <p class="text-gray-700 mt-2">The app leverages AI algorithms to interpret sensor data and lab results, providing tailored recommendations for nutrient management, irrigation, and soil amendments. Farmers can receive instant feedback on soil pH, organic matter, nitrogen, phosphorus, and potassium levels, along with actionable steps to correct deficiencies or imbalances.</p>
+        <p class="text-gray-700 mt-2">Many platforms integrate with satellite imagery and weather APIs to track soil moisture trends and predict drought stress, enabling proactive irrigation scheduling. Some apps also support image uploads, allowing farmers to diagnose soil-related crop issues using machine learning models trained on thousands of field samples.</p>
+        <p class="text-gray-700 mt-2">Advanced versions connect with farm management systems (FMS) and ERP software, automatically logging soil test results and generating compliance reports for organic certification or government subsidy programs. This streamlines record-keeping and supports traceability from field to market.</p>
+        <p class="text-gray-700 mt-2">Mobile accessibility is a key feature, with many apps offering offline functionality for remote areas and multi-language support to reach diverse farming communities. Extension agents and cooperatives use these tools to deliver targeted advice and monitor soil health improvements across entire regions.</p>
+        <p class="text-gray-700 mt-2">Case studies from India, Nigeria, and Brazil show that farms using AI-powered soil health apps have reduced fertilizer costs by up to 30%, improved yields, and restored soil fertility on previously degraded land. These tools are increasingly recommended by NGOs and government agencies as part of sustainable agriculture and climate resilience programs.</p>
+        <p class="text-gray-700 mt-2">Popular platforms in this space include AgroCares, CropIn SmartFarm, SoilCares, and Microsoft FarmBeats, each offering unique features such as integration with IoT sensors, real-time alerts, and community benchmarking for continuous improvement.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Case Studies -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Real-World Applications</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- Study 1 - Brazilian Soybean Farms -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Brazilian Soybean Farms – Mato Grosso</h4>
+          <p class="text-gray-600 mb-4">Soybean exporters integrated AI-driven yield models and weather APIs to optimize planting density and harvest timing — increasing productivity by 25%.</p>
+          <a href="../pages/case-study-brazil-ai-harvest.html" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">View Full Case Study →</a>
+        </div>
+
+        <!-- Study 2 - Indian Cotton Coop -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Indian Cotton Cooperative – Gujarat</h4>
+          <p class="text-gray-600 mb-4">Over 10,000 cotton farmers adopted AI-based tools for soil analysis and irrigation optimization, reducing water usage by 40% and boosting income by 25%.</p>
+          <a href="../pages/case-study-india-iot.html" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">View Full Case Study →</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Institutions Using AI -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Institutions Supporting AI Adoption</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li><strong>MIT Media Lab:</strong> Researches AI-powered pest detection and autonomous crop monitoring systems.</li>
+        <li><strong>Stanford University:</strong> Develops remote sensing tools and predictive models for drought-prone areas.</li>
+        <li><strong>ETH Zurich:</strong> Tests digital twin platforms for simulating agricultural interventions.</li>
+        <li><strong>NASA Harvest:</strong> Uses satellite imagery and AI to support climate-adaptive farming worldwide. Their projects include crop monitoring in Africa, early warning systems for food security, and open-access data for researchers and policymakers.</li>
+        <li><strong>CIMMYT (International Maize and Wheat Improvement Center):</strong> Develops AI-powered decision support tools for smallholder farmers, including disease detection, yield forecasting, and climate-smart agronomy recommendations.</li>
+        <li><strong>CGIAR Platform for Big Data in Agriculture:</strong> Unites global research centers to leverage AI, machine learning, and big data for crop improvement, pest prediction, and resource optimization across developing countries.</li>
+        <li><strong>World Bank Digital Agriculture Program:</strong> Funds and pilots AI-driven solutions for market access, weather risk management, and digital extension services in Africa, Asia, and Latin America.</li>
+        <li><strong>AgriTech4Africa:</strong> A consortium of African universities and startups deploying AI for soil health mapping, pest surveillance, and precision irrigation in smallholder systems.</li>
+        <li><strong>John Deere:</strong> Integrates AI and IoT in smart tractors and harvesters, enabling autonomous operations, real-time yield mapping, and predictive maintenance for large-scale farms.</li>
+        <li><strong>Bayer Crop Science:</strong> Invests in AI platforms for digital scouting, disease risk modeling, and prescription farming, supporting both research and commercial growers globally.</li>
+        <li><strong>IBM Research Africa:</strong> Develops AI-powered weather and crop analytics, including the "Hello Tractor" platform for smart equipment sharing and the "AgriInsight" dashboard for extension agents.</li>
+        <li><strong>Digital Green:</strong> Uses AI to personalize agricultural advisory videos and SMS content for millions of smallholder farmers in India and Africa, improving adoption of best practices.</li>
+        <li><strong>OpenTEAM:</strong> An open-source collaborative led by Wolfe’s Neck Center, providing AI-driven soil health and farm management tools for regenerative agriculture and carbon tracking.</li>
+        <li><strong>Syngenta Foundation:</strong> Supports AI-based mobile apps for pest diagnosis, weather alerts, and market price forecasting, with a focus on smallholder impact in Asia and Africa.</li>
+        <li><strong>One Acre Fund:</strong> Pilots AI-powered agronomy advice and digital record-keeping for over a million farmers in East Africa, improving yields and financial inclusion.</li>
+        <li><strong>Agrosmart:</strong> A leading Latin American agri-tech company using AI for climate risk analysis, irrigation automation, and sustainability certification for coffee, soy, and sugarcane growers.</li>
+        <li><strong>PrecisionHawk:</strong> Provides drone-based AI analytics for crop health, stand counts, and insurance claims, serving both commercial farms and research institutions worldwide.</li>
+        <li><strong>eAgronom:</strong> Offers AI-driven farm management software for European and African grain producers, including carbon footprint tracking and compliance reporting.</li>
+        <li><strong>FAO:</strong> Provides guidance on integrating AI into food security programs and supply chain logistics.</li>
+        <li><strong>Microsoft FarmBeats:</strong> Delivers scalable cloud solutions for IoT and AI data processing in agriculture.</li>
+      </ul>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Start Using AI Tools Today</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">Whether you're managing a small plot or part of a cooperative, AI-powered analytics can help you make smarter decisions and increase profitability sustainably.</p>
+      <a href="../index.html#resources" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition-colors">Explore More Resources</a> 
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li>
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Expandable Sections -->
+  <script>
+    function toggleDetails(e, id) {
+      e.preventDefault();
+      const section = document.getElementById(id);
+      const arrow = document.getElementById("arrow-" + id);
+      const isVisible = !section.classList.contains("hidden");
+
+      if (isVisible) {
+        section.classList.add("hidden");
+        arrow.style.transform = "rotate(0deg)";
+      } else {
+        section.classList.remove("hidden");
+        arrow.style.transform = "rotate(90deg)";
+      }
+    }
+  </script>
+
+  <!-- JavaScript for Auto Theme Detection -->
+  <script>
+    const body = document.getElementById("body");
+    const themeToggle = document.getElementById("themeToggle");
+
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDarkMode) {
+      body.classList.add("dark");
+      themeToggle.textContent = "Light Mode";
+    } else {
+      body.classList.remove("dark");
+      themeToggle.textContent = "Dark Mode";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      themeToggle.textContent = body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
+    });
+  </script>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

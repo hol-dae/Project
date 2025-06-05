@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI-Based Crop Yield Prediction Tool</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/home.theme-light.png" type="image/x-icon">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#about" class="capitalize hover:text-green-200 transition-colors">About</a>
+      </nav>
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#about" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About Us</a>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="relative bg-gradient-to-r from-teal-500 to-blue-500 text-white py-16">
+    <div class="absolute inset-0 bg-black opacity-20"></div>
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">AI-Based Crop Yield Prediction Tool</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto">Enter your farm conditions below to estimate potential yield using AI-based logic.</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+    
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Understanding AI in Crop Yield Prediction</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        Artificial Intelligence helps farmers make informed decisions by analyzing key environmental and agricultural inputs.
+        This tool uses a simplified machine learning model to predict maize yield based on real-world data patterns.
+      </p>
+      <img src="https://media.istockphoto.com/id/1218970790/photo/the-concept-of-collecting-data-on-humidity-temperature-illumination-of-acidity-fertilizers.jpg?b=1&s=612x612&w=0&k=20&c=PHmvr_esNpxVSeq6peAp3FbZ_Sbd--r4vgk0_EPoOwE=" alt="AI and Crops" class="w-full rounded-lg shadow-md mb-6 h-80 object-cover">
+    </section>
+
+    <!-- Interactive Prediction Form -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Predict Your Crop Yield</h3>
+      <p class="text-gray-700 mb-6">Enter basic details about your field conditions to get an estimated yield output.</p>
+
+      <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+        <form id="yieldForm" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Crop Type</label>
+            <select id="cropType" class="w-full border border-gray-300 rounded px-4 py-2">
+              <option value="maize">Maize</option>
+              <option value="rice">Rice</option>
+              <option value="wheat">Wheat</option>
+              <option value="soybean">Soybean</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Average Rainfall (mm)</label>
+            <input type="number" id="rainfall" min="0" max="500" class="w-full border border-gray-300 rounded px-4 py-2" placeholder="e.g., 120" required />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Soil Moisture (%)</label>
+            <input type="number" id="moisture" min="0" max="100" class="w-full border border-gray-300 rounded px-4 py-2" placeholder="e.g., 65" required />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Temperature Range (°C)</label>
+            <div class="flex space-x-2">
+              <input type="number" id="tempMin" min="-10" max="50" class="flex-grow border border-gray-300 rounded px-4 py-2" placeholder="Min" required />
+              <input type="number" id="tempMax" min="0" max="50" class="flex-grow border border-gray-300 rounded px-4 py-2" placeholder="Max" required />
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Fertilizer Use (kg/hectare)</label>
+            <input type="number" id="fertilizer" min="0" max="500" class="w-full border border-gray-300 rounded px-4 py-2" placeholder="e.g., 150" required />
+          </div>
+          <button type="submit" class="mt-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded">Calculate Yield</button>
+        </form>
+      </div>
+
+      <!-- Result Output -->
+      <div id="resultBox" class="bg-green-50 border-l-4 border-green-500 text-green-700 p-4 rounded shadow-inner hidden">
+        <h4 class="font-bold">Estimated Yield:</h4>
+        <p id="yieldResult" class="text-lg"></p>
+        <p id="yieldMessage" class="text-sm mt-2 italic"></p>
+      </div>
+    </section>
+
+    <!-- Graph Container -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Yield Prediction Visualization</h3>
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <canvas id="yieldChart" width="400" height="200"></canvas>
+      </div>
+    </section>
+
+    <!-- Real-Life Application -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Real-Life Use Cases</h3>
+      <div class="flex flex-col md:flex-row gap-6 items-center">
+        <img src="https://media.istockphoto.com/id/2149572053/photo/spring-grass-harvest-with-red-tractor-2.webp?a=1&b=1&s=612x612&w=0&k=20&c=L_jIjO39ZJGa_G8lsOa0swiu7VW6bktQRO6GdJxk2xg=" alt="Farmers Using Yield Tool" class="w-full md:w-1/2 rounded-lg shadow-md h-80 object-cover">
+        <div>
+          <p class="text-gray-700 mb-4">
+            In parts of Kenya, local cooperatives have started adopting AI-powered yield tools that integrate with mobile apps. These tools help smallholder farmers anticipate their maize production months in advance.
+          </p>
+          <p class="text-gray-700">
+            By knowing expected output, farmers were able to secure contracts with grain buyers and plan storage facilities more effectively, increasing income and reducing post-harvest losses.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">How the Prediction Works</h3>
+      <p class="text-gray-700 mb-4">
+        This simplified AI model uses linear regression logic based on known farming datasets. The formula used is:
+      </p>
+      <pre class="bg-gray-100 text-sm p-4 rounded-lg overflow-x-auto">
+Yield = Base_Yield + (Rainfall × 0.02) + (Moisture × 0.05) + (Temp_Factor × 1.5) + (Fertilizer × 0.03)
+      </pre>
+      <ul class="list-disc list-inside text-gray-700 space-y-2 mt-4">
+        <li><strong>Rainfall:</strong> Higher rainfall increases yield up to an optimal point.</li>
+        <li><strong>Moisture:</strong> Maintains soil hydration and affects nutrient uptake.</li>
+        <li><strong>Temperature:</strong> Too low or too high reduces growth; moderate is best.</li>
+        <li><strong>Fertilizer:</strong> Increases yield proportionally up to a limit.</li>
+      </ul>
+    </section>
+
+    <!-- Additional Tools Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Other Agri-AI Tools You Can Use</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Pest Detection Model -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h4 class="text-lg font-semibold text-gray-800 mb-2">Pest Detection Model</h4>
+          <p class="text-gray-600 mb-4">Upload a photo of crops to detect early signs of pests using image recognition powered by AI.</p>
+          <button onclick="alert('Feature coming soon!')" class="text-green-600 hover:text-green-800 font-medium hover:underline inline-flex items-center">
+            Try Pest Detector
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Soil Health Analysis -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h4 class="text-lg font-semibold text-gray-800 mb-2">Soil Health Analysis</h4>
+          <p class="text-gray-600 mb-4">Input soil test values to analyze pH, NPK levels, and moisture for better planting decisions.</p>
+          <button onclick="alert('Coming Soon!')" class="text-green-600 hover:text-green-800 font-medium hover:underline inline-flex items-center">
+            Analyze Soil
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Irrigation Planner -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h4 class="text-lg font-semibold text-gray-800 mb-2">Irrigation Planning Tool</h4>
+          <p class="text-gray-600 mb-4">Estimate water needs based on weather forecasts, crop stage, and soil type.</p>
+          <button onclick="alert('Coming Soon!')" class="text-green-600 hover:text-green-800 font-medium hover:underline inline-flex items-center">
+            Plan Irrigation
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Climate-Resilient Crop Selector -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h4 class="text-lg font-semibold text-gray-800 mb-2">Climate-Resilient Crop Selector</h4>
+          <p class="text-gray-600 mb-4">Choose your region and climate stressors to find the most suitable crop varieties.</p>
+          <button onclick="alert('Coming Soon!')" class="text-green-600 hover:text-green-800 font-medium hover:underline inline-flex items-center">
+            Select Crop
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Start Using AI-Powered Insights Today</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">
+        Whether you're a small farmer or part of a large agribusiness, AI-driven yield prediction can transform how you manage your crops.
+      </p>
+      <a href="../index.html#resources" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition-colors">Explore More Agri-Tech Tools</a>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li> 
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News & Articles</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+
+  <!-- JavaScript for Yield Calculation -->
+  <script>
+    const form = document.getElementById("yieldForm");
+    const resultBox = document.getElementById("resultBox");
+    const yieldResult = document.getElementById("yieldResult");
+    const yieldMessage = document.getElementById("yieldMessage");
+
+    let currentChart;
+
+    // Function to calculate yield
+    function calculateYield(rainfall, moisture, tempMin, tempMax, fertilizer) {
+      const baseYield = 3.5; // base yield in tonnes per hectare
+      const tempOptimal = 25;
+      const tempFactor = Math.max(0, 1 - Math.abs((tempMin + tempMax) / 2 - tempOptimal) / 20); // simple bell curve
+
+      let predictedYield = baseYield +
+        (rainfall * 0.02) +
+        (moisture * 0.05) +
+        (tempFactor * 1.5) +
+        (fertilizer * 0.03);
+
+      // Cap at reasonable levels
+      predictedYield = Math.min(predictedYield, 8);
+      predictedYield = Math.max(predictedYield, 1);
+
+      return predictedYield.toFixed(2);
+    }
+
+    // Function to show messages based on yield
+    function getYieldMessage(yieldVal) {
+      if (yieldVal > 6) return "Excellent yield! Your conditions are ideal.";
+      else if (yieldVal > 4) return "Good yield. You’re managing well!";
+      else if (yieldVal > 2) return "Fair yield. Consider improving some inputs.";
+      else return "Low yield. Adjust rainfall, temperature, or fertilizer use.";
+    }
+
+    // Handle form submission
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const crop = document.getElementById("cropType").value;
+      const rain = parseFloat(document.getElementById("rainfall").value);
+      const moist = parseFloat(document.getElementById("moisture").value);
+      const tMin = parseFloat(document.getElementById("tempMin").value);
+      const tMax = parseFloat(document.getElementById("tempMax").value);
+      const fert = parseFloat(document.getElementById("fertilizer").value);
+
+      if (isNaN(rain) || isNaN(moist) || isNaN(tMin) || isNaN(tMax) || isNaN(fert)) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      const yieldVal = calculateYield(rain, moist, tMin, tMax, fert);
+      const message = getYieldMessage(yieldVal);
+
+      yieldResult.textContent = `${yieldVal} tonnes per hectare`;
+      yieldMessage.textContent = message;
+      resultBox.classList.remove("hidden");
+
+      updateChart(rain, moist, tMin, tMax, fert, yieldVal);
+    });
+
+    // Update chart dynamically
+    function updateChart(rain, moist, tMin, tMax, fert, yieldVal) {
+      const ctx = document.getElementById("yieldChart").getContext("200");
+      if (currentChart) {
+        currentChart.destroy();
+      }
+
+      const data = {
+        labels: ["Rainfall", "Moisture", "Temp Avg", "Fertilizer"],
+        datasets: [{
+          label: 'Input Values',
+          backgroundColor: "#48bb78",
+          borderColor: "#2f855a",
+          borderWidth: 1,
+          borderRadius: 5,
+          data: [
+            rain,
+            moist,
+            ((tMin + tMax) / 2).toFixed(1),
+            fert
+          ]
+        }]
+      };
+
+      const options = {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: `Predicted Yield: ${yieldVal} tonnes/ha`,
+            color: '#2f855a'
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { color: '#2f855a' }
+          },
+          x: {
+            ticks: { color: '#2f855a' }
+          }
+        }
+      };
+
+      currentChart = new Chart(ctx, {
+        type: "bar",
+        data: data,
+        options: options
+      });
+    }
+  </script>
+</body>
+</html>

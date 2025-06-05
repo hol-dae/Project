@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Case Study: Brazilian Soybean AI Harvest Optimization</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/agri.png" type="image/x-icon">
+
+  <!-- CSS for animations -->
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .transition-max-h {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .transition-max-h.expanded {
+      max-height: 1200px;
+      overflow: visible;
+    }
+
+    .rotate-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .rotate-icon.open {
+      transform: rotate(90deg);
+    }
+
+    .slideshow-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow-img.active {
+      opacity: 1;
+      z-index: 10;
+    }
+
+    .graph-placeholder {
+      width: 100%;
+      height: auto;
+      margin-top: 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark {
+      background-color: #1e293b;
+      color: #f8fafc;
+    }
+
+    body.dark .bg-white {
+      background-color: #334155;
+    }
+
+    body.dark .text-green-600,
+    body.dark .text-green-700,
+    body.dark .text-green-800 {
+      color: #86efac !important;
+    }
+
+    body.dark .border-green-200 {
+      border-color: #22c55e;
+    }
+
+    body.dark .hover\:bg-green-200:hover {
+      background-color: #22c55e;
+    }
+
+    body.dark .bg-green-100 {
+      background-color: #16a34a;
+    }
+
+    body.dark .hover\:text-green-200:hover {
+      color: #bef264 !important;
+    }
+
+    body.dark .bg-green-700 {
+      background-color: #16a34a !important;
+    }
+
+    body.dark .bg-green-800 {
+      background-color: #15803d !important;
+    }
+
+    body.dark .text-green-200 {
+      color: #a3e635 !important;
+    }
+
+    body.dark .text-green-300 {
+      color: #86efac !important;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans" id="body">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#technologies" class="capitalize hover:text-green-200 transition-colors">Technologies</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#case-studies" class="capitalize hover:text-green-200 transition-colors">Case Studies</a>
+      </nav>
+
+      <!-- Theme Toggle -->
+      <button id="themeToggle" class="ml-4 bg-green-600 hover:bg-green-500 px-3 py-1 rounded-full text-sm">Dark Mode</button>
+
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#technologies" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Technologies</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#case-studies" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Case Studies</a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Slideshow -->
+  <section class="relative bg-gradient-to-r from-green-600 to-teal-500 text-white py-16 min-h-[80vh] flex items-center">
+    <div class="absolute inset-0 z-0">
+    <img src="https://media.istockphoto.com/id/1441111043/photo/automatic-agricultural-technology-with-close-up-view-of-robotic-arm-harvesting-lettuce-in.jpg?b=1&s=612x612&w=0&k=20&c=tEMDVJGruUl756IwRrXuEO6JTzUC_NlTwwybdYKPSfw=" alt="Slide 1" class="slideshow-img active" />
+    <img src="https://media.istockphoto.com/id/506164764/photo/tractor-spraying-soybean-field.webp?a=1&b=1&s=612x612&w=0&k=20&c=FziHcky7PA62LyCW15cUEva70DhfXUbdeNIZBi_zQlk=" alt="Slide 2" class="slideshow-img" />
+    <img src="https://media.istockphoto.com/id/2095551021/photo/farmer-inspects-barley-and-uses-agricultural-technology-to-analyze-data-via-tablet-concept-of.webp?a=1&b=1&s=612x612&w=0&k=20&c=iYf12Yf9ihSODYQtd_qKMm3OeYKspQDr98GXyOlaHlA=" alt="Slide 3" class="slideshow-img" />
+    <img src="https://media.istockphoto.com/id/1495296121/photo/female-farmer-using-digital-tablet-in-rice-farming-field.webp?a=1&b=1&s=612x612&w=0&k=20&c=LSucjcx8LogoBX_eDf0eyPQOtbrif6nbpQeL8N-MRSg=" alt="Slide 4" class="slideshow-img" />
+    <img src="https://images.unsplash.com/photo-1721454623245-7a6a62aee226?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8c2F0ZWxsaXRlJTIwZmFybWluZ3xlbnwwfDB8MHx8fDA%3D" alt="Slide 5" class="slideshow-img" />
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Brazilian Soybean AI Harvest Optimization</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-6">Explore how AI-powered harvest scheduling increased soybean productivity by 25% in Mato Grosso region.</p>
+      <a href="#studyDetails" class="inline-block bg-white text-green-700 px-6 py-3 rounded-full font-semibold hover:bg-green-50 transition-colors shadow-md">Explore the Case Study</a> 
+    </div>
+  </section>
+
+  <!-- Slideshow JS Animation -->
+  <script>
+    const slides = document.querySelectorAll('.slideshow-img');
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 6000); // Change every 6 seconds
+  </script>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Overview of AI Adoption in Brazilian Agriculture</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        In the Mato Grosso region — one of Brazil’s largest soybean-producing areas — over 10,000 hectares were equipped with AI-based harvest planning tools.
+        This case study explores how machine learning improved yield predictions, optimized harvest timing, and boosted profitability across mid-sized farms.
+      </p>
+    </section>
+
+    <!-- Key Findings -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Key Outcomes</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li><strong>25% Yield Increase:</strong> Better timing led to higher-quality bean harvesting before heatwaves damaged crops.</li>
+        <li><strong>15% Cost Reduction:</strong> Optimized labor and machinery use lowered operational costs significantly.</li>
+        <li><strong>Real-Time Data:</strong> Farmers used satellite and drone data integrated into AI dashboards for decision-making.</li>
+        <li><strong>Disease & Pest Detection:</strong> Early alerts reduced losses due to fungal infections and pests like aphids.</li>
+        <li><strong>Market Access:</strong> Accurate yield forecasting helped farmers secure better contracts with exporters.</li>
+        <li><strong>Scalability:</strong> The system is now being adopted in other parts of Brazil and Paraguay.</li>
+      </ul>
+    </section>
+
+    <!-- Study Details Cards -->
+    <section id="studyDetails" class="mb-12">
+
+      <!-- Section 1 - Project Background -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=AI+in+Soybean+Farms" alt="AI in Soybean Farms" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Project Background</h4>
+        <p class="text-gray-600 mb-4">In partnership with Embrapa and IBM Weather for Agriculture, Brazilian farmers implemented AI-driven harvest scheduling to improve efficiency and reduce post-harvest loss.</p>
+        <button onclick="toggleDetails(event, 'background')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-background" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="background" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">The initiative was launched in 2023 in Mato Grosso, where unpredictable weather patterns and heatwaves threatened soybean yields during peak harvesting season.</p>
+          <p class="text-gray-700 mt-2">Using Microsoft FarmBeats and IBM Watson Decision Platform for Agriculture, farmers received predictive analytics about optimal harvesting windows based on climate, soil moisture, and market demand trends.</p>
+          <p class="text-gray-700 mt-2">This allowed them to avoid harvesting too early or too late — improving both grain quality and farmer income.</p>
+          <p class="text-gray-700 mt-2">Graph below shows average yield improvement after AI adoption:</p>
+        <!-- Yield Improvement Graph (Years) -->
+        <div class="w-full overflow-x-auto">
+            <svg viewBox="0 0 420 220" width="100%" height="220" class="graph-placeholder bg-white" aria-label="Yield Improvement Over Years">
+                <!-- Axes -->
+                <line x1="40" y1="20" x2="40" y2="180" stroke="#888" stroke-width="2"/>
+                <line x1="40" y1="180" x2="400" y2="180" stroke="#888" stroke-width="2"/>
+                <!-- Y-axis labels -->
+                <text x="30" y="185" font-size="12" fill="#666">0</text>
+                <text x="20" y="145" font-size="12" fill="#666">1.5</text>
+                <text x="20" y="105" font-size="12" fill="#666">3.0</text>
+                <text x="20" y="65" font-size="12" fill="#666">4.5</text>
+                <text x="20" y="25" font-size="12" fill="#666">6.0</text>
+                <!-- X-axis labels (Years) -->
+                <text x="60" y="200" font-size="12" fill="#666">2020</text>
+                <text x="120" y="200" font-size="12" fill="#666">2021</text>
+                <text x="180" y="200" font-size="12" fill="#666">2022</text>
+                <text x="240" y="200" font-size="12" fill="#666">2023</text>
+                <text x="300" y="200" font-size="12" fill="#666">2024</text>
+                <text x="360" y="200" font-size="12" fill="#666">2025</text>
+                <!-- Data line (example: yield in tons/hectare) -->
+                <polyline 
+                    fill="none" 
+                    stroke="#22c55e" 
+                    stroke-width="3"
+                    points="
+                        60,160
+                        120,140
+                        180,120
+                        240,90
+                        300,70
+                        360,55
+                    "
+                />
+                <!-- Data points -->
+                <circle cx="60" cy="160" r="5" fill="#22c55e"/>
+                <circle cx="120" cy="140" r="5" fill="#22c55e"/>
+                <circle cx="180" cy="120" r="5" fill="#22c55e"/>
+                <circle cx="240" cy="90" r="5" fill="#22c55e"/>
+                <circle cx="300" cy="70" r="5" fill="#22c55e"/>
+                <circle cx="360" cy="55" r="5" fill="#22c55e"/>
+                <!-- Labels for data points -->
+                <text x="65" y="155" font-size="11" fill="#15803d">2.0</text>
+                <text x="125" y="135" font-size="11" fill="#15803d">2.8</text>
+                <text x="185" y="115" font-size="11" fill="#15803d">3.6</text>
+                <text x="245" y="85" font-size="11" fill="#15803d">4.7</text>
+                <text x="305" y="65" font-size="11" fill="#15803d">5.3</text>
+                <text x="365" y="50" font-size="11" fill="#15803d">5.8</text>
+                <!-- Title -->
+                <text x="120" y="15" font-size="15" fill="#166534" font-weight="bold">Average Soybean Yield (tons/ha)</text>
+            </svg>
+        </div></div>
+        </div>
+      </div>
+
+      <!-- Section 2 - Technology Used -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow mt-8 group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=AI+Harvest+Tools" alt="AI Harvest Tools" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Technology Used</h4>
+        <p class="text-gray-600 mb-4">Farmers used a combination of satellite imaging, drone surveys, and AI models to predict ideal harvesting times and crop health indicators.</p>
+        <button onclick="toggleDetails(event, 'technology')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-technology" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="technology" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">The project integrated several technologies including DJI drones for field imaging, IoT sensors for soil monitoring, and cloud-based AI tools for harvest prediction.</p>
+          <p class="text-gray-700 mt-2">Data was processed through IBM's platform and visualized via a mobile app developed specifically for Portuguese-speaking farmers.</p>
+          <p class="text-gray-700 mt-2">Machine learning algorithms learned from past seasons and adapted to changing conditions — allowing for dynamic harvest scheduling and resource allocation.</p>
+          <p class="text-gray-700 mt-2">Graph below shows reduction in post-harvest loss after AI implementation:</p>
+        <svg viewBox="0 0 420 220" width="100%" height="220" class="graph-placeholder bg-white" aria-label="Post-Harvest Loss Reduction Over Years">
+            <!-- Axes -->
+            <line x1="40" y1="20" x2="40" y2="180" stroke="#888" stroke-width="2"/>
+            <line x1="40" y1="180" x2="400" y2="180" stroke="#888" stroke-width="2"/>
+            <!-- Y-axis labels (Loss %) -->
+            <text x="20" y="185" font-size="12" fill="#666">0%</text>
+            <text x="10" y="145" font-size="12" fill="#666">5%</text>
+            <text x="10" y="105" font-size="12" fill="#666">10%</text>
+            <text x="5" y="65" font-size="12" fill="#666">15%</text>
+            <text x="5" y="25" font-size="12" fill="#666">20%</text>
+            <!-- X-axis labels (Years) -->
+            <text x="60" y="200" font-size="12" fill="#666">2020</text>
+            <text x="120" y="200" font-size="12" fill="#666">2021</text>
+            <text x="180" y="200" font-size="12" fill="#666">2022</text>
+            <text x="240" y="200" font-size="12" fill="#666">2023</text>
+            <text x="300" y="200" font-size="12" fill="#666">2024</text>
+            <text x="360" y="200" font-size="12" fill="#666">2025</text>
+            <!-- Data line (example: post-harvest loss %) -->
+            <polyline 
+                fill="none" 
+                stroke="#0e7490" 
+                stroke-width="3"
+                points="
+                    60,60
+                    120,80
+                    180,110
+                    240,130
+                    300,150
+                    360,165
+                "
+            />
+            <!-- Data points -->
+            <circle cx="60" cy="60" r="5" fill="#0e7490"/>
+            <circle cx="120" cy="80" r="5" fill="#0e7490"/>
+            <circle cx="180" cy="110" r="5" fill="#0e7490"/>
+            <circle cx="240" cy="130" r="5" fill="#0e7490"/>
+            <circle cx="300" cy="150" r="5" fill="#0e7490"/>
+            <circle cx="360" cy="165" r="5" fill="#0e7490"/>
+            <!-- Labels for data points -->
+            <text x="65" y="55" font-size="11" fill="#0e7490">18%</text>
+            <text x="125" y="75" font-size="11" fill="#0e7490">15%</text>
+            <text x="185" y="105" font-size="11" fill="#0e7490">10%</text>
+            <text x="245" y="125" font-size="11" fill="#0e7490">7%</text>
+            <text x="305" y="145" font-size="11" fill="#0e7490">4%</text>
+            <text x="365" y="160" font-size="11" fill="#0e7490">2%</text>
+            <!-- Title -->
+            <text x="90" y="15" font-size="15" fill="#0e7490" font-weight="bold">Post-Harvest Loss Reduction (%)</text>
+        </svg>
+        </div>
+      </div>
+
+      <!-- Section 3 - Farmer Impact -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow mt-8 group">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=Farmer+Using+App" alt="Farmer Using App" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Impact on Mid-Scale Soybean Farms</h4>
+        <p class="text-gray-600 mb-4">Mid-scale soybean producers benefited most from AI integration, achieving stable harvest cycles and premium export pricing due to improved product consistency.</p>
+        <button onclick="toggleDetails(event, 'farmers')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-farmers" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="farmers" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Before AI integration, many farmers relied on fixed schedules or local advice, which often led to suboptimal harvesting and price drops.</p>
+          <p class="text-gray-700 mt-2">With AI-generated insights, they could align harvest dates with global commodity prices and buyer demands.</p>
+          <p class="text-gray-700 mt-2">Cooperatives also started using the AI tool to coordinate large-scale harvest logistics and transport planning.</p>
+          <p class="text-gray-700 mt-2">Graph below shows farm income increase after AI adoption:</p>
+        <svg viewBox="0 0 420 220" width="100%" height="220" class="graph-placeholder bg-white" aria-label="Farm Income Increase After AI Adoption">
+            <!-- Axes -->
+            <line x1="40" y1="20" x2="40" y2="180" stroke="#888" stroke-width="2"/>
+            <line x1="40" y1="180" x2="400" y2="180" stroke="#888" stroke-width="2"/>
+            <!-- Y-axis labels (Income in $1,000s/ha) -->
+            <text x="20" y="185" font-size="12" fill="#666">$0k</text>
+            <text x="10" y="145" font-size="12" fill="#666">$2k</text>
+            <text x="10" y="105" font-size="12" fill="#666">$4k</text>
+            <text x="10" y="65" font-size="12" fill="#666">$6k</text>
+            <text x="10" y="25" font-size="12" fill="#666">$8k</text>
+            <!-- X-axis labels (Years) -->
+            <text x="60" y="200" font-size="12" fill="#666">2020</text>
+            <text x="120" y="200" font-size="12" fill="#666">2021</text>
+            <text x="180" y="200" font-size="12" fill="#666">2022</text>
+            <text x="240" y="200" font-size="12" fill="#666">2023</text>
+            <text x="300" y="200" font-size="12" fill="#666">2024</text>
+            <text x="360" y="200" font-size="12" fill="#666">2025</text>
+            <!-- Data line (example: income in $1,000s/ha) -->
+            <polyline 
+                fill="none" 
+                stroke="#ea580c" 
+                stroke-width="3"
+                points="
+                    60,160
+                    120,140
+                    180,110
+                    240,80
+                    300,60
+                    360,40
+                "
+            />
+            <!-- Data points -->
+            <circle cx="60" cy="160" r="5" fill="#ea580c"/>
+            <circle cx="120" cy="140" r="5" fill="#ea580c"/>
+            <circle cx="180" cy="110" r="5" fill="#ea580c"/>
+            <circle cx="240" cy="80" r="5" fill="#ea580c"/>
+            <circle cx="300" cy="60" r="5" fill="#ea580c"/>
+            <circle cx="360" cy="40" r="5" fill="#ea580c"/>
+            <!-- Labels for data points -->
+            <text x="65" y="155" font-size="11" fill="#b45309">$1.5k</text>
+            <text x="125" y="135" font-size="11" fill="#b45309">$2.5k</text>
+            <text x="185" y="105" font-size="11" fill="#b45309">$4.0k</text>
+            <text x="245" y="75" font-size="11" fill="#b45309">$6.0k</text>
+            <text x="305" y="55" font-size="11" fill="#b45309">$7.2k</text>
+            <text x="365" y="35" font-size="11" fill="#b45309">$8.0k</text>
+            <!-- Title -->
+            <text x="110" y="15" font-size="15" fill="#ea580c" font-weight="bold">Average Farm Income ($1,000s/ha)</text>
+        </svg>
+        </div>
+      </div>
+
+      <!-- Section 4 - Challenges -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow mt-8 group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=Challenges+in+Adoption" alt="Challenges in Adoption" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Challenges Faced</h4>
+        <p class="text-gray-600 mb-4">While AI provided clear benefits, adoption faced challenges like digital literacy, connectivity issues, and access to training materials in rural areas.</p>
+        <button onclick="toggleDetails(event, 'challenges')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-challenges" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="challenges" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Some farmers had limited experience with smartphones or web dashboards, requiring localized training programs conducted by agronomy officers.</p>
+          <p class="text-gray-700 mt-2">Poor internet coverage in remote areas delayed real-time data delivery, prompting offline versions of apps to be developed.</p>
+          <p class="text-gray-700 mt-2">Language barriers were addressed by translating AI reports into Portuguese and offering voice-guided instructions via WhatsApp.</p>
+          <p class="text-gray-700 mt-2">Graph below shows adoption rates among different farm sizes:</p>
+        <svg viewBox="0 0 420 220" width="100%" height="220" class="graph-placeholder bg-white" aria-label="AI Adoption Rate by Farm Size">
+            <!-- Axes -->
+            <line x1="60" y1="30" x2="60" y2="180" stroke="#888" stroke-width="2"/>
+            <line x1="60" y1="180" x2="400" y2="180" stroke="#888" stroke-width="2"/>
+            <!-- Y-axis labels (Adoption %) -->
+            <text x="30" y="185" font-size="12" fill="#666">0%</text>
+            <text x="20" y="145" font-size="12" fill="#666">25%</text>
+            <text x="20" y="105" font-size="12" fill="#666">50%</text>
+            <text x="20" y="65" font-size="12" fill="#666">75%</text>
+            <text x="10" y="35" font-size="12" fill="#666">100%</text>
+            <!-- X-axis labels (Farm Sizes) -->
+            <text x="90" y="200" font-size="12" fill="#666">Small</text>
+            <text x="170" y="200" font-size="12" fill="#666">Medium</text>
+            <text x="250" y="200" font-size="12" fill="#666">Large</text>
+            <text x="330" y="200" font-size="12" fill="#666">Coop</text>
+            <!-- Bars -->
+            <rect x="85" y="120" width="40" height="60" fill="#22c55e"/>
+            <rect x="165" y="70" width="40" height="110" fill="#4fd1c5"/>
+            <rect x="245" y="45" width="40" height="135" fill="#0e7490"/>
+            <rect x="325" y="35" width="40" height="145" fill="#ea580c"/>
+            <!-- Bar values -->
+            <text x="105" y="115" font-size="13" fill="#166534" text-anchor="middle">30%</text>
+            <text x="185" y="65" font-size="13" fill="#0e7490" text-anchor="middle">75%</text>
+            <text x="265" y="40" font-size="13" fill="#0e7490" text-anchor="middle">90%</text>
+            <text x="345" y="30" font-size="13" fill="#b45309" text-anchor="middle">95%</text>
+            <!-- Title -->
+            <text x="110" y="20" font-size="15" fill="#166534" font-weight="bold">AI Adoption Rate by Farm Size</text>
+        </svg>
+        </div>
+      </div>
+
+      <!-- Section 5 - Future Plans -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow mt-8 group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=Future+Plans" alt="Future Plans" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Future Expansion</h4>
+        <p class="text-gray-600 mb-4">Based on the success of the pilot, plans are underway to expand AI harvest tools to cotton, corn, and sugarcane production across Brazil and neighboring countries.</p>
+        <button onclick="toggleDetails(event, 'future')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Read More
+          <svg id="arrow-future" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="future" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">By 2026, the Ministry of Agriculture aims to onboard 50,000 additional farms onto the AI platform.</p>
+          <p class="text-gray-700 mt-2">Integration with smart tractors and autonomous harvesters will allow full automation of planting and harvesting workflows.</p>
+          <p class="text-gray-700 mt-2">Local universities are working on integrating AI recommendations directly into tractor control systems and irrigation valves.</p>
+          <p class="text-gray-700 mt-2">Graph below shows projected growth in AI farming tools usage by 2026:</p>
+        <svg viewBox="0 0 420 220" width="100%" height="220" class="graph-placeholder bg-white" aria-label="Projected AI Farming Tools Usage by 2026">
+            <!-- Axes -->
+            <line x1="40" y1="20" x2="40" y2="180" stroke="#888" stroke-width="2"/>
+            <line x1="40" y1="180" x2="400" y2="180" stroke="#888" stroke-width="2"/>
+            <!-- Y-axis labels (Farms using AI tools, thousands) -->
+            <text x="20" y="185" font-size="12" fill="#666">0k</text>
+            <text x="10" y="145" font-size="12" fill="#666">10k</text>
+            <text x="10" y="105" font-size="12" fill="#666">20k</text>
+            <text x="10" y="65" font-size="12" fill="#666">30k</text>
+            <text x="10" y="25" font-size="12" fill="#666">40k</text>
+            <!-- X-axis labels (Years) -->
+            <text x="60" y="200" font-size="12" fill="#666">2021</text>
+            <text x="120" y="200" font-size="12" fill="#666">2022</text>
+            <text x="180" y="200" font-size="12" fill="#666">2023</text>
+            <text x="240" y="200" font-size="12" fill="#666">2024</text>
+            <text x="300" y="200" font-size="12" fill="#666">2025</text>
+            <text x="360" y="200" font-size="12" fill="#666">2026</text>
+            <!-- Data line (projected AI adoption in thousands of farms) -->
+            <polyline 
+                fill="none" 
+                stroke="#4fd1c5" 
+                stroke-width="3"
+                points="
+                    60,170
+                    120,150
+                    180,120
+                    240,90
+                    300,60
+                    360,30
+                "
+            />
+            <!-- Data points -->
+            <circle cx="60" cy="170" r="5" fill="#4fd1c5"/>
+            <circle cx="120" cy="150" r="5" fill="#4fd1c5"/>
+            <circle cx="180" cy="120" r="5" fill="#4fd1c5"/>
+            <circle cx="240" cy="90" r="5" fill="#4fd1c5"/>
+            <circle cx="300" cy="60" r="5" fill="#4fd1c5"/>
+            <circle cx="360" cy="30" r="5" fill="#4fd1c5"/>
+            <!-- Labels for data points -->
+            <text x="65" y="165" font-size="11" fill="#0e7490">3k</text>
+            <text x="125" y="145" font-size="11" fill="#0e7490">8k</text>
+            <text x="185" y="115" font-size="11" fill="#0e7490">18k</text>
+            <text x="245" y="85" font-size="11" fill="#0e7490">27k</text>
+            <text x="305" y="55" font-size="11" fill="#0e7490">35k</text>
+            <text x="365" y="25" font-size="11" fill="#0e7490">40k</text>
+            <!-- Title -->
+            <text x="90" y="15" font-size="15" fill="#0e7490" font-weight="bold">Projected AI Farming Tools Usage (2021–2026)</text>
+        </svg>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Institutions Involved -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Institutions Involved</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li><strong>Embrapa – Brazil:</strong> Led national AI research and partnered with international tech firms to develop localized agricultural AI tools.</li>
+        <li><strong>IBM Weather for Agriculture:</strong> Supplied AI-driven weather forecasts and crop stress analysis via the Watson Decision Platform.</li>
+        <li><strong>Microsoft FarmBeats:</strong> Provided cloud infrastructure and edge computing capabilities for real-time data processing.</li>
+        <li><strong>World Bank:</strong> Funded part of the program under its Climate-Smart Agriculture Initiative.</li>
+        <li><strong>FAO:</strong> Supported knowledge transfer and farmer education on sustainable AI practices in farming.</li>
+      </ul>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Start Adopting AI in Your Farm Today</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">Whether you're managing a small plot or part of a cooperative, AI-driven harvest optimization can help you make smarter decisions and increase yield sustainably.</p>
+      <a href="../index.html#resources" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition-colors">Explore More Resources</a> 
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li>
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Expandable Sections -->
+  <script>
+    function toggleDetails(e, id) {
+      e.preventDefault();
+      const section = document.getElementById(id);
+      const arrow = document.getElementById("arrow-" + id);
+      const isVisible = !section.classList.contains("hidden");
+
+      if (isVisible) {
+        section.classList.add("hidden");
+        arrow.style.transform = "rotate(0deg)";
+      } else {
+        section.classList.remove("hidden");
+        arrow.style.transform = "rotate(90deg)";
+      }
+    }
+  </script>
+
+  <!-- JavaScript for Auto Theme Detection -->
+  <script>
+    const body = document.getElementById("body");
+    const themeToggle = document.getElementById("themeToggle");
+
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDarkMode) {
+      body.classList.add("dark");
+      themeToggle.textContent = "Light Mode";
+    } else {
+      body.classList.remove("dark");
+      themeToggle.textContent = "Dark Mode";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      themeToggle.textContent = body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
+    });
+  </script>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

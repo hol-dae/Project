@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Digital Platforms for Farmer Cooperatives</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/agri.png" type="image/x-icon">
+
+  <!-- CSS for animations -->
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .transition-max-h {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .transition-max-h.expanded {
+      max-height: 500px;
+      overflow: visible;
+    }
+
+    .rotate-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .rotate-icon.open {
+      transform: rotate(90deg);
+    }
+
+    .slideshow-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow-img.active {
+      opacity: 1;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans" id="body">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#about" class="capitalize hover:text-green-200 transition-colors">About</a>
+      </nav>
+
+      <!-- Theme Toggle -->
+      <button id="themeToggle" class="ml-4 bg-green-600 hover:bg-green-500 px-3 py-1 rounded-full text-sm">Dark Mode</button>
+
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#about" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About Us</a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Slideshow -->
+  <section class="relative bg-gradient-to-r from-green-600 to-teal-500 text-white py-16 min-h-[80vh] flex items-center">
+    <div class="absolute inset-0 z-0">
+      <img src="https://media.istockphoto.com/id/1950529964/photo/farmer-checking-agricultural-machinery-parts.webp?a=1&b=1&s=612x612&w=0&k=20&c=aujdHnlBhbX5BQNdtUnMBBMaDwC2TrizQBBrHWNzEgg=" alt="Farmer Using App" class="slideshow-img active" />
+      <img src="https://media.istockphoto.com/id/1315599813/photo/people-communication-network-concept-social-media.webp?a=1&b=1&s=612x612&w=0&k=20&c=MkGzRdavpwttt1SfAVoONJrZV8-iv3c0qNfxyhl4ZIA=" alt="Slide 2" class="slideshow-img" />
+      <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFybWluZ3xlbnwwfDB8MHx8fDA%3D" alt="Slide 3" class="slideshow-img" />
+      <img src="https://media.istockphoto.com/id/1251549972/photo/young-farmer-or-agronomist-standing-in-wheat-field-beneath-irrigation-system-and-using-a.webp?a=1&b=1&s=612x612&w=0&k=20&c=vSEsiZsDdENi6gvwMEnbPUkpd7LKh7ErELQjzLjzOwE=" alt="Slide 4" class="slideshow-img" />
+      <img src="https://media.istockphoto.com/id/2025407654/photo/concept-growth-of-transport-and-logistics-symbols-of-container-cargo-ship-airplane-cargo-truck.webp?a=1&b=1&s=612x612&w=0&k=20&c=0IxR4e8i3PGUeUXupUtEJuZUAAOAN0DlyATLJh6BsUM=" alt="Slide 5" class="slideshow-img" />
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Digital Platforms for Farmer Cooperatives</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-6">Explore tools that help farming cooperatives manage logistics, share resources, track production, and connect with buyers through digital platforms.</p>
+      <a href="#platformList" class="inline-block bg-white text-green-700 px-6 py-3 rounded-full font-semibold hover:bg-green-50 transition-colors shadow-md">Explore Platforms</a> 
+    </div>
+  </section>
+
+  <!-- Slideshow JS Animation -->
+  <script>
+    const slides = document.querySelectorAll('.slideshow-img');
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 6000); // Change every 6 seconds
+  </script>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">What Are Digital Platforms for Farmer Cooperatives?</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        Digital platforms empower farmer cooperatives by providing centralized tools for managing shared operations, tracking crop data, coordinating labor, and connecting directly with buyers or exporters.
+        These platforms improve transparency, reduce post-harvest losses, and increase income through better market access and resource planning.
+      </p>
+    </section>
+
+    <!-- Benefits of Digital Platforms -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Key Benefits</h3>
+      <ul class="space-y-2 list-disc list-inside text-gray-700">
+        <li><strong>Centralized Data:</strong> All members can log in and update crop status, inventory, and sales.</li>
+        <li><strong>Logistics Coordination:</strong> Schedule transportation, storage, and distribution together.</li>
+        <li><strong>Market Access:</strong> Connect with buyers and export markets without middlemen.</li>
+        <li><strong>Payment Tracking:</strong> Transparent financial logs and cooperative profit sharing.</li>
+        <li><strong>Training & Support:</strong> Many platforms offer educational modules and tech support.</li>
+        <li><strong>Weather Alerts:</strong> Real-time updates tailored to cooperative farms' locations.</li>
+      </ul>
+    </section>
+
+    <!-- Featured Platforms Grid -->
+    <section id="platformList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+
+      <!-- Platform 1 - AgNext -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=AgNext+Platform" alt="AgNext Platform" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">AgNext</h4>
+        <p class="text-gray-600 mb-4">Designed for smallholder cooperatives in Africa and South Asia — helps manage harvest, logistics, and fair trade certification.</p>
+        <button onclick="toggleDetails(event, 'agnext')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-agnext" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="agnext" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">AgNext offers blockchain-backed traceability, GPS-based harvest tracking, and smart contracts for fair payment systems. It is widely used in Uganda, Kenya, and India for coffee and tea cooperatives.</p>
+        </div>
+      </div>
+
+      <!-- Platform 2 - FarmWebb -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=FarmWebb" alt="FarmWebb" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">FarmWebb</h4>
+        <p class="text-gray-600 mb-4">All-in-one farm management tool ideal for dairy, livestock, and mixed-use cooperatives across multiple regions.</p>
+        <button onclick="toggleDetails(event, 'farmwebb')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-farmwebb" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="farmwebb" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">FarmWebb includes field activity logs, animal health monitoring, weather integration, and team collaboration features. Used by cooperatives in Australia, Europe, and East Africa.</p>
+        </div>
+      </div>
+
+      <!-- Platform 3 - Hello Tractor -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=Hello+Tractor" alt="Hello Tractor" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Hello Tractor</h4>
+        <p class="text-gray-600 mb-4">Shared machinery platform that allows farmers to rent tractors and equipment via a mobile app — especially popular in Nigeria and India.</p>
+        <button onclick="toggleDetails(event, 'helloTractor')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-helloTractor" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="helloTractor" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Hello Tractor uses a "Uber for tractors" model. Farmers in Nigeria, Kenya, and India can book tractor services via SMS or mobile app — reducing equipment costs and increasing productivity.</p>
+        </div>
+      </div>
+
+      <!-- Platform 4 - AgriTrack -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=AgriTrack" alt="AgriTrack" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">AgriTrack</h4>
+        <p class="text-gray-600 mb-4">Designed for smallholder cooperatives to manage inputs, labor, and payments efficiently through a mobile-first approach.</p>
+        <button onclick="toggleDetails(event, 'agritrack')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-agritrack" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="agritrack" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">AgriTrack provides tools for managing cooperative tasks like planting schedules, input delivery, and member payments. Great for rural communities with limited digital literacy.</p>
+        </div>
+      </div>
+
+      <!-- Platform 5 - Cropster -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=Cropster" alt="Cropster" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Cropster</h4>
+        <p class="text-gray-600 mb-4">Used globally by coffee and cacao cooperatives for quality control, supply chain tracking, and pricing transparency.</p>
+        <button onclick="toggleDetails(event, 'cropster')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-cropster" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="cropster" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Cropster connects cooperatives with global buyers through transparent quality logs, batch tracking, and export documentation. Available in English, Spanish, and Swahili.</p>
+        </div>
+      </div>
+
+      <!-- Platform 6 - FarmERP -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=FarmERP" alt="FarmERP" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">FarmERP</h4>
+        <p class="text-gray-600 mb-4">Enterprise-level software offering full-cycle management for large cooperatives and agribusinesses.</p>
+        <button onclick="toggleDetails(event, 'farmerp')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-farmerp" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="farmerp" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">FarmERP supports crop rotation, irrigation scheduling, inventory, and financial reporting. Integrates with IoT sensors and drone mapping for precision agriculture at scale.</p>
+        </div>
+      </div>
+
+      <!-- Platform 7 - AgriBusines -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=AgriBusines" alt="AgriBusines" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">AgriBusines</h4>
+        <p class="text-gray-600 mb-4">Mobile-first tool developed for Indian cooperatives to access market prices, weather alerts, and expert advisory services.</p>
+        <button onclick="toggleDetails(event, 'agribusines')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-agribusines" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="agribusines" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">The AgriBusines app helps Indian farmers get real-time commodity prices, connect with extension officers, and manage cooperative harvesting activities via smartphone.</p>
+        </div>
+      </div>
+
+      <!-- Platform 8 - AgriChain -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=AgriChain" alt="AgriChain" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">AgriChain</h4>
+        <p class="text-gray-600 mb-4">Blockchain-based platform for transparent supply chains — used by African and Southeast Asian cooperatives for fair-trade verification.</p>
+        <button onclick="toggleDetails(event, 'agrichain')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-agrichain" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="agrichain" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">AgriChain enables cooperatives to record transactions, verify product origins, and receive direct buyer payments — eliminating corruption and improving trust in international trade.</p>
+        </div>
+      </div>
+
+      <!-- Platform 9 - FarmOS -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=FarmOS" alt="FarmOS" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">FarmOS</h4>
+        <p class="text-gray-600 mb-4">Open-source farm management system designed for regenerative and organic cooperatives in North America and Europe.</p>
+        <button onclick="toggleDetails(event, 'farmos')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-farmos" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="farmos" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">FarmOS is open-source and free to use. Supports crop logging, asset tracking, soil health records, and cooperative planning — ideal for CSA groups and organic farms.</p>
+        </div>
+      </div>
+
+      <!-- Platform 10 - Kisan Suvidha -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=Kisan+Suvidha" alt="Kisan Suvidha" class="w-full h-40 object-cover mb-4" />
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Kisan Suvidha</h4>
+        <p class="text-gray-600 mb-4">An Indian government-backed digital service that helps cooperatives access subsidies, weather forecasts, and market information.</p>
+        <button onclick="toggleDetails(event, 'kisan')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+          Learn More
+          <svg id="arrow-kisan" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="kisan" class="mt-4 hidden overflow-hidden transition-all duration-300">
+          <p class="text-gray-700 mt-2">Kisan Suvidha provides SMS and web-based tools for Indian farmers to access subsidies, insurance, and crop advisory services from local authorities and research centers.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Institutions Supporting Platforms -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Institutions Supporting Digital Platforms</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li><strong>World Bank:</strong> Funding digital solutions for smallholder cooperatives in sub-Saharan Africa.</li>
+        <li><strong>FAO:</strong> Promoting digital tools to improve food supply chain efficiency in developing countries.</li>
+        <li><strong>CIMMYT:</strong> Supporting maize cooperatives with digital yield tracking and market access tools.</li>
+        <li><strong>ICAR – India:</strong> Partnering with state governments to promote digital farming apps for rural communities.</li>
+        <li><strong>AgriTech Innovators:</strong> Startups like Hello Tractor, AgNext, and AgriChain are building tools specifically for cooperatives.</li>
+      </ul>
+    </section>
+
+    <!-- Case Studies -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-semibold text-green-700 mb-6">Case Studies</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- Study 1 - Kenyan Coffee Cooperative -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Kenya Coffee Cooperative - AgNext Adoption</h4>
+          <p class="text-gray-600 mb-4">Using AgNext, over 5,000 Kenyan coffee farmers coordinated logistics and connected with European buyers directly — increasing income by 30%.</p>
+          <button onclick="toggleDetails(event, 'kenyaCase')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+            Read Full Case Study
+            <svg id="arrow-kenyaCase" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="kenyaCase" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">With AgNext, Kenyan cooperatives improved logistics coordination and reduced post-harvest losses by 20%.</p>
+          </div>
+        </div>
+
+        <!-- Study 2 - Indian Cotton Growers -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Indian Cotton Growers Using AgriBusines</h4>
+          <p class="text-gray-600 mb-4">Over 10,000 cotton farmers in Gujarat used AgriBusines to coordinate harvest timing, access price data, and optimize fertilizer use.</p>
+          <button onclick="toggleDetails(event, 'indiaCase')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+            Read Full Case Study
+            <svg id="arrow-indiaCase" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 rotate-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="indiaCase" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <p class="text-gray-700 mt-2">By using AgriBusines, cotton cooperatives in India achieved better price negotiation power and reduced reliance on local traders.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Start Digitizing Your Cooperative Today</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">Whether you're a small community group or part of a national network, digital platforms can help you grow sustainably, transparently, and profitably.</p>
+      <a href="../index.html#resources" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition-colors">Explore More Resources</a> 
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li>
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News & Articles</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Expandable Sections -->
+  <script>
+    function toggleDetails(e, id) {
+      e.preventDefault();
+      const section = document.getElementById(id);
+      const arrow = document.getElementById("arrow-" + id);
+      const isVisible = !section.classList.contains("hidden");
+
+      if (isVisible) {
+        section.classList.add("hidden");
+        arrow.style.transform = "rotate(0deg)";
+      } else {
+        section.classList.remove("hidden");
+        arrow.style.transform = "rotate(90deg)";
+      }
+    }
+  </script>
+
+  <!-- JavaScript for Auto Theme Detection -->
+  <script>
+    const body = document.getElementById("body");
+    const themeToggle = document.getElementById("themeToggle");
+
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDarkMode) {
+      body.classList.add("dark");
+      themeToggle.textContent = "Light Mode";
+    } else {
+      body.classList.remove("dark");
+      themeToggle.textContent = "Dark Mode";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      themeToggle.textContent = body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
+    });
+  </script>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

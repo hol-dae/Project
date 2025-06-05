@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Farm Management Software Comparison</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link rel="icon" href="../images/farm.png" type="image/x-icon">
+
+  <style>
+    .transition-max-h {
+      transition: max-height 0.3s ease-out;
+      overflow: hidden;
+      max-height: 0;
+    }
+    .transition-max-h.expanded {
+      max-height: 500px;
+      overflow: visible;
+    }
+
+    .rotate-icon {
+      transform: rotate(0deg);
+      transition: transform 0.3s ease;
+    }
+
+    .rotate-icon.open {
+      transform: rotate(180deg);
+    }
+
+    .slideshow-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow-img.active {
+      opacity: 1;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Agri-Technology Resource Center</h1>
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="../index.html#home" class="capitalize hover:text-green-200 transition-colors">Home</a>
+        <a href="../index.html#resources" class="capitalize hover:text-green-200 transition-colors">Resources</a>
+        <a href="../index.html#news" class="capitalize hover:text-green-200 transition-colors">News</a>
+        <a href="../index.html#about" class="capitalize hover:text-green-200 transition-colors">About</a>
+      </nav>
+      <!-- Mobile Menu Button -->
+      <button id="menuButton" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-800 p-4 space-y-3">
+      <a href="../index.html#home" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Home</a>
+      <a href="../index.html#resources" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">Resources</a>
+      <a href="../index.html#news" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">News</a>
+      <a href="../index.html#about" class="block w-full text-left capitalize py-2 hover:text-green-200 transition-colors">About Us</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-r from-green-600 to-teal-500 text-white py-16 min-h-[80vh] flex items-center">
+    <div class="absolute inset-0 z-0">
+      <!-- Slideshow Images -->
+      <img src="https://media.istockphoto.com/id/1225746630/photo/a-woman-farmer-with-digital-tablet.webp?a=1&b=1&s=612x612&w=0&k=20&c=xkeOapLJClMyJeGX8svysJRkjcllf66axdF06O3pqH4=" alt="Slide 1" class="slideshow-img active" />
+      <img src="https://media.istockphoto.com/id/1359211843/photo/drone-no-copyright-fly-in-the-wheat-crop.webp?a=1&b=1&s=612x612&w=0&k=20&c=JywEJ5ymGuDxYGw3az6nD8eija-bq1xPaXR4SHHrT6s=" alt="Slide 2" class="slideshow-img" />
+      <img src="https://media.istockphoto.com/id/1560200518/photo/professional-male-bioengineer-examining-crops-on-modern-vertical-farm-man-with-tablet.webp?a=1&b=1&s=612x612&w=0&k=20&c=bAGo6C0SWa3xfcM0T8XsgSMp9YWbG0H0xe_sTZJdZL0=" alt="Slide 3" class="slideshow-img" />
+    </div>
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Farm Management Software Comparison</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-6">Compare the best farm management tools that help track crops, manage labor, monitor soil sensors, and optimize yields.</p>
+      <a href="#softwareList" class="inline-block bg-white text-green-700 px-6 py-3 rounded-full font-semibold hover:bg-green-50 transition-colors shadow-md">Explore Tools</a> 
+    </div>
+  </section>
+
+  <!-- Slideshow JS Animation -->
+  <script>
+    const slides = document.querySelectorAll('.slideshow-img');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }
+
+    // Change slide every 6 seconds
+    setInterval(nextSlide, 6000);
+  </script>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+    
+    <!-- Intro Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Introduction</h3>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        Choosing the right farm management software can make a huge difference in how you monitor crops, manage labor, analyze soil data, and improve yield outcomes.
+        This page compares the most popular agri-tech software platforms used globally for precision agriculture and smart farming operations.
+      </p>
+    </section>
+
+    <!-- Search Bar -->
+    <section class="mb-8">
+      <div class="max-w-md mx-auto">
+        <input 
+          id="searchInput" 
+          type="text" 
+          placeholder="Search software..." 
+          class="w-full px-4 py-3 border border-green-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-300"
+        />
+      </div>
+    </section>
+
+    <!-- Filter Buttons -->
+    <section class="mb-12 text-center">
+      <div class="flex flex-wrap justify-center gap-2">
+        <button onclick="filterSoftware('all')" class="bg-green-100 text-green-800 px-4 py-2 rounded-full hover:bg-green-200 transition-colors">All</button>
+        <button onclick="filterSoftware('crop-monitoring')" class="bg-green-100 text-green-800 px-4 py-2 rounded-full hover:bg-green-200 transition-colors">Crop Monitoring</button>
+        <button onclick="filterSoftware('labor-tracking')" class="bg-green-100 text-green-800 px-4 py-2 rounded-full hover:bg-green-200 transition-colors">Labor Tracking</button>
+        <button onclick="filterSoftware('soil-analysis')" class="bg-green-100 text-green-800 px-4 py-2 rounded-full hover:bg-green-200 transition-colors">Soil Analysis</button>
+        <button onclick="filterSoftware('yield-optimization')" class="bg-green-100 text-green-800 px-4 py-2 rounded-full hover:bg-green-200 transition-colors">Yield Optimization</button>
+      </div>
+    </section>
+
+    <!-- Software Cards -->
+    <section id="softwareList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+      <!-- Example 1 -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group" data-category="crop-monitoring">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=Cropster" alt="Cropster Cover" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Cropster</h4>
+        <p class="text-gray-600 mb-4">A cloud-based platform offering crop monitoring, traceability, and quality control features across the value chain.</p>
+        <a href="https://www.cropster.com" target="_blank" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center">
+          Visit Website
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Example 2 -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group" data-category="soil-analysis">
+        <img src="https://placehold.co/600x300/48bb78/ffffff?text=FarmBeats" alt="FarmBeats" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Microsoft FarmBeats</h4>
+        <p class="text-gray-600 mb-4">An IoT-driven platform that integrates soil sensors, drone imagery, and weather data to support informed decisions.</p>
+        <a href="https://farmbeats.io" target="_blank" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center">
+          Learn More
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Example 3 -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group" data-category="labor-tracking">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=AgNext" alt="AgNext" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">AgNext</h4>
+        <p class="text-gray-600 mb-4">Mobile-first tool for managing field workers, tracking harvest progress, and coordinating logistics efficiently.</p>
+        <a href="https://ag-next.com" target="_blank" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center">
+          Visit Website
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Example 4 -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group" data-category="yield-optimization">
+        <img src="https://placehold.co/600x300/ed8936/ffffff?text=Yield+Pro" alt="Yield Pro" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">Yield Pro</h4>
+        <p class="text-gray-600 mb-4">AI-powered software that uses historical and real-time data to recommend optimal harvesting times and irrigation schedules.</p>
+        <a href="https://yieldpro.ai" target="_blank" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center">
+          Learn More
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Example 5 -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group" data-category="soil-analysis">
+        <img src="https://placehold.co/600x300/2f855a/ffffff?text=SoilSense" alt="SoilSense" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">SoilSense</h4>
+        <p class="text-gray-600 mb-4">Real-time soil health analysis using sensor integration and predictive analytics for better nutrient planning.</p>
+        <a href="https://soilsense.ag" target="_blank" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center">
+          Visit Website
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Example 6 -->
+      <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6 hover:shadow-xl transition-shadow group" data-category="labor-tracking">
+        <img src="https://placehold.co/600x300/4fd1c5/ffffff?text=AgriTrack" alt="AgriTrack" class="w-full h-40 object-cover mb-4">
+        <h4 class="font-semibold text-lg text-gray-800 mb-2">AgriTrack</h4>
+        <p class="text-gray-600 mb-4">Designed for smallholder cooperatives, AgriTrack helps manage labor, inputs, and payments across farms.</p>
+        <a href="https://agritrack.org" target="_blank" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center">
+          Learn More
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+
+    </section>
+
+    <!-- Software Details Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Detailed Tool Breakdown</h3>
+      <div class="space-y-6">
+
+        <!-- Tool 1 - Cropster -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Cropster</h4>
+          <p class="text-gray-700 mb-4">Used by coffee, cocoa, and grain producers worldwide. Offers end-to-end traceability, inventory management, and crop health dashboards.</p>
+          <button onclick="toggleDetails('cropster')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+            Read More
+            <svg id="arrow-cropster" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 transform" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="cropster" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+              <li><strong>Best For:</strong> Traceability in commodity crops like coffee, tea, and grains.</li>
+              <li><strong>Features:</strong> Inventory tracking, crop cycle logging, quality control.</li>
+              <li><strong>Cost:</strong> Subscription-based plans for small to large farms.</li>
+              <li><strong>Platform:</strong> Web & mobile apps available in multiple languages.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tool 2 - FarmBeats -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Microsoft FarmBeats</h4>
+          <p class="text-gray-700 mb-4">Integrates IoT sensors, satellite imagery, and machine learning to give farmers actionable insights on soil moisture, pest activity, and growth trends.</p>
+          <button onclick="toggleDetails('farmbeats')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+            Read More
+            <svg id="arrow-farmbeats" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="farmbeats" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+              <li><strong>Best For:</strong> Tech-integrated farms and agribusinesses needing real-time data.</li>
+              <li><strong>Features:</strong> Soil sensors, satellite imaging, AI recommendations.</li>
+              <li><strong>Cost:</strong> Free trial; enterprise pricing after evaluation.</li>
+              <li><strong>Platform:</strong> Works with Azure IoT and Microsoft Teams integrations.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tool 3 - AgNext -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">AgNext</h4>
+          <p class="text-gray-700 mb-4">Ideal for managing workforce and harvest activities, especially in regions with seasonal labor shifts and remote farm locations.</p>
+          <button onclick="toggleDetails('agnext')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+            Read More
+            <svg id="arrow-agnext" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="agnext" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+              <li><strong>Best For:</strong> Managing labor, post-harvest logistics, and traceability.</li>
+              <li><strong>Features:</strong> Real-time GPS tracking of workers, blockchain-backed certification logs.</li>
+              <li><strong>Cost:</strong> Tiered pricing based on number of users and data points.</li>
+              <li><strong>Platform:</strong> Available as mobile app and web dashboard.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tool 4 - Yield Pro -->
+        <div class="bg-white border border-green-200 rounded-lg shadow-sm p-6">
+          <h4 class="font-semibold text-lg text-gray-800 mb-2">Yield Pro</h4>
+          <p class="text-gray-700 mb-4">Uses AI and historical data to predict ideal harvest windows and optimize irrigation cycles for maximum output.</p>
+          <button onclick="toggleDetails('yieldpro')" class="text-green-600 hover:text-green-800 font-medium inline-flex items-center focus:outline-none">
+            Read More
+            <svg id="arrow-yieldpro" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="yieldpro" class="mt-4 hidden overflow-hidden transition-all duration-300">
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+              <li><strong>Best For:</strong> Mid-sized commercial farms aiming for AI-based decision-making.</li>
+              <li><strong>Features:</strong> Harvest scheduling, water usage optimization, fertilizer planner.</li>
+              <li><strong>Cost:</strong> Freemium model with premium add-ons.</li>
+              <li><strong>Platform:</strong> Available via browser and mobile app (Android/iOS).</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-16">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Find the Right Tool for Your Farm</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">Whether you're managing a small plot or large operation, choosing the right farm management software can reduce waste, increase yield, and streamline daily tasks.</p>
+      <a href="../index.html#resources" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition-colors">Explore More Resources</a> 
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Agri-Technology Resource Center</h3>
+          <p class="text-green-200">Connecting farmers and researchers with the future of agriculture through innovative technology and knowledge sharing.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html#home" class="text-green-200 hover:text-white transition-colors block">Home</a></li>
+            <li><a href="../index.html#resources" class="text-green-200 hover:text-white transition-colors block">Resources</a></li>
+            <li><a href="../index.html#news" class="text-green-200 hover:text-white transition-colors block">News & Articles</a></li>
+            <li><a href="../index.html#about" class="text-green-200 hover:text-white transition-colors block">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <address class="not-italic text-green-200">
+            <p>Email: agritechnologyresourcecenter@gmail.com</p>
+            <p>Phone: +256 (706) 691-486</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+        <p>&copy; 2025 Agri-Technology Resource Center. All rights reserved.</p>
+        <p><a href="../pages/privacy-policy-terms-of-service.html" class="text-green-200 hover:text-white transition-colors block">Terms Of Service | Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Toggle Details -->
+  <script>
+    function toggleDetails(id) {
+      const section = document.getElementById(id);
+      const arrow = document.getElementById("arrow-" + id);
+      const isVisible = !section.classList.contains("hidden");
+
+      if (isVisible) {
+        section.classList.add("hidden");
+        arrow.style.transform = "rotate(0deg)";
+      } else {
+        section.classList.remove("hidden");
+        arrow.style.transform = "rotate(90deg)";
+      }
+    }
+  </script>
+
+  <!-- JavaScript for Filtering -->
+  <script>
+    function filterSoftware(tag) {
+      const cards = document.querySelectorAll('[data-category]');
+      cards.forEach(card => {
+        card.style.display = tag === 'all' || card.getAttribute('data-category') === tag ? 'block' : 'none';
+      });
+    }
+  </script>
+
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+
+</body>
+</html>

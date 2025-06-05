@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Funding Options and Grants for Farmers - FAQ</title>
+<link rel="icon" href="../images/faq.png" type="image/x-icon">
+<style>
+  /* Font stack similar to VS Code */
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff;
+    color: #24292e;
+    margin: 0;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  main {
+    max-width: 720px;
+    width: 100%;
+    padding: 2rem;
+    flex-grow: 1;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 2.25rem;
+    margin-bottom: 0.5rem;
+    color: #0066bf;
+  }
+
+  p.description {
+    margin-top: 0;
+    margin-bottom: 2.5rem;
+    color: #586069;
+    font-size: 1.125rem;
+  }
+
+  .faq-item {
+    border-top: 1px solid #e1e4e8;
+  }
+
+  .faq-item:first-of-type {
+    border-top: none;
+  }
+
+  button.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 1.25rem 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #0066bf;
+    text-align: left;
+    cursor: pointer;
+    outline-offset: 2px;
+    transition: color 0.2s ease;
+  }
+
+  button.faq-question:hover,
+  button.faq-question:focus {
+    color: #035fc7;
+  }
+
+  button.faq-question svg {
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+    width: 1rem;
+    height: 1rem;
+    fill: #0066bf;
+  }
+
+  button.faq-question[aria-expanded="true"] svg {
+    transform: rotate(90deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    font-weight: 400;
+    font-size: 1rem;
+    color: #444d56;
+    transition: max-height 0.35s ease;
+  }
+
+  .faq-answer.open {
+    max-height: 3000px;
+    margin-bottom: 1.5rem;
+  }
+
+  .faq-answer p,
+  .faq-answer ul {
+    margin: 0.5rem 0 1rem 0;
+    line-height: 1.5;
+  }
+
+  .faq-answer ul {
+    padding-left: 1.25rem;
+  }
+
+  .faq-answer ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  footer {
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+    color: #586069;
+    border-top: 1px solid #e1e4e8;
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* Responsive for mobile */
+  @media (max-width: 480px) {
+    main {
+      padding: 1.25rem;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+    }
+
+    button.faq-question {
+      font-size: 1rem;
+      padding: 1rem 0;
+    }
+
+    .faq-answer {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Funding Options and Grants for Farmers - FAQ</h1>
+  <p class="description">Explore various funding opportunities and grants available for farmers to grow their businesses.</p>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq1" id="faq1_btn" aria-label="What types of funding options are available for farmers?">
+      What types of funding options are available for farmers?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq1" class="faq-answer" role="region" aria-labelledby="faq1_btn">
+      <p>Farmers can access various funding options including government grants, microfinance loans, agricultural cooperatives, crowdfunding platforms, private investors, and NGO support programs.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq2" id="faq2_btn" aria-label="How can I find government grants for farming?">
+      How can I find government grants for farming?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq2" class="faq-answer" role="region" aria-labelledby="faq2_btn">
+      <p>Visit your local agricultural departments or government websites for information on available grants. Many governments provide programs targeting small-scale farmers for equipment, training, and development.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq3" id="faq3_btn" aria-label="What is microfinance and how does it help farmers?">
+      What is microfinance and how does it help farmers?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq3" class="faq-answer" role="region" aria-labelledby="faq3_btn">
+      <p>Microfinance provides small loans to farmers who may not qualify for traditional banking. These loans help purchase inputs like seeds and fertilizer, or invest in equipment, supporting farmers to grow their productivity and income.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq4" id="faq4_btn" aria-label="Are there grants specifically for women farmers?">
+      Are there grants specifically for women farmers?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq4" class="faq-answer" role="region" aria-labelledby="faq4_btn">
+      <p>Yes, many organizations and governments offer special grants and funding initiatives targeted at empowering women farmers to support gender equality and inclusive agricultural development.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq5" id="faq5_btn" aria-label="How does crowdfunding work for farmers?">
+      How does crowdfunding work for farmers?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq5" class="faq-answer" role="region" aria-labelledby="faq5_btn">
+      <p>Crowdfunding allows farmers to raise small amounts of money from many people, usually via online platforms. It is useful for funding new projects, buying equipment, or expanding operations.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq6" id="faq6_btn" aria-label="What documents are typically required to apply for farming grants or loans?">
+      What documents are typically required to apply for farming grants or loans?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq6" class="faq-answer" role="region" aria-labelledby="faq6_btn">
+      <p>Common required documents include a business plan, identification, proof of land ownership or lease, financial records, and sometimes references or guarantors, depending on the funding source.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq7" id="faq7_btn" aria-label="Are there international grants available for farmers?">
+      Are there international grants available for farmers?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq7" class="faq-answer" role="region" aria-labelledby="faq7_btn">
+      <p>Yes, institutions like the World Bank, FAO, and various NGOs offer grants and development funds targeting sustainable agriculture and smallholder farmer support globally.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq8" id="faq8_btn" aria-label="How can farmers increase their chances of securing funding?">
+      How can farmers increase their chances of securing funding?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq8" class="faq-answer" role="region" aria-labelledby="faq8_btn">
+      <p>By preparing a clear business plan, maintaining good records, demonstrating repayment capability, and seeking guidance from extension services or financial advisors, farmers improve their funding prospects.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq9" id="faq9_btn" aria-label="Are there any platforms that aggregate funding opportunities for farmers?">
+      Are there any platforms that aggregate funding opportunities for farmers?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq9" class="faq-answer" role="region" aria-labelledby="faq9_btn">
+      <p>Yes, several online platforms and government portals provide listings of grants, loans, and funding opportunities tailored for farmers and agricultural entrepreneurs.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false" aria-controls="faq10" id="faq10_btn" aria-label="Can cooperative membership help with access to funding?">
+      Can cooperative membership help with access to funding?
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 4l8 6-8 6V4z"/></svg>
+    </button>
+    <div id="faq10" class="faq-answer" role="region" aria-labelledby="faq10_btn">
+      <p>Yes, farmer cooperatives often have better access to collective credit, grants, and discounts. Joining a cooperative can improve your credibility and bargaining power when seeking funding.</p>
+    </div>
+  </div>
+</main>
+<footer>
+  2025 Agri-Technology Resource Center. All rights reserved.
+</footer>
+
+<script>
+  const faqButtons = document.querySelectorAll('.faq-question');
+
+  faqButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+      // Close all
+      faqButtons.forEach(btn => {
+        btn.setAttribute('aria-expanded', 'false');
+        btn.parentNode.querySelector('.faq-answer').classList.remove('open');
+      });
+
+      if (!isExpanded) {
+        button.setAttribute('aria-expanded', 'true');
+        button.parentNode.querySelector('.faq-answer').classList.add('open');
+      }
+    });
+  });
+
+  // Keyboard accessibility for toggling via Enter or Space keys
+  faqButtons.forEach(button => {
+    button.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        button.click();
+      }
+    });
+  });
+</script>
+</body>
+</html>
+
